@@ -122,6 +122,207 @@ console.log(`This uses a template literal: ${example}`);
 
 ### `class` and `extends`
 
-Starting with ES6, JavaScript is now a true object-oriented programming language. Previous to ES6, it was possible to replicate most object-oriented programming functionality, ES6 added two important keywords: `class` and `extends`.
+Starting with ES6, JavaScript is now a true object-oriented programming language. Previous to ES6, it was possible to replicate most object-oriented programming functionality. However, ES6 added two important keywords, `class` and `extends`, that enabled full OOP support.
+
+#### `class`
+
+The `class` keyword is used to create classes in JavaScript. It defines a set of properties and functions that exist within the class as enclosed within curly brackets.
+
+```javascript
+class Example {
+
+}
+```
+
+When used with the `class` keyword, `extends` enables inheritance between classes. In object-oriented programming terms, this allows one object to 'extend' an existing one through gaining everything it has and adding more.
+
+**index.js:**
+
+```javascript
+class Example {
+
+}
+
+class Another extends Example {
+
+}
+```
+
+#### *constructor()*
+
+Classes are created through the use of the `new` keyword. This creates an object based on the class. In this way, classes are often thought of as 'blueprints' for the object to be created.
+
+**index.js:**
+
+```javascript
+// Define the class 'Example'
+class Example {
+}
+
+// Create an object based on the class 'Example'
+let another = new Example();
+```
+
+In object-oriented terms, this process *constructs* a new object based on the class. In fact, JavaScript, like many other object-oriented programming languages, supplies a special function named *constructor()* for that purpose.
+
+When *constructor()* function is added inside a class, it is the first function called when an object is being "constructed." (If not supplied, JavaScript will automatically generate one.)
+
+**index.js:**
+
+```javascript
+// Define the class 'Example'
+class Example {
+  // Create a constructor()
+  constructor() {
+    // Anything inside the constructor()
+    //  will be called during the
+    //  "construction" process.
+    console.log("This will be called!");
+  }
+}
+
+// Create an object based on the class
+//  'Example'
+let another = new Example();
+```
+
+The *constructor()* also serves an additional purpose: it allows a class to accept values during the "construction" process. Because it is a function, the *constructor()* function can also accept values.
+
+```javascript
+// Define the class 'Example'
+class Example {
+  // Because constructor() is a function,
+  //  it can also accept values.
+  constructor(value) {
+    // This will show '5'
+    console.log(value);
+  }
+}
+
+// Create an object based on the class
+//  'Example' and pass it a value, 5.
+let another = new Example(5);
+```
+
+##### Class Scope
+
+Within a class defined in JavaScript, the `this` refers to the class itself. Like with function scope, this allows a class to have properties and functions that can be accessed within itself and externally through referencing an object based on the class.
+
+**index.js:**
+
+```javascript
+// Define the class 'Example'
+class Example {
+  constructor() {
+    this.someValue = 5;
+  }
+}
+
+// Create an object based on the class 'Example'
+let another = new Example();
+
+// This will output '5'
+console.log(another.someValue);
+
+```
+
+#### *super()*
+
+The use of the keyword `extends` allows one class to "extend" another. However, what if there was a need to pass a values from one *constructor()* to another? JavaScript provides the function *super()* to do that.
+
+In OOP terms, these classes exist a parent-child relationship. The first, original class is the 'parent' and the class that is extending it is the 'child'. Using the function *super()* calls the parent's *constructor()* and pass values to it.
+
+**index.js:**
+
+```javascript
+// Define the class 'Example'
+class Example {
+  // Define a constructor()
+  constructor(value) {
+    // Print the value to the console
+    console.log(value);
+  }
+}
+
+// Define the class 'Another'
+//  based on the class 'Example'
+class Another extends Example {
+  // Define a constructor()
+  constructor(value) {
+    // The parent's constructor()
+    super(value);
+  }
+}
+
+// Create an object based on 'Another'
+//  (which is based on 'Example')
+//
+// This will print the value 5
+//  because it is being passed
+//  from one constructor() to another.
+let another = new Another(5);
+```
+
+### Promises
+
+In JavaScript, using a *callback* functions has a long history. Using an anonymous function to process entries in an array, for example, or signal that an event has occurred shows up frequently in code. However, having one callback function call another that calls another can become hard to debug.
+
+To address this issue, ES6 also added Promises.
+
+A promise is a future outcome. A person may promise to love someone forever or that they will not do something. It is something that occurs in the future.
+
+In JavaScript, a Promise is a special type of functionality that will either resolve or reject in the future. When that happens, either one callback function or another will be called.
+
+Some functionality in JavaScript are built on Promises, but one can be created (like any object) through using the `new` keyword.
+
+```javascript
+let example = new Promise();
+```
+
+The **Promise** object accepts a callback function with two arguments: *resolve()* and *reject()*. The *resolve()* function "resolves" the promise and fulfils it. The *reject()* function rejects the promise.
+
+#### *then()*
+
+A promise can only be resolved or rejected through a special function named *then()*. The *then()* function also accepts two function parameters. If the promise was fulfilled, it calls the first function. If the promise was rejected, it calls the second.
+
+```javascript
+// Create a new object based on 'Promise'
+let testing = new Promise(
+  // Pass a function to 'Promise'
+  //
+  // The first argument to the function
+  //  is resolve() and the second, reject()
+  (resolve, reject) => {
+    let someValue = 5;
+    // Resolve the promise and return a value
+    resolve(someValue);
+});
+
+// Using then(), determine what happened.
+//
+// If the promise resolved, the first function
+//  will be called. If it was rejected, the
+//  second function will be called.
+testing.then(
+  // First, resolving function
+  (value) => {
+    console.log(value);
+  },
+  // Second, rejecting function
+  (value) => {
+    console.log(value);
+  }
+);
+```
+
+Promises allow for *asynchronous* functions. Because promises ar either fulfilled or reject in the future, the callback functions as part of its *then()* can be called at a different time than the code around it. This allows for things like waiting to connect to a server or processing large amounts of data. Once the promise finishes, it will either resolve or reject, and then the parameters to the *then()* function will be called.
+
+### `async` and `await`
+
+Promises allow for *asynchronous* functions. However, they can also create problems when code is waiting for a promise to either fulfill or reject before continuing. To prevent a problem of more callback functions call others that call others, ES6 also added two new keywords that work specifically with promises: `async` and `await`.
+
+The `await` keyword, as its name might imply, "waits" for a promise to finish. It also simply takes whatever would have been given to the *then()* functions, whatever is passed to the internal *resolve()* or *reject()* functions, and returns it.
+
+However, to signal that some code should "wait," the keyword `async` must always be used in front of the function in which the `await` keyword is used. This marks the function as *asynchronous* and tells JavaScript that it will finish at some future point and it should not wait for it.
 
 TODO
