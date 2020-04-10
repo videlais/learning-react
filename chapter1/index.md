@@ -1,5 +1,20 @@
 # Introduction to the Command Line
 
+- [Introduction to the Command Line](#introduction-to-the-command-line)
+  - [Command-Line](#command-line)
+  - [Finding the Command Line](#finding-the-command-line)
+    - [Windows 10](#windows-10)
+    - [MacOS X](#macos-x)
+    - [Linux](#linux)
+  - [Terms](#terms)
+  - [Command-Line Tools](#command-line-tools)
+    - [`ls`](#ls)
+    - [`cd`](#cd)
+    - [`mkdir`](#mkdir)
+  - [Exercises](#exercises)
+
+## Command-Line
+
 When we think of programming, many people imagine the the trope of a single person sitting in the dark and starting at lines of text scrolling on a screen. While this is not the truth for nearly all of modern programming, it does contain a single grain of truth: text on the screen.
 
 Before we can move to working with React, we have to understand something else: this command-line. Instead of clicking on buttons or dragging-and-dropping visual parts, we will be typing in code and also typing in commands to run, test, and build projects.

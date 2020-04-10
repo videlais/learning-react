@@ -1,5 +1,29 @@
 # Introducing Node.js
 
+- [Introducing Node.js](#introducing-nodejs)
+  - [Node.js](#nodejs)
+  - [Downloading and Installing Node.js](#downloading-and-installing-nodejs)
+  - [Node.js Terms](#nodejs-terms)
+  - [Using Node.js](#using-nodejs)
+    - [`node`](#node)
+    - [`npm`](#npm)
+    - [`package.json`](#packagejson)
+    - [`node_modules`](#nodemodules)
+    - [`npx`](#npx)
+  - [Working with Node Projects](#working-with-node-projects)
+    - [Hello World Example](#hello-world-example)
+      - [Preparing the Folder](#preparing-the-folder)
+      - [Creating and Running a File](#creating-and-running-a-file)
+  - [Working with Modules](#working-with-modules)
+    - [*require()*](#require)
+    - [**module.exports**](#moduleexports)
+  - [Installing Packages](#installing-packages)
+    - [Example: Installing and Using Chalk](#example-installing-and-using-chalk)
+    - [Examining `package.json`](#examining-packagejson)
+  - [Exercises](#exercises)
+
+## Node.js
+
 Previous to 2009, JavaScript was primarily used in web browsers. However, the introduction of Node.js allowed for writing JavaScript as a *server-side* scripting language, opening up the way to use JavaScript as a programming language both for *front-end* (in the web browser) and as a *back-end* (server technology).
 
 ## Downloading and Installing Node.js

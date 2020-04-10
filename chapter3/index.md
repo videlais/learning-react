@@ -1,5 +1,27 @@
 # Reviewing JavaScript ES6
 
+- [Reviewing JavaScript ES6](#reviewing-javascript-es6)
+  - [Introducing ES6](#introducing-es6)
+  - [Differences between ES5 and ES6](#differences-between-es5-and-es6)
+    - [Creating Variables in ES6](#creating-variables-in-es6)
+      - [`let`](#let)
+      - [`const`](#const)
+    - [Arrow Functions](#arrow-functions)
+      - [Arrow Function Expressions](#arrow-function-expressions)
+    - [Template Literals](#template-literals)
+    - [`class` and `extends`](#class-and-extends)
+      - [`class`](#class)
+      - [*constructor()*](#constructor)
+        - [Class Scope](#class-scope)
+      - [*super()*](#super)
+    - [Promises](#promises)
+      - [*then()*](#then)
+    - [`async` and `await`](#async-and-await)
+    - [Destructing Assignment](#destructing-assignment)
+    - [Spread Operator](#spread-operator)
+
+## Introducing ES6
+
 JavaScript has two main branches: ES5 and ES6 (and later). The letters used in "ES5" an "ES6" stands for the specification that defines the language: ECMAScript.
 
 Before 1994, the European Computer Manufacturers Association kept track specifications for different programming languages, protocols, and other, related technologies across Europe. If something software related interacted with some other software, it was regulated in part through the European Computer Manufacturers Association and rules it helped develop with its partner companies and organizations.
@@ -325,4 +347,97 @@ The `await` keyword, as its name might imply, "waits" for a promise to finish. I
 
 However, to signal that some code should "wait," the keyword `async` must always be used in front of the function in which the `await` keyword is used. This marks the function as *asynchronous* and tells JavaScript that it will finish at some future point and it should not wait for it.
 
-TODO
+```javascript
+async function AsyncExample() {
+
+  let testing = new Promise((resolve, reject) => {
+    let someValue = 5;
+    resolve(someValue);
+  });
+
+  let promiseResult = await testing;
+
+  console.log(promiseResult);
+
+}
+
+AsyncExample();
+```
+
+### Destructing Assignment
+
+Often, only a few properties or the first couple of positions of an array are needed. To help with those use cases, JavaScript ES6 also adds "destructing" functionality as part of assignment operations.
+
+In JavaScript ES5, it was possible to assign the value of an object's property in the following manner:
+
+```javascript
+let exampleObject = {
+  someProperty: 5
+};
+
+
+let someValue = exampleObject.someProperty;
+```
+
+However, where this same operation occurs most frequently is not in the above use case, but a more common one in Node.js: *require()*-ing in an object exported by another file.
+
+**Example.js:**
+
+```javascript
+module.exports = {
+  oneProperty: 1,
+  twoProperty: 2,
+  threeProperty: 3
+};
+```
+
+**index.js:**
+
+```javascript
+let example = require('./Example.js');
+
+let someValue = example.oneProperty;
+```
+
+Instead of pulling in additional properties not needed or used in the file, the assignment operation can be paired with the ability to 'destructor' an object.
+
+**Example.js:**
+
+```javascript
+module.exports = {
+  oneProperty: 1,
+  twoProperty: 2,
+  threeProperty: 3
+};
+```
+
+**index.js:**
+
+```javascript
+let { oneProperty } = require('./Example.js');
+
+let someValue = oneProperty;
+```
+
+In the above example, only the property *oneProperty* was *require()*'d into the file. Everything else was ignored. What was previously the object **example** became an object through which the property *oneProperty* was destructured.
+
+This functionality also works on arrays, too. Like with objects where the use of the curly brackets marks the object, it is also possible to use square brackets and give names matching the position of values within an array to destructure it.
+
+```javascript
+// Destructure an array
+let [one, two] = [5, 6, 7];
+// Print the value 6
+console.log(two);
+```
+
+### Spread Operator
+
+In JavaScript ES5, either a `for()` loop or some other functionality was needed to use the entire contents of an array. In ES6, an additional operator, `...`, the spread operator, was added to for these cases. Used in front of an array, it "spreads" its contents.
+
+```javascript
+// Create an array
+let arrayExample = [1,2,3,4,5,6,7,8,9,10];
+// Use the spread operator to print
+//  the entire contents.
+console.log(...arrayExample);
+```
