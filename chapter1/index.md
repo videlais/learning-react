@@ -47,19 +47,19 @@ When working in different operating systems, the terms *file*, *folder*, and *fi
 
 When working with the command-line, different terms are used. These draw from an older history of accessing tools and writing code before graphical interfaces.
 
-* **Directory**: a folder of other files.
+- **Directory**: a folder of other files.
   
-* **Current Working Directory**: the folder currently being accessed.
-* **Root Directory**: the bottom-most directory. In Windows, this will be `C:\` and in MacOS X and Linux systems, it will be `/`.
+- **Current Working Directory**: the folder currently being accessed.
+- **Root Directory**: the bottom-most directory. In Windows, this will be `C:\` and in MacOS X and Linux systems, it will be `/`.
   
-* **Server Root Directory**: Programs that serve HTML and other files 'serve' from a directory. On the filesystem, this might be `/webserver/documents` but as far as the server knows, this is `/`. The *server root* is what the server sees as `/` and the filesystem sees as a different directory.
+- **Server Root Directory**: Programs that serve HTML and other files 'serve' from a directory. On the filesystem, this might be `/webserver/documents` but as far as the server knows, this is `/`. The *server root* is what the server sees as `/` and the filesystem sees as a different directory.
   
-* **Path**: the location of a file or directory; this can be either *absolute* or *relative* path. An absolute path includes the root directory and everything else up to the file or directory's location. A relative path includes symbols that express a path in relationship to another.
-  * The period, `.`, defines the current directory.
-  * Two periods, `..`, defines one directory 'up' from the current one. For example, if the current directory was `/parent/child` and the path was `..`, it would mean `/parent`.
-  * The backward slash, `/`, is used to specify files using periods or between directories.
-    * For example, to access the file `/parent/file.txt` from the current directory of `/parent/child` the path would be `../file.txt` signaling to go 'up' a directory and then reference the file `file.txt`.
-    * When used with directories, the backward slash can specify multiple directory using the slash between them. For example, the path `parent/child` is used to mark the ending of one directory name and the beginning of another inside it.
+- **Path**: the location of a file or directory; this can be either *absolute* or *relative* path. An absolute path includes the root directory and everything else up to the file or directory's location. A relative path includes symbols that express a path in relationship to another.
+  - The period, `.`, defines the current directory.
+  - Two periods, `..`, defines one directory 'up' from the current one. For example, if the current directory was `/parent/child` and the path was `..`, it would mean `/parent`.
+  - The backward slash, `/`, is used to specify files using periods or between directories.
+    - For example, to access the file `/parent/file.txt` from the current directory of `/parent/child` the path would be `../file.txt` signaling to go 'up' a directory and then reference the file `file.txt`.
+    - When used with directories, the backward slash can specify multiple directory using the slash between them. For example, the path `parent/child` is used to mark the ending of one directory name and the beginning of another inside it.
 
 ## Command-Line Tools
 

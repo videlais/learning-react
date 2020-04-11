@@ -2,7 +2,7 @@
 
 ## ReactDOM
 
-React is known as one of the faster front-end frameworks. One of the ways it achieves this is through its own "shadow DOM." React keeps track of an internal document object model (DOM) and only updates the real DOM in a document when absolutely necessary. This means that updates to the document only occur when they need to and no unnecessary changes or updates happen. 
+React is known as one of the faster front-end frameworks. One of the ways it achieves this is through its own "shadow DOM." React keeps track of an internal document object model (DOM) and only updates the real DOM in a document when absolutely necessary. This means that updates to the document only occur when they need to and no unnecessary changes or updates happen.
 
 This makes it "react" faster because it will combine updates and make them all at once instead of updating at different times. This also means that React expects developers to be aware of when they are making changes and to know React may delay things to make code more efficient overall.
 
@@ -116,10 +116,201 @@ Most React projects also use a feature available to all functions in JavaScript,
 
 ### Returning JSX
 
-Because all class components must have a *render()* function and return JSX, this means that the three rules of JSX are most commonly seen as part components.
+Because all class components must have a *render()* function and return JSX, this means that the three rules of JSX are most commonly seen as part components. This also means that only *expressions* are allowed in the returned JSX. The use of the keywords `if`, `else`, `for`, and `while` are not allowed.
 
-TODO
+*What does this mean?* If conditional statements and traditional loop structures are not allowed, this means that the additional functionality of arrays and objects should be used instead. Functions like **map()**, **filter()**, and **forEach()** begin important for displaying parts or the values of certain arrays and objects.
+
+For example, consider the common example of needing to display every entry in an array.
+
+```javascript
+import React from 'react';
+
+class Example extends React.Component {
+  render() {
+
+    let arrayExample = [1,2,3,4,5];
+
+    return (
+      <div>
+        {
+          arrayExample.forEach(
+            (entry, position) => {
+              <p key={position}>{entry}</p>
+            }
+          );
+        }
+      </div>
+    );
+
+  }
+}
+
+export default Example;
+```
+
+#### Using `key`
+
+Whenever a large group of elements are added to the document, React stresses the use of the attribute `key` with a unique on value per each element. This helps React know which, if any, of the elements might need to be updated in the future. (Remember, React keeps its own shadow version of the DOM and only updates the real one when needed!)
+
+When working with functions like **map()**, **filter()**, and **forEach()**, it is strongly suggested to use the attribute `key` on each element added and set its value to the optional value *position* all of these functions supply. This will not only help React speed up the application, but it also a good practice helping to identify different individual elements within a larger set of them.
 
 ## Render Chaining
 
+This chapter started with discussing the object **ReactDOM** and its function *render()*. In reviewing class components, it was mentioned that all class components must have a *render()* function. In fact, all components, because they are collections of elements, must render something.
+
+Because of this use of rendering, React uses a system of *render()* into *render()* functions, or known as render chaining. One component will have a *render()* that is used by another and another until a class component is found that does not have its own *render()* function.
+
+Consider the following code:
+
+**index.js:**
+
+```javascript
+import React from 'react';
+import ReactDOM from 'reactDOM';
+
+ReactDOM.render(<App />, document.querySelector('#root'));
+```
+
+**App.js:**
+
+```javascript
+import React from 'react';
+
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>Hi!</p>
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+In the above two files, the function *ReactDOM.render()* attempts to render the component **App**. Because it has its own *render()* function, this is called and its HTML returned. What started as a nested form like the following example --
+
+```javascript
+ReactDOM.render(App.render());
+```
+
+-- becomes the following HTML:
+
+```html
+<div>
+  <p>Hi!</p>
+</div>
+```
+
+The chain of *render()* functions navigates down and adds the element to the document when it reaches a bottom-most component that has only HTML elements and returns the content back up the chain to the top-most usage of **ReactDOM.render()**.
+
 ## Elements and Attributes into Objects and Properties
+
+React translate objects from their HTML form into an object form, skipping over the explicit usage of the `new`. Through including a component as if it was an element, it is converted from an element into an object.
+
+As was reviewed in an earlier chapter, elements have *attributes*. In React, these are also translated. As elements become object, an element's attributes become *properties*. In fact, to help with this common process, React pass all class components an object called **props**. Any attributes an element has are translated into this object.
+
+Consider the following code:
+
+**index.js:**
+
+```javascript
+import React from 'react';
+import ReactDOM from 'reactDOM';
+
+ReactDOM.render(<App attributeExample={5} />, document.querySelector('#root'));
+```
+
+**App.js:**
+
+```javascript
+import React from 'react';
+
+class App extends React.Component {
+  render() {
+    <div>
+      The value of attributeExample is: {this.props.attributeExample}.
+    </div>
+  }
+}
+
+export default App;
+```
+
+When passed to a class component, the object **props** becomes *this.props* and accessible from anywhere inside the class.
+
+This make it easy to pass values from one component to another. Instead of using the `new` keyword, the use of attributes allows initial values to be "passed" to the new object created based on the element form.
+
+**Node.js:**
+
+```javascript
+let value1 = 1;
+let value2 = 2;
+
+let element = new Element(value1, value2);
+```
+
+**React:**
+
+```html
+<Example value1={1} value2={2} />
+```
+
+Internally, in the above code, the object **Example** would have access to *this.props.value1* and *this.props.value2*.
+
+## Organizing Components
+
+*Components can contain components.* While this concept seems simple given what has been shown of working with *ReactDOM.render()* and other other *render()* functions, this also extends to *all* components. At the center of a React project will be a usage of *ReactDOM.render()*. However, this is no limit to the number of other components.
+
+To help with organizing them, like with a Node.js project, it is strongly recommended to create separate folders for each new component with their own `index.js` file. These should each be inside an overall folder named `components`.
+
+Consider the following folder structure:
+
+```bash
+src
+  /components
+      /Example
+        index.js
+  App.js
+  index.js
+```
+
+The above folder structure shows the base React code of using `App.js` and `index.js`. It also shows that there is a component named **Example** that is based in the folder `src/components/Example.index.js`.
+
+When imported into **App** or another module, the path to the component would be the folder of its name and not the internal `index.js`. The reason for this is the same as it is for using `import` and `export`: WebPack understands Node.js projects use `index.js` and will automatically import it when given a folder.
+
+**src/components/Element/index.js:**
+
+```javascript
+import React from 'react';
+
+class Element extends React.Component {
+  render () {
+    return (
+      <p>Hi!</p>
+    );
+  }
+}
+
+export default Element;
+```
+
+**src/App.js:**
+
+```javascript
+import React from `react`;
+import Element from './components/Element';
+
+class App extends React.Component {
+  render () {
+    return (
+      <div>
+        <Element />
+      </div>
+    )
+  }
+}
+
+export default App;
+```

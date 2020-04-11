@@ -34,11 +34,11 @@ It can be installed through following the prompts of the particular installer de
 
 ## Node.js Terms
 
-* **Module**: In Node.js, each `.js` file is its own module.
+- **Module**: In Node.js, each `.js` file is its own module.
 
-* **Package**: A collection of modules is a package. These can be accessed through a world-wide listing on the website `npmjs.org` or through the command `npm`.
+- **Package**: A collection of modules is a package. These can be accessed through a world-wide listing on the website `npmjs.org` or through the command `npm`.
 
-* **Project Directory**: Each new project created using Node.js should be in its own directory. When the command `npm` is first used, it assumes the current working directory is the *project directory* and will install packages accordingly.
+- **Project Directory**: Each new project created using Node.js should be in its own directory. When the command `npm` is first used, it assumes the current working directory is the *project directory* and will install packages accordingly.
 
 ## Using Node.js
 
