@@ -1,5 +1,17 @@
 # Event Listeners and Class Component State
 
+- [Event Listeners and Class Component State](#event-listeners-and-class-component-state)
+  - [Reviewing JavaScript Events](#reviewing-javascript-events)
+  - [React Synthetic Events](#react-synthetic-events)
+  - [Problems with `this`](#problems-with-this)
+    - [Public Class Fields](#public-class-fields)
+    - [Arrow Function Listeners](#arrow-function-listeners)
+    - [Binding `this`](#binding-this)
+  - [Understanding *this.state*](#understanding-thisstate)
+    - [Updating State](#updating-state)
+    - [Using **setState()**](#using-setstate)
+    - [*setState()* Callback](#setstate-callback)
+
 ## Reviewing JavaScript Events
 
 Part of the document object model (DOM) in web browsers is support for HTML events. When an agent is interacting with a document, different common events occur. This includes the more common `click` events, but also extends through other things like page loading and even HTML5 support for controllers or even VR platforms. All of these different interfaces and actions all generate *events*.
@@ -99,18 +111,298 @@ While React (and web browsers) will have no problem with the value of a function
 
 There are two solutions to this issue:
 
-### Arrow Function Class Methods
+### Public Class Fields
 
-TODO
+In JavaScript ES6, it is possible to create a *public class field*. What this means is that a field (a property or function) is created outside of the *constructor()* function within a class. It is *public* because it acts like a property of the class and is a *field* because it is defined outside of using the `this` keyword.
+
+While still an experimental feature, it can be used inside of React because Babel understands and can transpile the code for other programs like browsers to understand.
+
+```javascript
+class Element {
+  arrowFunctionExample = () => {
+  }
+}
+```
+
+In the above code, the value of the property *arrowFunctionExample* is an arrow function.
+
+Using *public class fields* allows a function of a function to use the special context of arrow functions: their `this` is defined where they are, not where they are used.
+
+In other words, using a public class field arrow function allows a class function to reference the `this` of a class (where it is defined) even if it is run in a different context.
+
+As this is the exact issue with using event listeners, such a solution makes it very popular with React developers.
+
+Consider the following code that now uses a public class field:
+
+**index.js:**
+
+```javascript
+import React from 'react';
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.example = "Hi!";
+  }
+  
+  clickListener = () => {
+    console.log(this.example);
+  }
+
+  render() {
+    return (
+      <div>
+        <p onClick={this.clickListener}>Click me!</p>
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+However, while it seems ideal, it also comes with two small problem. First, any classes that extend a class that uses public class fields get a property that has the value of a function, *not* a function itself. This is a small but often important difference for classes that inherit from other classes within a project.
+
+The second is that it is an experimental feature. React supports it because Babel does, but not all JavaScript environments fully support it yet. Once it becomes part of the specification, adoption will improve and it will slowly show up in other environments like web browsers without needing help from tools like Babel to "translate" the code.
 
 ### Arrow Function Listeners
 
+Event listeners in JavaScript in web browsers take the value of a function and run said function when an event happens. The key term "value" opens the door to using arrow functions in a new way: as event listeners that call other functions!
+
+Another common way to avoid the issue with event listeners being called in a different context than a class is to use an arrow function as the "listening" function and then have it call something else.
+
+Arrow functions take their `this` from where they are defined. As long as the arrow function is defined within the class, its own `this` will be the class itself.
+
+Consider the following code:
+
+**index.js:**
+
+```javascript
+import React from 'react';
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.example = "Hi!";
+  }
+  
+  clickListener() {
+    console.log(this.example);
+  }
+
+  render() {
+    return (
+      <div>
+        <p onClick={
+          () => { this.clickListener() }
+          }>Click me!</p>
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+In the above code, the arrow function is used as the event listener function. It then calls, using the `this` of the class, another function within the class.
+
+While technique is also frequently used in React code, it also comes with a problem to remember: each copy of the element with those exact attributes creates an extra function for sole the purpose of calling another function.
+
+While it can be used in small amounts, it not recommended to generate large lists or create many components using the same functionality. Creating lots of small functions that simply call other functions is potentially a waste of memory.
+
 ### Binding `this`
+
+Early developers of React used a technique that is still popular: binding `this`.
+
+The function *bind()* can be used on any function to change its internal `this`. It then returns a new function based on the old one, but changed.
+
+In the case of binding `this` in React, a function within a class is "re-binded" inside a *constructor()*. Before it is used, then, its own `this` is the same as that of the class in which it is defined.
+
+For event listeners, this means that the `this` of the function will always be the class, even when the code is run in a different context.
+
+Consider the following code:
+
+**index.js:**
+
+```javascript
+import React from 'react';
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.example = "Hi!";
+
+    this.clickListener = this.clickListener.bind(this);
+
+  }
+  
+  clickListener() {
+    console.log(this.example);
+  }
+
+  render() {
+    return (
+      <div>
+        <p onClick={this.clickListener}>Click me!</p>
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+While popular in some circles, the binding of `this` also creates its own problem: the original function's `this` is still the same. Anything class that inherits the function and wants to use it as an event listener will have to re-bind it again within its own constructor. This adds, with multiple events, multiple lines of code to re-bind each one's `this` to the class.
 
 ## Understanding *this.state*
 
-### Creating State
+*Components take care of themselves.*
+
+While each component should only be concerned with its own elements, what happens if it needs to keep track of data somehow? In those cases, each component can have its own *state*.
+
+State can be added to a component through creating a property *this.state* inside of a class component's *constructor()*. Because it is part of the class, then, it can be accessed anywhere inside of the class.
+
+Consider the following code:
+
+```javascript
+import React from 'react';
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.example = "Hi!";
+
+    this.state = {
+      counter: 0;
+    }
+
+  }
+  
+  clickListener = () => {
+    this.state.counter++;
+  }
+
+  render() {
+    return (
+      <div>
+        <p onClick={this.clickListener}>Click me!</p>
+        {this.state.counter}
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+While the above code my seem like the answer, it is not. The reason why has to do with React and its use of *render()*. In the above code, the value of *this.state.counter* would be updated, but its new value would not be shown -- *render()* would need to be called again!
 
 ### Updating State
 
+To help with this common task, the class **React.Component** has a special function designed for only updating state: *setState()*.
+
+Inherited from **React.Component**, *setState()* seemingly only does one thing: updates *this.state*. However, it also does another thing internally: it also calls *render()*! Any use of *setState()* will update the internal *this.state* and have any updated values become part of the next call to *render()*. (This also, like all things React, allows it to collect potential changes and decide when to update the DOM to be most efficient.)
+
 ### Using **setState()**
+
+Since React makes its own decision to update the *this.state* as part of additional *render()* calls, this create a new rule: do not change the values of *this.state* outside of *setStat()*!
+
+The reason for this rule is simple. If React has not yet updated what a class component is rendering, any changes to *this.state* outside of using *setState()* would be overwritten since the last render. In other words, changes would be missed between renders!
+
+To avoid this, it is strongly recommended to edit values only inside of a call to *setState()* or, if needed, to make a copy of a particular property to protect the overall object from accidentally being changed before the next call to *render()*.
+
+Consider the following code:
+
+```javascript
+import React from 'react';
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.example = "Hi!";
+
+    this.state = {
+      counter: 0;
+    }
+
+  }
+  
+  clickListener = () => {
+    this.setState(
+      (state) => {
+        return {
+          counter: state.counter++
+        }
+      }
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        <p onClick={this.clickListener}>Click me!</p>
+        {this.state.counter}
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+In the above example, any call to the public class field *clickListener* would also call *this.setState()*. In the new code, the function *this.setState()* is being passed an arrow function whose job it is to update a property of *this.state* through returning an object with an updated property.
+
+Using a function is one way to update *this.state* *setState()* also accepts objects.
+
+Consider the following code:
+
+```javascript
+import React from 'react';
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.example = "Hi!";
+
+    this.state = {
+      counter: 0;
+    }
+
+  }
+  
+  clickListener = () => {
+    this.setState({counter: this.state.counter++});
+  }
+
+  render() {
+    return (
+      <div>
+        <p onClick={this.clickListener}>Click me!</p>
+        {this.state.counter}
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+In the above example, the call to *setState()* is given an object with the updated property and its new value. Internally, then, *setState()* would only update that single property, leaving any others alone and unchanged.
+
+Depending on the need, either use of *setState()* could be used. For more complicated calculations or to change multiple properties, an arrow function could be used. For updating a single property, passing a single object might make more sense.
+
+TODO
+
+### *setState()* Callback

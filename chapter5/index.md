@@ -1,5 +1,16 @@
 # Introducing React
 
+- [Introducing React](#introducing-react)
+  - [ReactDOM](#reactdom)
+  - [Anatomy of a Class Component](#anatomy-of-a-class-component)
+    - [Extending **React.Component**](#extending-reactcomponent)
+    - [Class Component Functions](#class-component-functions)
+    - [Returning JSX](#returning-jsx)
+      - [Using `key`](#using-key)
+  - [Render Chaining](#render-chaining)
+  - [Elements and Attributes into Objects and Properties](#elements-and-attributes-into-objects-and-properties)
+  - [Organizing Components](#organizing-components)
+
 ## ReactDOM
 
 React is known as one of the faster front-end frameworks. One of the ways it achieves this is through its own "shadow DOM." React keeps track of an internal document object model (DOM) and only updates the real DOM in a document when absolutely necessary. This means that updates to the document only occur when they need to and no unnecessary changes or updates happen.
