@@ -403,6 +403,59 @@ In the above example, the call to *setState()* is given an object with the updat
 
 Depending on the need, either use of *setState()* could be used. For more complicated calculations or to change multiple properties, an arrow function could be used. For updating a single property, passing a single object might make more sense.
 
-TODO
-
 ### *setState()* Callback
+
+*setState()* also accepts an optional callback function as a second argument. This can be useful in those situations where the data of a state change is needed right after it happens.
+
+Consider the limited following code example:
+
+```javascript
+import React from 'react';
+
+class Day extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      day: 1,
+      events: []
+    }
+
+  }
+  
+  setDay = (event) => {
+    this.setState(
+      {day: this.state.day + 1},
+      () => {
+        this.loadEvents();
+      });
+  }
+
+  loadEvents() {
+    // Load events based on the current day
+    // Pull the day from this.state.day
+  }
+
+  render() {
+    return (
+      <div>
+        <h2 onClick={this.clickListener}>Day {this.state.day}</h2>
+        <ul>
+        {
+          this.events.forEach((entry) => {
+            <li>{entry}</li>
+          })
+        }
+        </ul>
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+In the above example, the next day is loaded based on what the current value of *this.state.day* is, calling the internal function *this.loadEvents()* as part of a callback to *setState()*. Whenever the user changed the day, all of the current events would be reloaded.
+
+However, while code could work like this, it *is not recommended*. The callback function option is provided to fine-tune operations and other, more general functionality should be used in this same instance to make sure components are updated *before* potentially loading on more data and processing it somehow. This example is provided to show it could be done, not that it should.
