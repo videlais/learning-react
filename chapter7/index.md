@@ -1,5 +1,16 @@
 # Working with CSS in React
 
+- [Working with CSS in React](#working-with-css-in-react)
+  - [Reviewing CSS Selectors](#reviewing-css-selectors)
+    - [Using `className`](#using-classname)
+  - [Importing CSS](#importing-css)
+  - [CSS Modules](#css-modules)
+  - [Inline CSS](#inline-css)
+    - [CamelCase Naming](#camelcase-naming)
+    - [Changing Properties During Runtime](#changing-properties-during-runtime)
+    - [Automatic `px`](#automatic-px)
+    - [Performance Issues](#performance-issues)
+
 ## Reviewing CSS Selectors
 
 Cascading StyleSheets (CSS) work through *selectors*. These are either special symbols for named attributes like `class` or `id`, or a name of an element like `body`.
@@ -14,6 +25,8 @@ For example, to style an element with the `class` of "redFont", the code might l
 ```
 
 Running inside web browsers, React continues this same pattern. However, as the keyword `class` is already reserved in JavaScript, JSX elements cannot use it. Instead, React uses what JavaScript does when working with **Elements** and their attributes directory using the DOM: `className`.
+
+### Using `className`
 
 To assign a value to an element, the attribute `className` is used, with a capital, `N`. This allows JSX elements to have a `class` assigned to them and use CSS rules for their styling, cascading down to its child elements, if any.
 
@@ -147,4 +160,69 @@ class Example extends Component {
 export default Example;
 ```
 
-TODO
+### CamelCase Naming
+
+As the above example shows, CSS rules that would have used a hyphen become camel-case when used in JavScript. This is because the hyphen is not allowed in variable names and thus cannot be in a property name.
+
+When working in a web browser, any hyphened names as part of the DOM follow this rule. Thus, using inline CSS follows the same. Examples that would have been `font-size` in CSS become `fontSize` in JavaScript.
+
+### Changing Properties During Runtime
+
+The advantage of inline CSS, unlike CSS modules or importing CSS, is that it can be calculated during runtime. Because the strong values are merely properties of an object, they can be changed through concatenating values.
+
+Consider the following code:
+
+**index.js:**
+
+```javascript
+import React, { Component } from 'react';
+
+class Example extends Component {
+  render() {
+    let styles = {
+      color: 'red',
+      fontSize: '1.2em'
+    }
+
+    styles.color = 'green';
+
+    return (
+      <div>
+        <p style={styles}>This will be green!</p>
+      </div>
+    );
+
+  }
+}
+
+export default Example;
+```
+
+### Automatic `px`
+
+When using inline CSS, React will default to using the measurement `px`. For example when specifying the `height` of an element, the property value could be 10 and it would be translated into `10px` by React.
+
+Consider the following code:
+
+```javascript
+import React, { Component } from 'react';
+
+class Example extends Component {
+  render() {
+    return (
+      <div>
+        <p style={ { height: 10 } }>This will have a height of 10px!</p>
+      </div>
+    );
+
+  }
+}
+
+export default Example;
+```
+
+### Performance Issues
+
+While using inline CSS may seem like a great way to use CSS in React, it is also not recommended. Using `className` is the preferred way whenever possible.
+
+The reason for avoiding inline CSS relates to its slower performance. When added to the document, all CSS calculations are done in real-time when they are added to the document instead of being storied and applied to an existing document.
