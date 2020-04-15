@@ -4,7 +4,7 @@
   - [More than Class Components](#more-than-class-components)
   - [Components Get **props**](#components-get-props)
   - [React Hooks](#react-hooks)
-  - [Function Component Lifecycle](#function-component-lifecycle)
+  - [`useEffect()`](#useeffect)
   - [Function Values As Components](#function-values-as-components)
   - [Combining Class and Functional Components](#combining-class-and-functional-components)
 
@@ -92,7 +92,7 @@ In the above code, the event listener calls the *setCounter()* function and incr
 
 Internally, every use of *useState()* will also re-render whatever **Example** returns. This will act like *setState()* would in a class component.
 
-## Function Component Lifecycle
+## `useEffect()`
 
 For a class component, there are three phases of their lifecycle: mounting, updating, and unmounting. For function components, this is reduced. There is "rendering" and "after rendering." Whatever is returned from a function component is mounted. To help with the "after rendering" actions, React defines a new term, *effects*.
 
@@ -121,7 +121,33 @@ function Example() {
 export default Example;
 ```
 
-In the above code, the function *useEffect()* will be called after the initial render and then any time the function returned by *useState()* is called. It is guaranteed to be called after an update and after any elements are updated.
+In the above code, the function *useEffect()* will be called after the initial render and then any time the function returned by *useState()* is called. It is guaranteed to be called after an update and after any components are updated.
+
+The second argument to *useEffects()* is an array of values. Function components do not have state. However, when used with the *useState()* function, values can be tested. If they have changed since the last render, React knows to render. (Since these are not automatically tracked in a function component, these must be optionally supplied to *useEffect()*.)
+
+```javascript
+import React, { useState, useEffect } from 'react';
+
+function Example() {
+
+  const [counter, setCounter] = useState(0);
+  
+  useEffect(
+    () => {
+      document.title = `You clicked ${counter} times`;
+    },
+    [counter]
+  );
+  
+  return (
+    <div>
+      <p onClick={() => { setCounter(counter + 1) } }>Click me!</p>
+    </div>
+  )
+}
+
+export default Example;
+```
 
 ## Function Values As Components
 

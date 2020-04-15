@@ -3,7 +3,6 @@
 - [Higher-Order Components](#higher-order-components)
   - [Augmenting Components](#augmenting-components)
     - [Reducing Code](#reducing-code)
-  - [Component lists](#component-lists)
 
 ## Augmenting Components
 
@@ -43,7 +42,3 @@ export default withHover;
 In the above example, the function *withHover()* accepts a component and returns a class that is augmented with three new public class fields: **state**, *mouseOver()*, and *mouseOut()*. Two events have also been added to the component, `onMouseOver` and `onMouseOut`. For these, the internal functions matching the event will be called as they occur.
 
 The name of the function also starts with a lowercase letter. This is a common pattern for higher-order components. As they are functions, they follow camel case naming. They also, because they are not objects or strictly components themselves, would not follow the style pattern of using a capital letter for it.
-
-## Component lists
-
-TODO
