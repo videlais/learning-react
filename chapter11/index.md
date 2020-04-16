@@ -1,5 +1,12 @@
 # Working with Data in React
 
+- [Working with Data in React](#working-with-data-in-react)
+  - [Using *fetch()*](#using-fetch)
+    - [Using `await` and `async`](#using-await-and-async)
+  - [Date Requests and Component Lifecycles](#date-requests-and-component-lifecycles)
+    - [Fetching During *componentDidMount()*](#fetching-during-componentdidmount)
+    - [Fetching with Function Components](#fetching-with-function-components)
+
 ## Using *fetch()*
 
 The function [*fetch()*](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) is a lightweight way to access remote data sources in a web browser. It accepts a URL and HTTP request options such as which method, mode, and any addition headers to send with the request. It returns a promise that will resolve into a [**Response** object](https://developer.mozilla.org/en-US/docs/Web/API/Response).
@@ -33,7 +40,7 @@ async fetchExample = () => {
 
 ## Date Requests and Component Lifecycles
 
-Promises can take time to resolve. With this in mind, when to use *fetch()* and wait for it to resolve becomes an important issue. In considering React class component lifecycle, only one function makes sense.
+Promises can take time to resolve. With this in mind, when to use *fetch()* and wait for it to resolve becomes an important issue. In considering the React class component lifecycle, only one function makes sense.
 
 ### Fetching During *componentDidMount()*
 
@@ -73,9 +80,9 @@ export default Example;
 
 At initial glance, the function *useEffect()* would seem to be a good candidate for use with *fetch()*. After all, it is called after the function component is rendered and would thus, like with *componentDidMount()* for class components, run after the initial elements had been added to the document.
 
-However, these is a issue. If *useEffect()* is paired with *useState()*, one would trigger the other, which would then trigger the other. This would create an infinite loop!
+However, there is a issue. If *useEffect()* is paired with *useState()*, one would trigger the other, which would then trigger the other. This would create an infinite loop!
 
-The solution is to check values. The second argument of *useEffect()* is an array of values. If they have not changed, the returned elements will not be updated. Thus, through checking the whatever is processed, the initial state variables of the function component can be checked. If they have updated, the elements will be re-rendered. If not, nothing will happen.
+The solution is to check values. The second argument of *useEffect()* is an array of values. If they have not changed, the returned elements will not be updated. Thus, through checking whatever is processed, the initial state variables of the function component can be checked. If they have updated, the elements will be re-rendered. If not, nothing will happen.
 
 ```javascript
 import React, { Component } from 'react';
@@ -104,5 +111,3 @@ class Example extends Component {
 
 export default Example;
 ```
-
-TODO

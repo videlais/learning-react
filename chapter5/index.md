@@ -13,7 +13,7 @@
 
 ## ReactDOM
 
-React is known as one of the faster front-end frameworks. One of the ways it achieves this is through its own "shadow DOM." React keeps track of an internal document object model (DOM) and only updates the real DOM in a document when absolutely necessary. This means that updates to the document only occur when they need to and no unnecessary changes or updates happen.
+React is known as one of the faster front-end frameworks. One of the ways it achieves this is through its own "shadow DOM." React keeps track of an internal document object model (DOM) and only updates the real document when absolutely necessary. This means that updates to the document only occur when they need to and no unnecessary changes or updates happen.
 
 This makes it "react" faster because it will combine updates and make them all at once instead of updating at different times. This also means that React expects developers to be aware of when they are making changes and to know React may delay things to make code more efficient overall.
 
@@ -35,11 +35,11 @@ The `index.html` for a React project often looks like the following:
 </body>
 ```
 
-The call to the *render()* function as part of **ReactDOM** adds the internal elements of each component to this `<div>` in the HTML document, starting with `<App />`. The first argument to the function is the component to render and the second is where to render it.
+The call to the *render()* function as part of **ReactDOM** adds the internal elements of each component to this `<div id="root">` in the HTML document, starting with `<App />`. The first argument to the function is the component to render and the second is where to render it.
 
 Moving from the **ReactDOM** outward, the first component encountered is **App**.
 
-The `index.js` file of most React projects, in fact, look like the following, where both **ReactDOM** and **App** are imported.
+The `index.js` file of most React projects often looks like the following, where both **ReactDOM** and **App** are imported.
 
 ```javascript
 import React from 'react';
@@ -65,7 +65,7 @@ In other words, nearly every file in a React project will start with the followi
 import React from 'react';
 ```
 
-This will be the first step and allow a developer, as was mentioned above, to use JSX if she wants and also extend the existing **Component** class.
+This will be the first step and allow a developer, as was mentioned above, to use JSX and also extend the existing **Component** class.
 
 ### Extending **React.Component**
 
@@ -105,9 +105,9 @@ class Example extends React.Component {
 export default Example;
 ```
 
-*Every render() must return HTML.*
+*Every render() must return JSX.*
 
-Along with every class component needing to have a *render()* function, the *render()* must also return HTML. After all, a component is defined, in part, because it is a collection of HTML.
+Along with every class component needing to have a *render()* function, the *render()* must also return JSX. After all, a component is defined, in part, because it is a collection of elements.
 
 ```javascript
 import React from 'react'
@@ -127,9 +127,9 @@ Most React projects also use a feature available to all functions in JavaScript,
 
 ### Returning JSX
 
-Because all class components must have a *render()* function and return JSX, this means that the three rules of JSX are most commonly seen as part components. This also means that only *expressions* are allowed in the returned JSX. The use of the keywords `if`, `else`, `for`, and `while` are not allowed.
+Because all class components must have a *render()* function and return JSX, this means that the three rules of JSX are most commonly seen here. This also means that only *expressions* are allowed in the returned JSX. The use of the keywords `if`, `else`, `for`, and `while` are not allowed.
 
-*What does this mean?* If conditional statements and traditional loop structures are not allowed, this means that the additional functionality of arrays and objects should be used instead. Functions like **map()**, **filter()**, and **forEach()** begin important for displaying parts or the values of certain arrays and objects.
+*What does this mean?* If conditional statements and traditional loop structures are not allowed, this means that the additional functionality of arrays and objects should be used instead. Functions like **map()**, **filter()**, and **forEach()** become important for displaying parts or the values of certain arrays and objects.
 
 For example, consider the common example of needing to display every entry in an array.
 
@@ -163,13 +163,13 @@ export default Example;
 
 Whenever a large group of elements are added to the document, React stresses the use of the attribute `key` with a unique on value per each element. This helps React know which, if any, of the elements might need to be updated in the future. (Remember, React keeps its own shadow version of the DOM and only updates the real one when needed!)
 
-When working with functions like **map()**, **filter()**, and **forEach()**, it is strongly suggested to use the attribute `key` on each element added and set its value to the optional value *position* all of these functions supply. This will not only help React speed up the application, but it also a good practice helping to identify different individual elements within a larger set of them.
+When working with functions like **map()**, **filter()**, and **forEach()**, it is strongly suggested to use the attribute `key` on each element added and set its value to the optional value *position* all of these functions supply. This will not only help React speed up the application, but is also a good practice helping to identify different individual elements within a larger set of them.
 
 ## Render Chaining
 
-This chapter started with discussing the object **ReactDOM** and its function *render()*. In reviewing class components, it was mentioned that all class components must have a *render()* function. In fact, all components, because they are collections of elements, must render something.
+This chapter started with discussing the object **ReactDOM** and its function *render()*. In reviewing class components, it was mentioned that all class components must have a *render()* function. In fact, all components, because they are collections of elements, must render *something*.
 
-Because of this use of rendering, React uses a system of *render()* into *render()* functions, or known as render chaining. One component will have a *render()* that is used by another and another until a class component is found that does not have its own *render()* function.
+Because of this use of rendering, React uses a system of *render()* into *render()* functions, or known as render chaining. One component will have a *render()* that is used by another and another until no other components are found.
 
 Consider the following code:
 
@@ -206,7 +206,7 @@ In the above two files, the function *ReactDOM.render()* attempts to render the 
 ReactDOM.render(App.render());
 ```
 
--- becomes the following HTML:
+-- becomes the following HTML output:
 
 ```html
 <div>
@@ -218,9 +218,9 @@ The chain of *render()* functions navigates down and adds the element to the doc
 
 ## Elements and Attributes into Objects and Properties
 
-React translate objects from their HTML form into an object form, skipping over the explicit usage of the `new`. Through including a component as if it was an element, it is converted from an element into an object.
+React translate objects from their HTML form into an object form, skipping over the explicit usage of the `new`. (It does this internally.) Through including a component as if it was an element, it is converted from an element into an object.
 
-As was reviewed in an earlier chapter, elements have *attributes*. In React, these are also translated. As elements become object, an element's attributes become *properties*. In fact, to help with this common process, React pass all class components an object called **props**. Any attributes an element has are translated into this object.
+As was reviewed in an earlier chapter, elements have *attributes*. In React, these are also translated. As elements become objects, an element's attributes become *properties*. In fact, to help with this common process, React passes all class components an object called **props**. Any attributes an element has are translated into this object.
 
 Consider the following code:
 
@@ -249,7 +249,7 @@ class App extends React.Component {
 export default App;
 ```
 
-When passed to a class component, the object **props** becomes *this.props* and accessible from anywhere inside the class.
+When passed to a class component, the object **props** becomes *this.props* and is accessible from anywhere inside the class.
 
 This make it easy to pass values from one component to another. Instead of using the `new` keyword, the use of attributes allows initial values to be "passed" to the new object created based on the element form.
 
@@ -272,7 +272,9 @@ Internally, in the above code, the object **Example** would have access to *this
 
 ## Organizing Components
 
-*Components can contain components.* While this concept seems simple given what has been shown of working with *ReactDOM.render()* and other other *render()* functions, this also extends to *all* components. At the center of a React project will be a usage of *ReactDOM.render()*. However, this is no limit to the number of other components.
+*Components can contain components.*
+
+While this concept seems simple given what has been shown of working with *ReactDOM.render()* and other other *render()* functions, this also extends to *all* components. At the center of a React project will be a usage of *ReactDOM.render()*. However, there is no limit to the number of other components.
 
 To help with organizing them, like with a Node.js project, it is strongly recommended to create separate folders for each new component with their own `index.js` file. These should each be inside an overall folder named `components`.
 

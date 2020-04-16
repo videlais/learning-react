@@ -19,24 +19,26 @@
     - [`async` and `await`](#async-and-await)
     - [Destructing Assignment](#destructing-assignment)
     - [Spread Operator](#spread-operator)
+    - [Default Parameters](#default-parameters)
+    - [Public Class Fields](#public-class-fields)
 
 ## Introducing ES6
 
-JavaScript has two main branches: ES5 and ES6 (and later). The letters used in "ES5" an "ES6" stands for the specification that defines the language: ECMAScript.
+JavaScript has two main branches: ES5 and ES6 (and later). The letters used in "ES5" and "ES6" stand for the specification that defines the language: ECMAScript.
 
-Before 1994, the European Computer Manufacturers Association kept track specifications for different programming languages, protocols, and other, related technologies across Europe. If something software related interacted with some other software, it was regulated in part through the European Computer Manufacturers Association and rules it helped develop with its partner companies and organizations.
+Before 1994, the European Computer Manufacturers Association introduced and maintained specifications for programming languages, protocols, and other, related technologies across Europe. If something software related interacted with some other software, it was regulated in part through the European Computer Manufacturers Association and rules it helped develop with its partner companies and organizations.
 
-Starting in 1994, the European Computer Manufacturers Association became simply the letters ECMA to reflect the global nature of its organization and partners. Around the same time, parts of JavaScript were appearing as early as 1995, but its first official version was in 1997. This was also when it became part of ECMA and under its combined governance.
+Starting in 1994, the European Computer Manufacturers Association became simply the letters ECMA to better reflect the global nature of its organization and partners. Around the same time, parts of JavaScript were appearing as early as 1995, but its first official version was in 1997. This was also when it became part of ECMA and under its combined governance.
 
-While new functionality was added to JavaScript from time to time based on suggestions from companies and organizations, in 2015 it was decided to move JavaScript to its 6th edition. This version, technically called ECMAScript 2015, marked a clear dividing point between early JavaScript and modern conventions and syntax.
+While new functionality was added to JavaScript from time to time based on suggestions from companies and organizations, in 2015 it was decided to move JavaScript to its 6th edition. This version, technically called ECMAScript 2015, marked a clear dividing point between early JavaScript and modern conventions and syntax. Because of its sixth edition, it became known as JavaScript ES6 (JavaScript - ECMAScript, 6th Edition).
 
 Starting in 2015, it was also decided that a new version of JavaScript would come out every year instead of in parts every few years. Since then, JavaScript ES10 (ECMAScript 2019), has come out and new functions and keywords have been added.
 
 ## Differences between ES5 and ES6
 
-Within the JavaScript programming community, everything that has been added since 2015 is commonly called part of "JavaScript ES6". Anything from before that point is part of "JavaScript ES5".
+Within the JavaScript programming community, everything that has been added since 2015 is commonly called part of "JavaScript ES6." Anything from before that point is part of "JavaScript ES5."
 
-Starting in 2016, all modern web browsers started supporting parts of JavaScript ES6 with more functionality added every year. At the same time, Node.js, since it is a single set of tools, often has support for cutting-edge parts of JavaScript in its newest versions before they come official for testing purposes.
+Starting in 2016, all modern web browsers started supporting parts of JavaScript ES6 with more functionality added every year. At the same time, Node.js, since it is a single set of tools, often has support for cutting-edge parts of JavaScript in its newest versions before they become official for testing purposes.
 
 ### Creating Variables in ES6
 
@@ -44,7 +46,7 @@ In JavaScript ES5, the keyword `var` was used to define a variable. ES6 added tw
 
 #### `let`
 
-The keyword `let` is used for values that will or could change during execution. It has a tighter sense of scope than `var` and is the preferred way to create most variables.
+The keyword `let` is used for values that will or could change during execution. It also has a tighter sense of scope than `var` and is the preferred way to create most variables.
 
 ```javascript
 let example = 5;
@@ -77,11 +79,11 @@ arrayExample.forEach(function(entry, index) {
 
 In JavaScript ES5, the use of the anonymous function would also create a new function scope and an internal use of the *this* keyword local to that function.
 
-Because this can easily led to confusion about which *this* an anonymous function is trying to access -- its own or the one inside the function being used? -- a different type of function was introduced: an arrow function.
+Because this can easily create confusion about which *this* an anonymous function is trying to access -- its own or the one inside the function being used? -- a different type of function was introduced: an arrow function.
 
-The term "arrow function" is named that way because it used the equal sign, `=`, and the greater-then sign, `>`, together to create an 'arrow': `=>`. The 'arrow' points toward the body of the function.
+The term "arrow function" is named that way because it uses the equal sign, `=`, and the greater-then sign, `>`, together to create an 'arrow': `=>`. The 'arrow' points toward the body of the function.
 
-To solve the issue around confusing usages of *this*, arrow functions have a unique feature in all JavaScript: their *this* is defined when they are, not where they are used.
+To solve the issue around confusing usages of *this*, arrow functions have a unique feature of functions: their *this* is defined when they are, not where they are used.
 
 For example, consider the following code combining different functions:
 
@@ -108,7 +110,7 @@ Arrow functions can use the normal syntax of functions like the following where 
 () => {}
 ```
 
-They can also be used as part of *arrow function expressions* in a more compact form where, instead of curly brackets, they can contain a single expression that is assumed to be returned.
+They can also be used as part of *arrow function expressions* in a more compact form where, instead of curly brackets, they can contain a single expression that is assumed to be run and returned.
 
 ```javascript
 () => ()
@@ -117,7 +119,7 @@ They can also be used as part of *arrow function expressions* in a more compact 
 In fact, in these cases, the initial parentheses can even be dropped when only one parameter will be passed to the function, which becomes the following:
 
 ```javascript
- => ()
+variable => ()
 ```
 
 For example, consider the following code:
@@ -135,12 +137,21 @@ console.log(animals.map(animal => animal.length));
 
 Concatenating strings is a common activity in JavaScript. To help clean up code, ES6 added new functionality: template literals.
 
-These are enclosed in backticks, `` ` ``. Any use of a variable starts with the dollar-sign, `$`, and then is enclosed in opening and closing curly brackets.
+In JavaScript ES5, adding the value of a variable to a complex string required multiple concatenation actions.
 
 ```javascript
 let example = 5;
-console.log(`This uses a template literal: ${example}`);
+console.log('This uses a template literal: ' + example + '!');
 ```
+
+In JavaScript ES6, template literals are enclosed in backticks, `` ` ``. Any use of a variable starts with the dollar-sign, `$`, and then is enclosed in opening and closing curly brackets.
+
+```javascript
+let example = 5;
+console.log(`This uses a template literal: ${example}!`);
+```
+
+No concatenation is needed. The template literal handles all of the work to combine the value of the variable with the string around it.
 
 ### `class` and `extends`
 
@@ -187,7 +198,7 @@ let another = new Example();
 
 In object-oriented terms, this process *constructs* a new object based on the class. In fact, JavaScript, like many other object-oriented programming languages, supplies a special function named *constructor()* for that purpose.
 
-When *constructor()* function is added inside a class, it is the first function called when an object is being "constructed." (If not supplied, JavaScript will automatically generate one.)
+When the *constructor()* function is added inside a class, it is the first function called when an object is being "constructed." (If not supplied, JavaScript will automatically generate one.)
 
 **index.js:**
 
@@ -250,7 +261,7 @@ console.log(another.someValue);
 
 #### *super()*
 
-The use of the keyword `extends` allows one class to "extend" another. However, what if there was a need to pass a values from one *constructor()* to another? JavaScript provides the function *super()* to do that.
+The use of the keyword `extends` allows one class to "extend" another. However, what if there was a need to pass values from one *constructor()* to another? JavaScript provides the function *super()* to do that.
 
 In OOP terms, these classes exist a parent-child relationship. The first, original class is the 'parent' and the class that is extending it is the 'child'. Using the function *super()* calls the parent's *constructor()* and pass values to it.
 
@@ -285,9 +296,40 @@ class Another extends Example {
 let another = new Another(5);
 ```
 
+The keyword `super` also allows a child class to call a parent's *functions* as well. Because it has access to the parent's functions, it can call a function as if it was the parent through the keyword `super`.
+
+```javascript
+// Define the class 'Example'
+class Example {
+  // Define a function
+  parentExample() {
+    console.log("I'm the parent!");
+  }
+
+}
+
+// Define the class 'Another'
+//  based on the class 'Example'
+class Another extends Example {
+  // Define a constructor()
+  constructor() {
+    // Call the parent's constructor()
+    super();
+    // Call a function as if the parent
+    super.parentExample();
+  }
+}
+
+// Create an object based on 'Another'
+//  (which is based on 'Example')
+let another = new Another();
+```
+
+The one rule with using the keyword `super` in this way is that the parent's constructor must be called via *super()* before any other usages in the class. It has to be created before its functions can be called!
+
 ### Promises
 
-In JavaScript, using a *callback* functions has a long history. Using an anonymous function to process entries in an array, for example, or signal that an event has occurred shows up frequently in code. However, having one callback function call another that calls another can become hard to debug.
+In JavaScript, using a *callback* functions has a long history. Using an anonymous function to process entries in an array, for example, or signal that an event has occurred, shows up frequently in code. However, having one callback function call another that calls another can become hard to debug.
 
 To address this issue, ES6 also added Promises.
 
@@ -303,9 +345,16 @@ let example = new Promise();
 
 The **Promise** object accepts a callback function with two arguments: *resolve()* and *reject()*. The *resolve()* function "resolves" the promise and fulfils it. The *reject()* function rejects the promise.
 
+```javascript
+let example = new Promise((resolve, reject) => {
+  // To resolve, call resolve().
+  // To reject, call reject().
+});
+```
+
 #### *then()*
 
-A promise can only be resolved or rejected through a special function named *then()*. The *then()* function also accepts two function parameters. If the promise was fulfilled, it calls the first function. If the promise was rejected, it calls the second.
+The result of a promise, resolved or rejected, can be processed through a special function named *then()*. It also accepts two function parameters. If the promise was fulfilled, it calls the first function. If the promise was rejected, it calls the second.
 
 ```javascript
 // Create a new object based on 'Promise'
@@ -341,7 +390,7 @@ Promises allow for *asynchronous* functions. Because promises ar either fulfille
 
 ### `async` and `await`
 
-Promises allow for *asynchronous* functions. However, they can also create problems when code is waiting for a promise to either fulfill or reject before continuing. To prevent a problem of more callback functions call others that call others, ES6 also added two new keywords that work specifically with promises: `async` and `await`.
+Promises allow for *asynchronous* functions. However, they can also create problems when code is waiting for a promise to either fulfill or reject before continuing. To prevent a problem of more callback functions calling others that call others, ES6 also added two new keywords that work specifically with promises: `async` and `await`.
 
 The `await` keyword, as its name might imply, "waits" for a promise to finish. It also simply takes whatever would have been given to the *then()* functions, whatever is passed to the internal *resolve()* or *reject()* functions, and returns it.
 
@@ -399,7 +448,7 @@ let example = require('./Example.js');
 let someValue = example.oneProperty;
 ```
 
-Instead of pulling in additional properties not needed or used in the file, the assignment operation can be paired with the ability to 'destructor' an object.
+Instead of pulling in additional properties not needed or used in the file, the assignment operation can be paired with the ability to 'destruct' an object.
 
 **Example.js:**
 
@@ -419,9 +468,9 @@ let { oneProperty } = require('./Example.js');
 let someValue = oneProperty;
 ```
 
-In the above example, only the property *oneProperty* was *require()*'d into the file. Everything else was ignored. What was previously the object **example** became an object through which the property *oneProperty* was destructured.
+In the above example, only the property *oneProperty* was *require()*'d into the file. Everything else was ignored. What was previously the object **example** became an object through which the property *oneProperty* was destructed.
 
-This functionality also works on arrays, too. Like with objects where the use of the curly brackets marks the object, it is also possible to use square brackets and give names matching the position of values within an array to destructure it.
+This functionality also works on arrays, too. Like with objects where the use of the curly brackets marks the object, it is also possible to use square brackets and give names matching the position of values within an array to destruct it.
 
 ```javascript
 // Destructure an array
@@ -441,3 +490,65 @@ let arrayExample = [1,2,3,4,5,6,7,8,9,10];
 //  the entire contents.
 console.log(...arrayExample);
 ```
+
+### Default Parameters
+
+In JavaScript ES5, it was often necessary to define the "default" values within functions and then test what was passed to it. (When not given a value, JavaScript defaults a parameter to the value of `undefined`.)
+
+```javascript
+function example(someValue) {
+  
+  // Set default value
+  this.someProperty = "Default";
+  
+  // Test if 'someValue' has a value or not
+  if(typeof someValue !== 'undefined') {
+    // Overwrite value
+    this.someProperty = someValue;
+  }
+
+  // Output value
+  console.log(this.someProperty);
+  
+}
+
+// Will output "Default"
+console.log(example());
+
+// Will output "Not default"
+console.log(example("Not default"));
+
+```
+
+With multiple parameters, this approach requires lots of extra lines of code! To fix this common pattern, JavaScript ES6 added *default parameters*. These can be written inside of the parentheses of the function's definition.
+
+```javascript
+function example(someValue = "Default") {
+  // Output value
+  console.log(someValue);
+  
+}
+
+// Will output "Default"
+console.log(example());
+
+// Will output "Not default"
+console.log(example("Not default"));
+```
+
+### Public Class Fields
+
+In JavaScript ES6, it is possible to create a *public class field*. What this means is that a field (a property or function) is created outside of the *constructor()* function within a class. It is *public* because it acts like a property of the class and is a *field* because it is defined outside of using the `this` keyword.
+
+While still an experimental feature, it can be used inside of React because Babel understands and can transpile the code for other programs like browsers to understand.
+
+```javascript
+class Element {
+  arrowFunctionExample = () => {
+  }
+}
+```
+
+In the above code, the value of the property *arrowFunctionExample* is an arrow function.
+
+Using *public class fields* allows a function of a function to use the special context of arrow functions: their `this` is defined where they are, not where they are used.

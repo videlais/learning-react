@@ -6,7 +6,7 @@
 
 ## Augmenting Components
 
-When using function and class components, another general pattern emerges: higher-order. When working with functions in JavaScript, a *higher-order* function is one which changes or updates a function and returns a new one. In React, a *higher-order component* does the same: it accepts a component, augments it somehow, and returns a new component.
+When using function and class components, another general pattern emerges: higher-order. When working with functions in JavaScript, a *higher-order function* is one which changes or updates a function and returns a new one. In React, a *higher-order component* does the same: it accepts a component, augments it somehow, and returns a new component.
 
 ### Reducing Code
 

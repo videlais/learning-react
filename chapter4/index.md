@@ -5,6 +5,7 @@
     - [`<head>`](#head)
     - [`<body>`](#body)
     - [Attributes](#attributes)
+      - [`id` and `class`](#id-and-class)
   - [Introducing the Composition Model](#introducing-the-composition-model)
     - [Composition Model](#composition-model)
   - [Introducing JSX](#introducing-jsx)
@@ -26,7 +27,7 @@ Each *opening tag* of an element starts with a less-than sign, `<`, the name of 
 <html>
 ```
 
-The *closing tag* of an element looks similar to the opening tag, but includes the backslash, `/`.
+The *closing tag* of an element looks similar to the opening tag, but includes the backslash, `/`, before the end of the ending tag.
 
 ```html
 </html>
@@ -44,7 +45,7 @@ The first element of every document `<html>`. Inside of this element are two oth
 
 Like with the human body, people look at the "body" but the "head" keeps details about the body. They are interconnected and work with each other to present a complete whole.
 
-When elements are described in connection to each other, the metaphor of a family is used. Some elements are a 'parent' and they have 'children'.
+When elements are described in connection to each other, the metaphor of a family is used. Elements are a 'parent' when they have 'children'.
 
 ```html
 <html>
@@ -73,7 +74,7 @@ One of the most common child elements of `<head>` is `<title>`. This defines, as
 
 ### `<body>`
 
-The `<body>` element contains everything not in the `<head>`. Anything that defines structure and layout belongs in the `<body>`. There are dozens of possible elements that can be used in `<body>`, but a a few of the common elements are:
+The `<body>` element contains everything not in the `<head>`. Anything that defines structure and layout belongs in the `<body>`. There are dozens of possible elements that can be used in `<body>`, but a few of the common elements are:
 
 - `<p>`, the paragraph element, for defining selections of text.
 
@@ -87,7 +88,7 @@ The `<body>` element contains everything not in the `<head>`. Anything that defi
 
 ### Attributes
 
-Every element supports *attributes*, ways to influence how the element is structured or understands its content. Attributes are written using a `name='value'` syntax where the name of the attribute is written inside of the opening tag and its value is inside quotation marks.
+Every element supports *attributes*, ways to influence how the element is structured or understands its content. Attributes are written using a `name='value'` syntax where the name of the attribute is written inside of the opening tag and its value is inside either single- or double-quotation marks.
 
 **Example:**
 
@@ -96,6 +97,30 @@ Every element supports *attributes*, ways to influence how the element is struct
 ```
 
 Two of the most common attributes, *id* and *class*, connect HTML to CSS, allowing the element to be "selected" from the document and styled in certain ways.
+
+#### `id` and `class`
+
+The attributes `id` and `class` have special usages in HTML. In the document, an `id` value can only be used once. This gives it a unique *identification*.
+
+```html
+<html>
+  <body>
+    <div id="sidebar"></div>
+    <div id="content-body"></div>
+  </body>
+</html>
+```
+
+The `class` attribute, on the other hand, can be thought of as a *classification*. It can be applied to many elements.
+
+```html
+<html>
+  <body>
+    <div id="sidebar" class="redFont"></div>
+    <div id="content-body" class="redFont"></div>
+  </body>
+</html>
+```
 
 ## Introducing the Composition Model
 
@@ -106,10 +131,10 @@ Traditionally, a document would be divided up into different *sections* based on
 ```html
 <html>
   <body>
-    <div class='sidebar'>
+    <div id='sidebar'>
       <p>Sidebar Content</p>
     </div>
-    <div>
+    <div id="content-body">
       <article>
         <p>Main Content</p>
       </article>
@@ -120,9 +145,9 @@ Traditionally, a document would be divided up into different *sections* based on
 
 ### Composition Model
 
-The *Composition Model* transforms each "section" into its own component. Instead of viewing the page as a single unit, it breaks each different part into its own unit. Each *component* , then, takes care of itself. It has its own elements and its connection to the larger document is through its parent element.
+The *Composition Model* transforms each "section" into its own component. Instead of viewing the page as a single unit, it breaks each different part into its own unit. Each *component* , then, takes care of itself. It has its own elements and its connection to the larger document is through its parent component.
 
-Each component, then, is its own *pseudo* element that stands in for a set of elements that could, themselves, be inside other components. Arranging these components -- *composition* -- changes how a document is considered.
+Each component is also its own *pseudo* element that stands in for a set of elements that could, themselves, be inside other components. Arranging these components -- *composition* -- changes how a document is considered.
 
 **Updated Example:**
 
@@ -135,7 +160,7 @@ Each component, then, is its own *pseudo* element that stands in for a set of el
 </html>
 ```
 
-**Sidebar Component:**
+**`<Sidebar />`:**
 
 ```html
 <div class='sidebar'>
@@ -143,7 +168,7 @@ Each component, then, is its own *pseudo* element that stands in for a set of el
 </div>
 ```
 
-**MainContent Component:**
+**`<MainContent />`:**
 
 ```html
 <div>
@@ -155,11 +180,11 @@ Each component, then, is its own *pseudo* element that stands in for a set of el
 
 ## Introducing JSX
 
-The developers at Facebook who came up with the component model introduced a new technology to help with using it: JSX.
+React was created at Facebook. Its developers came up with the component model through also introducing a new technology to help with using it: JSX.
 
-JavaScript XML (JSX) solves a common problem in web development. Often, when working with a project, there will be HTML, JavaScript, and CSS files. Depending on the project, these could grow to dozens of files.
+[JavaScript XML (JSX)](https://facebook.github.io/jsx/) solves a common problem in web development. Often, when working with a project, there will be HTML, JavaScript, and CSS files. Depending on the project, these could grow to dozens of files.
 
-To help solve this problem, they proposed something radical. *Why not put HTML inside the JavaScript code?* In order to process this idea, they introduced JavaScript XML, which allows for placing HTML-like elements inside JavaScript where it can be treated like any other value.
+To help solve this problem, they proposed something radical. *Why not put HTML inside the JavaScript code?* In order to process this type of content, they introduced JavaScript XML, which allows for placing HTML-like elements (XML) inside JavaScript where it can be treated like any other value.
 
 However, to do this, they tied it to the existing rules around the Extensible Markup Language (XML).
 
@@ -179,11 +204,11 @@ Based on XML rules, any element used must close before anything can start.
 
 Using the values of variables is a core part of any programming language and the developers at Facebook knew this. They added *JSX expressions* into the language.
 
-Any expression in JavaScript is anything that has a value. This includes, of course, variables, which have values, but also functions, which are a type of value.
+An expression in JavaScript is anything that has a value. This includes, of course, variables, which have values, but also functions, which are a type of value.
 
 However, what is *not* an expression are existing keywords and loop structures in JavaScript. The keywords `if`, `else`, `for`, and `while` are *not* expressions and cannot be used within JSX.
 
-All other expressions, variables and functions, can be used through opening and closing curly brackets.
+All other expressions, variables and functions, can be used through opening and closing curly brackets within the XML.
 
 ```javascript
 let exampleValue = 5;
@@ -191,15 +216,15 @@ let exampleValue = 5;
 let exampleJSX = <div>{exampleValue}</div>;
 ```
 
-While it can look odd, JSX allows for using HTML (technically XML) directly inside JavaScript. This also allows components to be collections of elements, too. They can contain JSX that defines the structure of its contents.
+While it can look odd, JSX allows for using HTML (XML) directly inside JavaScript. This also allows components to be collections of elements, too. They can contain JSX that defines the structure of its contents.
 
 ## Introducing WebPack + Babel
 
-Along with JSX, React uses another tool: WebPack. Defined as it name might imply, the tool WebPack "packs files for the web." In other words, it takes files used in Node.js and helps make them run easier in browser settings.
+Along with JSX, React uses another tool: [WebPack](https://webpack.js.org/). Defined as it name might imply, the tool WebPack "packs files for the web." In other words, it takes files used in Node.js and helps make them run easier in browser contexts.
 
 It does this through compacting files together and making them easier for web browsers to load in different chunks instead of in separate files. It also organizes project output into a form that web browsers can understand and adds some loading functionality that can optimize the file-loading process.
 
-React code is written using JavaScript ES6. In order to let the same code run in web browsers, most of which support only parts of JavaScript ES6, React also uses another tool, Babel.
+React code is written using JavaScript ES6. In order to let the same code run in web browsers, most of which support only parts of JavaScript ES6, React also uses another tool, [Babel](https://babeljs.io/).
 
 In order to move between versions of a language, a process called *transpiling* is used. Babel helps with this and works along with WebPack to not only make a more optimized build for web browsers, but also transpile the code from the JavaScript ES6 used in Node.js into a version of JavaScript ES5 used in all major browsers.
 
@@ -249,7 +274,7 @@ Using the keywords `import` and `from`, this becomes the following code:
 import Element from './Element.js';
 ```
 
-Like with *require()*, the keyword `import` also understands destructing assignment.
+Like with *require()*, the keyword `import` also understands destructing assignment from JavaScript ES6.
 
 ```javascript
 import { someProperty } from './exampleFile.js'

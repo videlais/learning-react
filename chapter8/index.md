@@ -13,7 +13,7 @@
 
 ## Introducing Component Phases
 
-React has full control over when elements are rendered as part of components. As part of this control, it exposes three different *phases* defined as part of a process called *mounting*.
+React has full control over when elements are rendered as part of components. As part of this control, it exposes three different *phases*.
 
 In React, HTML elements are *mounted* when they are added to the document and real DOM. This happens after a class component is created but before they are updated as part of using functionality like *setState()*.
 
@@ -31,17 +31,15 @@ In React, HTML elements are *mounted* when they are added to the document and re
 
 ## Mounting
 
-The *Mounting* phase happens for a class component during a set of functions. This starts with the *constructor()*, follows through with a call to *render()*.
+The *Mounting* phase happens for a class component during a series of functions. This starts with the *constructor()*, follows through with a call to *render()*, and ends with *componentDidMount()*.
 
 Because class components `extends` **React.Component**, the *constructor()* will always be the first function called. This is also where *props* is passed to the class component and also to its parent, **React.Component** via the function *super()*.
 
-After *constructor()*, the function *render()* will be called for the first time. This will start the technical process of "mounting" and will add HTML elements or start the process in any components referenced in its own *render()* function.
+After *constructor()*, the function *render()* will be called for the first time. This will start the technical process of "mounting" and will add HTML elements or start the processing of any components referenced in its own *render()* function.
 
 ### *componentDidMount()*
 
-The last function called during the mounting phase will be *componentDidMount()*. This will always be last; it is guaranteed that any HTML elements or other components and their own elements will be mounted *before* this is called in the class component using it.
-
-Consider the following code:
+The last function called during the mounting phase will be *componentDidMount()*. This will always be last. It is guaranteed that any HTML elements or other components and their own elements will be mounted *before* this is called in the class component using it.
 
 ```javascript
 import React, { Component } from 'react';
@@ -71,7 +69,7 @@ The function *setState()* runs during the updating phase. Any calls to it will a
 
 ### *setState()*
 
-The only way to re-render elements and components in React is via the *setState()* function. Its purpose is to change the **state** of a class component. It is assumed that any changes to **state** will also mean changes to the rendering of the elements and any other components inside of it.
+The only way to re-render elements and components in React is via the *setState()* function. Its purpose is to change the **state** of a class component. It is assumed that changes to **state** will also mean changes to the rendering of the elements and any other components inside of it.
 
 As was reviewed earlier, it accepts either a function that is passed the current state and **props** or an object literal that is used to update the class's **state**.
 

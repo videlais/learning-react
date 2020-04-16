@@ -24,7 +24,7 @@ For example, to style an element with the `class` of "redFont", the code might l
 }
 ```
 
-Running inside web browsers, React continues this same pattern. However, as the keyword `class` is already reserved in JavaScript, JSX elements cannot use it. Instead, React uses what JavaScript does when working with **Elements** and their attributes directory using the DOM: `className`.
+Running inside web browsers, React continues this same pattern. However, as the keyword `class` is already reserved in JavaScript, JSX elements cannot use it. Instead, React uses what JavaScript does when working with **Elements** and their attributes directly using the DOM: `className`.
 
 ### Using `className`
 
@@ -84,9 +84,7 @@ While CSS files can be simply imported into components and the classes used, Rea
 
 ## CSS Modules
 
-When used with the `from` keyword, the CSS file is treated as a module like another file. This means that it can also be imported *into* a variable as well. React supports what is known as *CSS Modules* where all existing class rules in a CSS file become properties of the object created from importing.
-
-Consider the following code:
+When used with the `from` keyword, the CSS file is treated as a module like other `.js` files. This means that it can also be imported *into* a variable as well. React supports what is known as *CSS Modules* where all existing class rules in a CSS file become properties of the object created from importing.
 
 **index.css:**
 
@@ -126,15 +124,13 @@ In the above code, the selectors `.redFont` and `.greenFont` became properties *
 
 When working with CSS Modules, this allows for easily "assigning" of a `className` value (using JSX expressions) when working with generating elements or creating components based on using data and adding multiple elements.
 
-This also allows a parent component to more easily pass the value from to its children and for them to be able to use it as well.
+This also allows a parent component to more easily pass the value to its children and for them to be able to use it as well.
 
 ## Inline CSS
 
-So far, only class selectors have been discussed. ID selectors were mention and, because they break the *Components take care of themselves* rule, ignored. It is possible to create an ID-like selector in React. However, instead of "selecting," the code would be assigned to the `style` keyword.
+So far, only class selectors have been discussed. ID selectors were mention and, because they break the *Components take care of themselves* rule, ignored. It is possible to create an ID-like selector in React. However, instead of "selecting," the code would be assigned to the `style` attribute.
 
 Class selectors use the keyword `className`, but that does not means the `style` attribute does not exist. It can also be used and, because React understand CSS Modules, can be given an object literal of properties, all of which are CSS values.
-
-Consider the following code:
 
 **index.js:**
 
@@ -170,8 +166,6 @@ When working in a web browser, any hyphened names as part of the DOM follow this
 
 The advantage of inline CSS, unlike CSS modules or importing CSS, is that it can be calculated during runtime. Because the strong values are merely properties of an object, they can be changed through concatenating values.
 
-Consider the following code:
-
 **index.js:**
 
 ```javascript
@@ -201,8 +195,6 @@ export default Example;
 ### Automatic `px`
 
 When using inline CSS, React will default to using the measurement `px`. For example when specifying the `height` of an element, the property value could be 10 and it would be translated into `10px` by React.
-
-Consider the following code:
 
 ```javascript
 import React, { Component } from 'react';

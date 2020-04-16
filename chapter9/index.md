@@ -10,11 +10,11 @@
 
 ## More than Class Components
 
-Throughout this book, the phrase "class component" has been used. This was purposeful. In React, there are more than class. There are also *function* components.
+Throughout this book, the phrase "class component" has been used. This was purposeful. In React, there are more than class components. There are also *function* components.
 
 *Everything is a component.*
 
-One of the core rules of React is that everything is a component. This goes for classes as well as functions. Anything can be a component as long as it follow another rule: it must return JSX.
+One of the core rules of React is that everything is a component. This goes for classes as well as functions. Anything can be a component as long as it follows another rule: it must return JSX.
 
 Like class components, it returns (via *render()*) some JSX, so as long as the function also returns JSX, it is considered a component by React.
 

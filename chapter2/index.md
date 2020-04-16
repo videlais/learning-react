@@ -20,7 +20,6 @@
   - [Installing Packages](#installing-packages)
     - [Example: Installing and Using Chalk](#example-installing-and-using-chalk)
     - [Examining `package.json`](#examining-packagejson)
-  - [Exercises](#exercises)
 
 ## Node.js
 
@@ -42,7 +41,7 @@ It can be installed through following the prompts of the particular installer de
 
 ## Using Node.js
 
-Once installed, Node.js added three new commands.
+Once installed, Node.js adds three new commands.
 
 ### `node`
 
@@ -144,7 +143,7 @@ var chalk = require('chalk');
 
 ### **module.exports**
 
-The property **module.exports** can be used to 'export' any values from a file. The object **module** is a global variable available in all modules. Its *exports* property is what the module is "exporting."
+The object **module.exports** can be used to 'export' any values from a file. The object **module** is a global variable available in all modules. It *exports* property is what the module is "exporting."
 
 **another.js:**
 
@@ -162,7 +161,7 @@ var example = require('./another.js');
 console.log(example);
 ```
 
-**Note:** Values in JavaScript can be simple integers like `5`, but they can also be more complex structures like functions and objects. Many packages 'export' complex structures and allow users to use different functionality.
+**Note:** Values in JavaScript can be simple integers like `5`, but they can also be more complex structures like functions and objects. Many packages 'export' complex data structures and allow users to use different functionality.
 
 ## Installing Packages
 
@@ -199,7 +198,7 @@ Save the file.
 
 Run the new file using `node index.js` in the project directory. This will show the word `Hi!` in red.
 
-**Note:** Some command-line programs are not supported. Certain older versions of PowerShell and Command on Windows will not show colors.
+**Note:** Some command-line colors are not supported. Certain older versions of PowerShell and Command on Windows will not show colors.
 
 ### Examining `package.json`
 
@@ -223,15 +222,3 @@ Whenever a new package is installed, it will be added to the `node_modules` fold
 ```
 
 The `package.json` file tracks all of the packages used and information about the project including its *name*, *version*, and other details like *author* and *license*.
-
-## Exercises
-
-1) What are the three commands Node.js adds?
-
-1) What is a package?
-
-1) What files does `npm` create?
-
-1) What is the name of the function used to "include" the contents exported from another module in Node.js?
-
-1) What property is used to "export" values from a module in Node.js?

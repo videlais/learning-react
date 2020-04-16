@@ -11,13 +11,12 @@
     - [`ls`](#ls)
     - [`cd`](#cd)
     - [`mkdir`](#mkdir)
-  - [Exercises](#exercises)
 
 ## Command-Line
 
-When we think of programming, many people imagine the the trope of a single person sitting in the dark and starting at lines of text scrolling on a screen. While this is not the truth for nearly all of modern programming, it does contain a single grain of truth: text on the screen.
+When thinking of programming, many people imagine the the trope of a person sitting in the dark and staring at lines of text scrolling on a screen. While this is not the truth for nearly all of modern programming, it does contain a single grain of truth: text on the screen.
 
-Before we can move to working with React, we have to understand something else: this command-line. Instead of clicking on buttons or dragging-and-dropping visual parts, we will be typing in code and also typing in commands to run, test, and build projects.
+Before we can move on to working with React, we have to understand something else: the command-line. Instead of clicking on buttons or dragging-and-dropping, we will be typing in code and then commands to run, test, and build projects.
 
 ## Finding the Command Line
 
@@ -71,7 +70,7 @@ The command `ls` "lists" the contents of the current directory except for files 
 
 When used with the *command-line argument* of `-a`, `ls` will show "all" of the files and directories in the current working directory.
 
-("Hidden" files and directories are named so because settings, configurations, and other personalization options or many programs are often saved in directories that start with a period to 'hide' them from users.)
+("Hidden" files and directories are named so because settings, configurations, and other personalization options or many programs are often saved in directories that start with a period, `.`, to 'hide' them from users.)
 
 ### `cd`
 
@@ -84,19 +83,3 @@ Paths are accepted in both absolute, starting with the root directory outward to
 The command `mkdir` "makes a directory" based on a path given to it. If a directory does not exist in that location, it is created. It one does, the command fails.
 
 Paths are accepted in both absolute, starting with the root directory outward to the current file or directory, or using periods and backslashes to specify a relative path.
-
-## Exercises
-
-1) What is a filesystem?
-
-2) What is a directory?
-
-3) What is the difference between an absolute and relative path?
-
-4) What command changes directories?
-
-5) What command creates new directories?
-
-6) Assuming the current working directory of `/example/directory`, what would the command `cd ..` do?
-
-7) Assuming the current working directory of `/example/directory`, what would the command `mkdir another` do?
