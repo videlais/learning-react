@@ -1,6 +1,6 @@
 # Learning React
 
-**Learning React** is a open source textbook. The first draft was written from April 1, 2020 to April 15,2020 based on my own teaching of React and ways of considering concepts that have helped students learn things like the component model.
+**Learning React** is a open source textbook. The first draft was written from April 1, 2020 to April 15,2020 based on my own teaching of React and ways of introducing concepts that have helped students learn things like the component model.
 
 This is an "open source" textbook. Remixing, reusing, and improving it through pull requests are *highly encouraged*. In fact, there is a [TODO list](TODO.md) for what is needed.
 
