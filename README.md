@@ -1,6 +1,6 @@
 # Learning React
 
-This is an "open source" textbook. Remixing, reusing, and improving it through pull requests are *highly encouraged*. In fact, there is a [TODO list](TODO.md) for what is being worked on next.
+This is an "open source" textbook. Remixing, reusing, or improving it through pull requests is *highly encouraged*. In fact, if you want to help add content, there is a [TODO list](TODO.md) for what is being worked on next.
 
 ## Table of Contents
 
