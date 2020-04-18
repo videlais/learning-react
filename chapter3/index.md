@@ -20,8 +20,15 @@
     - [Destructing Assignment](#destructing-assignment)
     - [Spread Operator](#spread-operator)
     - [Default Parameters](#default-parameters)
-    - [Public Class Fields](#public-class-fields)
+    - [Public Instance Fields](#public-instance-fields)
     - [Static Class Properties and Functions](#static-class-properties-and-functions)
+    - [Private Instance Fields](#private-instance-fields)
+    - [Symbol](#symbol)
+    - [Iterators](#iterators)
+      - [`for... of`](#for-of)
+      - [`for... in`](#for-in)
+    - [`Set()`](#set)
+    - [`Map()`](#map)
 
 ## Introducing ES6
 
@@ -537,20 +544,63 @@ console.log(example());
 console.log(example("Not default"));
 ```
 
-### Public Class Fields
+### Public Instance Fields
 
-In JavaScript ES6, it is possible to create a *public class field*. What this means is that a field (a property or function) is created outside of the *constructor()* function within a class. It is *public* because it acts like a property of the class and is a *field* because it is defined outside of using the `this` keyword.
+In JavaScript ES6, it is possible to create a *public instance field*. What this means is that a field (a property or function) is created outside of the *constructor()* function within a class. It is *public* because it acts like a property of the class and is a *field* because it is defined outside of using the `this` keyword.
 
-While still an experimental feature, it can be used inside of React because Babel understands and can transpile the code for other programs like browsers to understand.
+While still an experimental feature in some JavaScript contexts, it can be used inside of React because Babel understands and can transpile the code for other programs like browsers to understand.
 
 ```javascript
 class Element {
-  arrowFunctionExample = () => {
-  }
+  instanceExample = 5;
 }
 ```
 
-In the above code, the value of the property *arrowFunctionExample* is an arrow function. Using *public class fields* allows allows the value of a function to use the special context of arrow functions: their `this` is defined where they are, not where they are used.
+In the above code, the vale of the public instance field *instanceExample* is 5. This is a property that is added *outside* of the normal usage of the *constructor()*, but is part of any instance of the class.
+
+Instance field can hold any value, which means they can also hold the value of a function.
+
+```javascript
+class Element {
+  instanceFunction = function() {
+    // Do something
+  };
+}
+```
+
+Holding the value of a function also means they can hold arrow functions as well. This opens the ability to have a property that is an arrow function whose `this` is the class itself.
+
+```javascript
+class Element {
+  instanceArrowFunction = () => {
+    // Do something
+  };
+}
+```
+
+In the above code, the value of the property *arrowFunctionExample* is an arrow function. Using public instance fields allows the value of a function to use the special context of arrow functions: their `this` is defined where they are, not where they are used.
+
+Instance fields can also have computed names. It is possible to create a new property (instance field) using the same general syntax used with an object literal: square brackets around the property name.
+
+```javascript
+const fieldName = "ExampleName";
+
+class ExampleClass {
+  
+  ['new' + fieldName] = 5;
+  
+  exampleFunction() {
+    console.log(this.newExampleName);
+  }
+
+}
+
+let e = new ExampleClass();
+
+console.log( e.exampleFunction() );
+```
+
+In the above code, the property *newExampleName* is computer inside of the square brackets used as part of the instance field. It is computer and then added to the instance and can be used.
 
 ### Static Class Properties and Functions
 
@@ -589,3 +639,87 @@ class ExampleClass {
 console.log( ExampleClass.publicFieldExample );
 
 ```
+
+### Private Instance Fields
+
+Normally, all properties of a class are public in JavaScript. Their values can be accessed through their names. With private instance fields, this level of access can be changed. Values can be set to *private* so that only the class, and not even its children, can access it.
+
+To create private instance fields, the hash symbol, `#`, can be used. It can only be used with fields and cannot be defined inside of a *constructor()* function.
+
+```javascript
+class ExampleClass {
+  
+  #privateValue = 6;
+  
+  exampleFunction() {
+    console.log(this.#privateValue);
+  }
+
+}
+
+let e = new ExampleClass();
+
+console.log( e.exampleFunction() );
+```
+
+Often called "hash names," as they have the hash symbol in front of them, they can *only* be accessed in the class in which they appear. They cannot be inherited by child classes, and their values cannot be accessed outside the class.
+
+### Symbol
+
+### Iterators
+
+In JavaScript ES5, moving through the entries in an array or properties of an object can potentially be complicated and require multiple lines of code. JavaScript ES6 improved this common pattern through two additional keywords used with the traditional `for()` loop: `of` and `in`. These keywords access new functionality added in JavaScript ES6: *iterators*.
+
+#### `for... of`
+
+In JavaScript ES5, moving through an array uses the `for()` keyword and often the creation of an additional variable like *i*, *j*, or *k* where the position of each entry in the array could be accessed through increasing the value of the variable to move forward or decreasing to move backward through the array.
+
+```javascript
+var arrayExample = [1,3,4,5];
+
+for(var i = 0; i < arrayExample.length; i++) {
+  console.log(arrayExample[i]);
+}
+```
+
+In JavaScript ES6, this common pattern has been improved through *iterators*. Instead of needing to save the position of an index in the array, an additional keyword, `of`, is used to iterate through the array and use the value *at* the position, instead. For each entry in the array, the variable used is *set* to that value, bypassing the need for the position.
+
+```javascript
+let arrayExample = [1,3,4,5];
+
+for(let entry of arrayExample) {
+  console.log(entry);
+}
+```
+
+#### `for... in`
+
+When working with objects, there is no access to positions. They do not have them. To help iterate over their properties, the keyword `in` can be combined with `for()`.
+
+```javascript
+let objectExample = {
+  propertyOne: 2,
+  propertyTwo: 3
+};
+
+for(let entry in objectExample) {
+  console.log(entry);
+}
+```
+
+However, instead of returning values, like with arrays, the `for... in` pattern returns the *names of the properties themselves*. To access the *vlaues* of the properties, the square bracket syntax can be used.
+
+```javascript
+let objectExample = {
+  propertyOne: 2,
+  propertyTwo: 3
+};
+
+for(let entry in objectExample) {
+  console.log(objectExample[entry]);
+}
+```
+
+### `Set()`
+
+### `Map()`
