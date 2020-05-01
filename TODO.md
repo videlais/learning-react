@@ -3,6 +3,7 @@
 Want to add to the *Learning React* book? Awesome! Here are some things that need to be added:
 
 - ~~Chapter on Contexts~~
+- Chapter on Multimedia
 - Examples for Chapter 6
 - Examples for Chapter 7
 - Examples for Chapter 8

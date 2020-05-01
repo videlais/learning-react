@@ -1,90 +1,182 @@
-# Class Component Lifecycle
+# Function Components
 
-- [Class Component Lifecycle](#class-component-lifecycle)
-  - [Introducing Component Phases](#introducing-component-phases)
-    - [Lifecycle Functions](#lifecycle-functions)
-  - [Mounting](#mounting)
-    - [*componentDidMount()*](#componentdidmount)
-  - [Updating](#updating)
-    - [*setState()*](#setstate)
-    - [*componentDidUpdate()*](#componentdidupdate)
-  - [Unmounting](#unmounting)
-    - [*componentWillUnmount()*](#componentwillunmount)
+- [Function Components](#function-components)
+  - [More than Class Components](#more-than-class-components)
+  - [Components Get **props**](#components-get-props)
+  - [React Hooks](#react-hooks)
+  - [`useEffect()`](#useeffect)
+  - [Function Values As Components](#function-values-as-components)
+  - [Combining Class and Functional Components](#combining-class-and-functional-components)
 
-## Introducing Component Phases
+## More than Class Components
 
-React has full control over when elements are rendered as part of components. As part of this control, it exposes three different *phases*.
+Throughout this book, the phrase "class component" has been used. This was purposeful. In React, there are more than class components. There are also *function* components.
 
-In React, HTML elements are *mounted* when they are added to the document and real DOM. This happens after a class component is created but before they are updated as part of using functionality like *setState()*.
+*Everything is a component.*
 
-### Lifecycle Functions
+One of the core rules of React is that everything is a component. This goes for classes as well as functions. Anything can be a component as long as it follows another rule: it must return JSX.
 
-- Mounting
-  - *constructor()*
-  - *render()*
-  - *componentDidMount()*
-- Updating
-  - *setState()*
-  - *componentDidUpdate()*
-- Unmounting
-  - *componentWillUnmount()*
+Like class components, it returns (via *render()*) some JSX, so as long as the function also returns JSX, it is considered a component by React.
 
-## Mounting
+## Components Get **props**
 
-The *Mounting* phase happens for a class component during a series of functions. This starts with the *constructor()*, follows through with a call to *render()*, and ends with *componentDidMount()*.
+For class components, the attributes of its element form become **props**. Internally, this becomes *this.props*. For functions, this does not get translated. This is simply **props**.
 
-Because class components `extends` **React.Component**, the *constructor()* will always be the first function called. This is also where *props* is passed to the class component and also to its parent, **React.Component** via the function *super()*.
-
-After *constructor()*, the function *render()* will be called for the first time. This will start the technical process of "mounting" and will add HTML elements or start the processing of any components referenced in its own *render()* function.
-
-### *componentDidMount()*
-
-The last function called during the mounting phase will be *componentDidMount()*. This will always be last. It is guaranteed that any HTML elements or other components and their own elements will be mounted *before* this is called in the class component using it.
+**src/components/Example/index.js:**
 
 ```javascript
-import React, { Component } from 'react';
+import React from 'react';
 
-class Example extends Component {
-  componentDidMount() {
-      console.log("This will be called at the end of the mounting phase!");
-  }
-  render() {
-    return (
-      <div>
-        <p>Example text!</p>
-      </div>
-    );
-
-  }
+function Example(props) {
+  return (
+    <div>
+      <p>Hi,{this.props.name}!</p>
+    </div>
+  )
 }
 
 export default Example;
 ```
 
-## Updating
+**src/App.js:**
 
-The updating phase starts immediately after the mounting phase. As soon as elements are added to the document, the updating phase begins. Its main purpose is to react to different events and potentially re-render anything that may have changed.
+```javascript
+import React, { Component } from 'react';
+import Example from './components/Example';
 
-The function *setState()* runs during the updating phase. Any calls to it will also call *render()* and thus re-render elements and other components. This "updates" the elements in the document as a result of user events in the browser.
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Example name="Dan" />
+      </div>
+    )
+  }
+}
 
-### *setState()*
+export default App;
+```
 
-The only way to re-render elements and components in React is via the *setState()* function. Its purpose is to change the **state** of a class component. It is assumed that changes to **state** will also mean changes to the rendering of the elements and any other components inside of it.
+## React Hooks
 
-As was reviewed earlier, it accepts either a function that is passed the current state and **props** or an object literal that is used to update the class's **state**.
+Function components do not have access to **state**. They can have their own variable of *this.state*, of course, but the function *setState()* does not exist -- it is not inherited from **React.Component**, after all. Thus, changing the state of a function would not cause a re-rendering of its elements.
 
-### *componentDidUpdate()*
+To help with this, React introduced new functionality: hooks. To provide state-like functionality, hooks can be used to introduce state-like behavior using a new function, *useState()*.
 
-Like the use of *componentDidMount()*, the function *componentDidUpdate()* will be called at the end of any updating via the use of the *render()* function in a class component. It will not be called during the initial *render()* call during the mounting phase.
+The function *useState()* accepts the initial value of a value and returns an array. The first position is the variable and the second is a function for changing that value. These are used through the destructing assignment operation to name them.
 
-It will be passed **prevProps**, the previous **props** of the class component, and **prevState**, the previous **state** of the component.
+Consider the following line:
 
-## Unmounting
+```javascript
+const [counter, setCounter] = useState(0);
+```
 
-The last phase in a class component lifecycle is unmounting. This is the point where any HTML elements or components are removed from the document as part of the class component being deleted or otherwise removed itself.
+To help with naming them, it is generally recommended to name the first the variable and the second in a pattern of "set" with the name of the variable after that. Such a pattern helps with it matching the existing usage of *setState()* within class components.
 
-### *componentWillUnmount()*
+```javascript
+import React, { useState } from 'react';
 
-The very last function called in a class component will be *componentWillUnmount()*. This will be called right before the component is deleted and all of its elements are removed from the document.
+function Example() {
+  const [counter, setCounter] = useState(0);
+  return (
+    <div>
+      <p onClick={() => { setCounter(counter + 1) } }>Click me!</p>
+    </div>
+  )
+}
 
-If the class component needs to update one last thing, this is the function to use.
+export default Example;
+```
+
+In the above code, the event listener calls the *setCounter()* function and increases the current value, *counter*, whenever it is called.
+
+Internally, every use of *useState()* will also re-render whatever **Example** returns. This will act like *setState()* would in a class component.
+
+## `useEffect()`
+
+For a class component, there are three phases of their lifecycle: mounting, updating, and unmounting. For function components, this is reduced. There is "rendering" and "after rendering." Whatever is returned from a function component is mounted. To help with the "after rendering" actions, React defines a new term, *effects*.
+
+In React, an *effect* is something that *affects* the document in some way. In a class component, such code would appear as part of *componentDidMount()* or *componentDidUpdate()*. It would be some functionality that updated the document as a result of the state being updated.
+
+Because function components do not have an explicit state, a new function, *useEffect()*, can be used inside of the function. It accepts a callback function that will be called after every update inside of the function component.
+
+```javascript
+import React, { useState, useEffect } from 'react';
+
+function Example() {
+
+  const [counter, setCounter] = useState(0);
+  
+  useEffect(() => {
+    document.title = `You clicked ${counter} times`;
+  });
+  
+  return (
+    <div>
+      <p onClick={() => { setCounter(counter + 1) } }>Click me!</p>
+    </div>
+  )
+}
+
+export default Example;
+```
+
+In the above code, the function *useEffect()* will be called after the initial render and then any time the function returned by *useState()* is called. It is guaranteed to be called after an update and after any components are updated.
+
+The second argument to *useEffects()* is an array of values. Function components do not have state. However, when used with the *useState()* function, values can be tested. If they have changed since the last render, React knows to render. (Since these are not automatically tracked in a function component, these must be optionally supplied to *useEffect()*.)
+
+```javascript
+import React, { useState, useEffect } from 'react';
+
+function Example() {
+
+  const [counter, setCounter] = useState(0);
+  
+  useEffect(
+    () => {
+      document.title = `You clicked ${counter} times`;
+    },
+    [counter]
+  );
+  
+  return (
+    <div>
+      <p onClick={() => { setCounter(counter + 1) } }>Click me!</p>
+    </div>
+  )
+}
+
+export default Example;
+```
+
+## Function Values As Components
+
+In JavaScript, functions are a type of value. This means that variables can hold functions as values and be called as such. Since React supports function components, this also means that variables can, themselves, be a component when they are the values of functions.
+
+Consider the following code:
+
+```javascript
+import React from 'react';
+
+const Example = () => {
+    return (
+        <div>
+          <p>Hi!</p>
+        <div>
+    )
+};
+
+export default Example;
+```
+
+In the above code, the value of the variable *Example* is an arrow function that is, itself, a function component. As long as it is exported correctly, however, React cannot tell the difference. It is still a function and thus a valid component value to have.
+
+## Combining Class and Functional Components
+
+In React, there are no differences between components that are classes and those that are functions. Their usages dictate what and how they can be used.
+
+In situations where a more lightweight solution might be needed, a function component could be used. If limited state is needed, this might also be a good place to use a function component.
+
+However, in those cases where more complicated code is needed and advanced usages of state and event listeners, a class component would generally be a better solution.
+
+With *useState()* and *useEffect()*, function components can use much of the same general functionality of class components. While not designed for the same purpose, they can be used in places to reduce the general size of the code.

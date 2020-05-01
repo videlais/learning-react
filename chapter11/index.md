@@ -1,113 +1,186 @@
-# Working with Data in React
+# Adding Contexts
 
-- [Working with Data in React](#working-with-data-in-react)
-  - [Using *fetch()*](#using-fetch)
-    - [Using `await` and `async`](#using-await-and-async)
-  - [Date Requests and Component Lifecycles](#date-requests-and-component-lifecycles)
-    - [Fetching During *componentDidMount()*](#fetching-during-componentdidmount)
-    - [Fetching with Function Components](#fetching-with-function-components)
+- [Adding Contexts](#adding-contexts)
+  - [Problem with Repeating Attributes](#problem-with-repeating-attributes)
+  - [Creating Contexts](#creating-contexts)
+  - [Providers and Class Consumers](#providers-and-class-consumers)
+    - [Static Class Contexts](#static-class-contexts)
+  - [Function Consumers](#function-consumers)
 
-## Using *fetch()*
+## Problem with Repeating Attributes
 
-The function [*fetch()*](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) is a lightweight way to access remote data sources in a web browser. It accepts a URL and HTTP request options such as which method, mode, and any addition headers to send with the request. It returns a promise that will resolve into a [**Response** object](https://developer.mozilla.org/en-US/docs/Web/API/Response).
-
-```javascript
-fetch(URL, options);
-```
-
-The two processing functions of the **Response** object, [*text()*](https://developer.mozilla.org/en-US/docs/Web/API/Body/text) and [*json()*](https://developer.mozilla.org/en-US/docs/Web/API/Body/json), each also return promises.
-
-When used together, the promise returned by *fetch()* and the processing functions of **Response** can be chained together.
+In complex projects, there is often a need to pass "down" a value from a parent component to its children who then pass it down to its children. Such a value is added as an attribute to the initial children who, in turn, must also add the same attribute for its own children, repeating the attribute through a tree of components.
 
 ```javascript
-fetch(URL, options)
-.then((Response) => Response.json())
-.then((ProcessesedResponse) => {
-    // Do something with the processed response
-})
-```
-
-### Using `await` and `async`
-
-As both also return promises, the keyword `await` and `async` can be used with them to wait for the promises to resolve and do something with their data.
-
-```javascript
-async fetchExample = () => {
-  let response = await fetch(URL, options);
-  let processed = await response.json();
+class App extends React.Component {
+  render() {
+    return <Example repeatingAttribute="Hi" />;
+  }
 }
+
+function Example(props) {
+  return (
+      <Another repeatingAttribute={props.repeatingAttribute} />
+  );
+}
+
+function Another(props) {
+  return (
+    <p>{`The repeatingAttribute value is ${props.repeatingAttribute}.`}</p>
+  );
+}
+
 ```
 
-## Date Requests and Component Lifecycles
+In the above code, a *repeatingAttribute* is set. This is passed down from `<App />` to its children, who all pass it to their children. It is also very wasteful code! Multiple components are "passing down" the *repeatingAttribute* without using it and are acting as a relay for a value for a grandchild component to use.
 
-Promises can take time to resolve. With this in mind, when to use *fetch()* and wait for it to resolve becomes an important issue. In considering the React class component lifecycle, only one function makes sense.
+To solve this common issue, React allows for creating *contexts*.
 
-### Fetching During *componentDidMount()*
+## Creating Contexts
 
-Within the class component lifecycle, the mounting phase ends with the function *componentDidMount()*. By the time it is called, both the *constructor()* and *render()* functions have also been called. Any elements or other components have been added to the document.
+A *context* is a way to create a global store that exists in connection to a tree of components. It can be created and then values provided by parents whose children can then consume and use them.
 
-Using the function *componentDidMonunt()*, then, makes sense. Once the initial elements and components have been added, data can be fetched that may result in things been changed or adjust within the class component.
+```javascript
+const MyContext = React.createContext(defaultValue);
+```
+
+The function *createContext()* creates the ability to add a context. This a store any components can use. However, in order for it to be "passed down", it must be used across multiple files.
+
+**src/components/Context/index.js:**
+
+```javascript
+import React from 'react';
+
+const MyContext = React.createContext();
+
+export default MyContext;
+```
+
+Each file that imports the example `Context/index.js` files gets what it exports, a **Context**. If parent components need to provide values or child components consume them, this is where it starts.
+
+## Providers and Class Consumers
+
+Each **Context** provides two other components, **Provider** and **Consumer**. When used together, a `<Context.Provider>` component "wraps" a parent component and "passes down" a value to its children. Any child can subscribe (consume) the context and its value. If they do, they will be re-rendered whenever the value changes in the parent (or even grandparent!) updates it.
+
+**src/components/App.js:**
 
 ```javascript
 import React, { Component } from 'react';
+import ExampleComponent from './components/ExampleComponent';
+import MyContext from './components/Context';
 
-class Example extends Component {
-
-  state = {
-      data: ""
-  };
-
-  async componentDidMount() {
-    let response = fetch(URL);
-    let processed = response.json();
-    this.setState({data: processed})
-  }
+class App extends Component {
 
   render() {
-      return (
-        <div>
-          <p>{this.state.data}</p>
-        </div>
-      );
+    return (
+      <MyContext.Provider value={"Hey, there!"}>
+        <ExampleComponent />
+      </MyContext.Provider>
+    )
   }
-
+  
 }
 
-export default Example;
+export default App;
 ```
 
-### Fetching with Function Components
+In the above code, `<App>` returns a **Context.Provider** component that is "wrapping" its child, `<ExampleComponent>`. (The context is provided by the file in `src/components/Context/index.js`.)
 
-At initial glance, the function *useEffect()* would seem to be a good candidate for use with *fetch()*. After all, it is called after the function component is rendered and would thus, like with *componentDidMount()* for class components, run after the initial elements had been added to the document.
-
-However, there is a issue. If *useEffect()* is paired with *useState()*, one would trigger the other, which would then trigger the other. This would create an infinite loop!
-
-The solution is to check values. The second argument of *useEffect()* is an array of values. If they have not changed, the returned elements will not be updated. Thus, through checking whatever is processed, the initial state variables of the function component can be checked. If they have updated, the elements will be re-rendered. If not, nothing will happen.
+**src/components/ExampleComponent/index.js:**
 
 ```javascript
 import React, { Component } from 'react';
+import AnotherComponent from '../AnotherComponent';
 
-class Example extends Component {
-
-  state = {
-      data: ""
-  };
-
-  async componentDidMount() {
-    let response = fetch(URL);
-    let processed = response.json();
-    this.setState({data: processed})
-  }
-
+class ExampleComponent extends Component {
   render() {
-      return (
-        <div>
-          <p>{this.state.data}</p>
-        </div>
-      );
+    return (
+      <div>
+        <AnotherComponent />
+      </div>
+    );
   }
-
 }
 
-export default Example;
+export default ExampleComponent;
+```
+
+In the above code, the component `<ExampleComponent>` does not consume the context (and, accordingly, does not `import` it). All the component returns is another component, `<AnotherComponent>`.
+
+**src/components/AnotherComponent/index.js:**
+
+```javascript
+import React, { Component } from 'react';
+import MyContext from '../Context';
+
+class AnotherComponent extends Component {
+  render() {
+    return (
+      <p>{this.context}</p>
+    )
+  }
+}
+
+AnotherComponent.contextType = MyContext;
+
+export default AnotherComponent;
+```
+
+In the above code, the component `<AnotherComponent>` *does* use the context. It can import the context the same as `<App>` did. However, internally, things are different now.
+
+Earlier in the tree (in `<App>`), a **Provider** was used. This set *value* for the context. Any children that subscribe to the context (call *React.createContext()*) *after* a **Provider** is used become subscribers to the value.
+
+**Note:** If a **Provider** was used in this component, it would then become the "provider" for its own children, overwriting the current *value* with its own.
+
+The above class also uses different *.contextType*. There is a line after the class but before it is exported. This augments the class with a new property, *contextType*, and sets its value to the context.
+
+Using such a line may seem strange, but this changes the *class*, not an instance of it. Using something like `this.contextType = MyContext` would not work -- it would change the object, not the class itself.
+
+### Static Class Contexts
+
+Babel supports using the keyword `static` for class fields in JavaScript ES6. A context can thus be set as "static" to the class itself, avoiding the issue with instances.
+
+```javascript
+import React, { Component } from 'react';
+import MyContext from '../Context';
+
+class AnotherComponent extends Component {
+
+  static contextType = MyContext;
+
+  render() {
+    return (
+      <p>{this.context}</p>
+    )
+  }
+}
+
+export default AnotherComponent;
+```
+
+## Function Consumers
+
+Class components have the options of using *contextType* or using the `static` keyword. *What about function components?*
+
+Function components can use another component provided by **Context**: **Consumer**. The `<Context.Consumer>` component is used to "wrap" functions and provides the same access and re-rendering based on subscriber status provided to class components.
+
+The child of `<Context.Consumer>` *must* be a function. Anything returned by this function becomes tied to the *value* of the context. If it changes, the returned JSX inside the child function will re-render.
+
+```javascript
+import React from 'react';
+import MyContext from '../Context';
+
+function AnotherComponent() {
+  return (
+    <MyContext.Consumer>
+      {
+        (value) => {
+          return <p>{value}</p>;
+        }
+      }
+    </MyContext.Consumer>
+  )
+}
+
+export default AnotherComponent;
 ```

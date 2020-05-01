@@ -6,7 +6,7 @@ This book uses the following conventions to define different things and give the
 
 Variables and properties of objects are expressed with *emphasis*. HTML element names, classes, or other objects will appear with **strong emphasis**.
 
-Selections of code appear in-line `like this` or, when written across multiple lines like the folowing:
+Selections of code appear in-line `like this` or, when written across multiple lines like the following:
 
 ```html
 multiple

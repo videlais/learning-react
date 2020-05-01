@@ -1,283 +1,329 @@
-# Thinking in HTML, Writing in JS
+# Introducing React
 
-- [Thinking in HTML, Writing in JS](#thinking-in-html-writing-in-js)
-  - [Reviewing HTML](#reviewing-html)
-    - [`<head>`](#head)
-    - [`<body>`](#body)
-    - [Attributes](#attributes)
-      - [`id` and `class`](#id-and-class)
-  - [Introducing the Composition Model](#introducing-the-composition-model)
-    - [Composition Model](#composition-model)
-  - [Introducing JSX](#introducing-jsx)
-    - [JSX Rules](#jsx-rules)
-      - [One Root Element](#one-root-element)
-      - [All Elements Must Close](#all-elements-must-close)
-      - [JSX Expressions](#jsx-expressions)
-  - [Introducing WebPack + Babel](#introducing-webpack--babel)
-    - [`export`](#export)
-    - [`import`](#import)
+- [Introducing React](#introducing-react)
+  - [ReactDOM](#reactdom)
+  - [Anatomy of a Class Component](#anatomy-of-a-class-component)
+    - [Extending **React.Component**](#extending-reactcomponent)
+    - [Class Component Functions](#class-component-functions)
+    - [Returning JSX](#returning-jsx)
+      - [Using `key`](#using-key)
+  - [Render Chaining](#render-chaining)
+  - [Elements and Attributes into Objects and Properties](#elements-and-attributes-into-objects-and-properties)
+  - [Organizing Components](#organizing-components)
 
-## Reviewing HTML
+## ReactDOM
 
-HyperText Markup Language (HTML) uses *elements* to define the layout of a document. These are composed of *tags* that mark the start and end of the element and any content held within it.
+React is known as one of the faster front-end frameworks. One of the ways it achieves this is through its own "shadow DOM." React keeps track of an internal document object model (DOM) and only updates the real document when absolutely necessary. This means that updates to the document only occur when they need to and no unnecessary changes or updates happen.
 
-Each *opening tag* of an element starts with a less-than sign, `<`, the name of the element, and then a greater-than sign, `>`.
+This makes it "react" faster because it will combine updates and make them all at once instead of updating at different times. This also means that React expects developers to be aware of when they are making changes and to know React may delay things to make code more efficient overall.
+
+One of the ways React keeps track of its own DOM is through a object known as **ReactDOM**. At the very center of all React code is call to the function *render()* as part of the object **ReactDOM**.
+
+Most React projects, at their very core, contain the following line of code:
+
+```javascript
+ReactDOM.render(<App />, document.querySelector('#root'));
+```
+
+The `index.html` for a React project often looks like the following:
 
 ```html
 <html>
+<body>
+  <div id="root">
+  </div>
+</body>
 ```
 
-The *closing tag* of an element looks similar to the opening tag, but includes the backslash, `/`, before the end of the ending tag.
+The call to the *render()* function as part of **ReactDOM** adds the internal elements of each component to this `<div id="root">` in the HTML document, starting with `<App />`. The first argument to the function is the component to render and the second is where to render it.
 
-```html
-</html>
+Moving from the **ReactDOM** outward, the first component encountered is **App**.
+
+The `index.js` file of most React projects often looks like the following, where both **ReactDOM** and **App** are imported.
+
+```javascript
+import React from 'react';
+import ReactDOM from 'reactDOM';
+import App from './App.js';
+
+ReactDOM.render(<App />, document.querySelector('#root'));
 ```
 
-**Element Example:**
+## Anatomy of a Class Component
 
-```html
-<html></html>
+*Every React component must import React.*
+
+While this might seem like a silly rule given the usage of React, this establishes two things behind-the-scenes
+
+- It tells WebPack + Babel that the file could contain JSX.
+
+- It allows classes to `extends` the class **Component**.
+
+In other words, nearly every file in a React project will start with the following line:
+
+```javascript
+import React from 'react';
 ```
 
-HTML is a *markup* language because it "marks up" a document to define how its content should be structured. HTML is often considered the "bones" of a document because it "holds" the content and defines its internal shape.
+This will be the first step and allow a developer, as was mentioned above, to use JSX and also extend the existing **Component** class.
 
-The first element of every document `<html>`. Inside of this element are two others: `<head>` and `<body>`.
+### Extending **React.Component**
 
-Like with the human body, people look at the "body" but the "head" keeps details about the body. They are interconnected and work with each other to present a complete whole.
+The most common form of a component in React is what is known as a *class component*. It is named this way because A) it is a component and B) it uses the `class` keyword.
 
-When elements are described in connection to each other, the metaphor of a family is used. Elements are a 'parent' when they have 'children'.
+One of the general patterns in React looks like the following:
 
-```html
-<html>
-  <head>
-  </head>
-  <body>
-  <body>
-</html>
+```javascript
+import React from 'react'
+
+class Example extends React.Component {
+
+}
+
+export default Example;
 ```
 
-In the above example, the elements `<head>` and `<body>` are *children* of the parent element, `<html>`.
+The class **Example** uses the `extends` keyword to "extend" the existing class **React.Component** and thus makes it a class component, as it is both a component and uses the keyword `class`.
 
-### `<head>`
+### Class Component Functions
 
-The `<head>` element defines details about the page such as its author, title, and other resources that are linked to the document like stylesheets.
+As with any other extending of exiting classes in JavaScript, anything that `extends` **React.Component** gains all of its functions. One of the most important of these is the *render()* function.
 
-One of the most common child elements of `<head>` is `<title>`. This defines, as it name implies, the *title* of the document.
+*Every class component must render.*
 
-```html
-<html>
-  <head>
-    <title>This is the title!</title>
-  </head>
-</html>
+If a class `extends` **React.Component**, this means it will contain some HTML elements. The "containing" part comes through the function *render()* it inherits.
+
+```javascript
+import React from 'react'
+
+class Example extends React.Component {
+  render() {
+    // Return something!
+  }
+}
+
+export default Example;
 ```
 
-### `<body>`
+*Every render() must return JSX.*
 
-The `<body>` element contains everything not in the `<head>`. Anything that defines structure and layout belongs in the `<body>`. There are dozens of possible elements that can be used in `<body>`, but a few of the common elements are:
+Along with every class component needing to have a *render()* function, the *render()* must also return JSX. After all, a component is defined, in part, because it is a collection of elements.
 
-- `<p>`, the paragraph element, for defining selections of text.
+```javascript
+import React from 'react'
 
-- `<h1>, <h2>, <h3>, <h4>, <h5>`, the headers, for defining different text headings at different levels (1 - 5, in decreasing size).
+class Example extends React.Component {
+  render() {
+    return (
+        // Return JSX!
+    );
+  }
+}
 
-- `<div>`, the division element, for "dividing up" a page into different sections.
-
-- `<em>`, the emphasis element, for giving text *emphasis*.
-
-- `<strong>`, the strong emphasis element, for giving text **strong emphasis**.
-
-### Attributes
-
-Every element supports *attributes*, ways to influence how the element is structured or understands its content. Attributes are written using a `name='value'` syntax where the name of the attribute is written inside of the opening tag and its value is inside either single- or double-quotation marks.
-
-**Example:**
-
-```html
-<div class="redText"></div>
+export default Example;
 ```
 
-Two of the most common attributes, *id* and *class*, connect HTML to CSS, allowing the element to be "selected" from the document and styled in certain ways.
+Most React projects also use a feature available to all functions in JavaScript, the use of parentheses. The JSX returned from a *render()* function is often "wrapped" to help show where the contents begins and ends.
 
-#### `id` and `class`
+### Returning JSX
 
-The attributes `id` and `class` have special usages in HTML. In the document, an `id` value can only be used once. This gives it a unique *identification*.
+Because all class components must have a *render()* function and return JSX, this means that the three rules of JSX are most commonly seen here. This also means that only *expressions* are allowed in the returned JSX. The use of the keywords `if`, `else`, `for`, and `while` are not allowed.
 
-```html
-<html>
-  <body>
-    <div id="sidebar"></div>
-    <div id="content-body"></div>
-  </body>
-</html>
+*What does this mean?* If conditional statements and traditional loop structures are not allowed, this means that the additional functionality of arrays and objects should be used instead. Functions like **map()**, **filter()**, and **forEach()** become important for displaying parts or the values of certain arrays and objects.
+
+For example, consider the common example of needing to display every entry in an array.
+
+```javascript
+import React from 'react';
+
+class Example extends React.Component {
+  render() {
+
+    let arrayExample = [1,2,3,4,5];
+
+    return (
+      <div>
+        {
+          arrayExample.forEach(
+            (entry, position) => {
+              <p key={position}>{entry}</p>
+            }
+          );
+        }
+      </div>
+    );
+
+  }
+}
+
+export default Example;
 ```
 
-The `class` attribute, on the other hand, can be thought of as a *classification*. It can be applied to many elements.
+#### Using `key`
 
-```html
-<html>
-  <body>
-    <div id="sidebar" class="redFont"></div>
-    <div id="content-body" class="redFont"></div>
-  </body>
-</html>
+Whenever a large group of elements are added to the document, React stresses the use of the attribute `key` with a unique on value per each element. This helps React know which, if any, of the elements might need to be updated in the future. (Remember, React keeps its own shadow version of the DOM and only updates the real one when needed!)
+
+When working with functions like **map()**, **filter()**, and **forEach()**, it is strongly suggested to use the attribute `key` on each element added and set its value to the optional value *position* all of these functions supply. This will not only help React speed up the application, but is also a good practice helping to identify different individual elements within a larger set of them.
+
+## Render Chaining
+
+This chapter started with discussing the object **ReactDOM** and its function *render()*. In reviewing class components, it was mentioned that all class components must have a *render()* function. In fact, all components, because they are collections of elements, must render *something*.
+
+Because of this use of rendering, React uses a system of *render()* into *render()* functions, or known as render chaining. One component will have a *render()* that is used by another and another until no other components are found.
+
+Consider the following code:
+
+**index.js:**
+
+```javascript
+import React from 'react';
+import ReactDOM from 'reactDOM';
+
+ReactDOM.render(<App />, document.querySelector('#root'));
 ```
 
-## Introducing the Composition Model
+**App.js:**
 
-Traditionally, a document would be divided up into different *sections* based on how it was written. It might use different elements such as `<nav>`, `<article>`, or different collections of `<div>` elements to organize the document.
+```javascript
+import React from 'react';
 
-**Example:**
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>Hi!</p>
+      </div>
+    )
+  }
+}
 
-```html
-<html>
-  <body>
-    <div id='sidebar'>
-      <p>Sidebar Content</p>
-    </div>
-    <div id="content-body">
-      <article>
-        <p>Main Content</p>
-      </article>
-    </div>
-  </body>
-</html>
+export default App;
 ```
 
-### Composition Model
+In the above two files, the function *ReactDOM.render()* attempts to render the component **App**. Because it has its own *render()* function, this is called and its HTML returned. What started as a nested form like the following example --
 
-The *Composition Model* transforms each "section" into its own component. Instead of viewing the page as a single unit, it breaks each different part into its own unit. Each *component* , then, takes care of itself. It has its own elements and its connection to the larger document is through its parent component.
-
-Each component is also its own *pseudo* element that stands in for a set of elements that could, themselves, be inside other components. Arranging these components -- *composition* -- changes how a document is considered.
-
-**Updated Example:**
-
-```html
-<html>
-  <body>
-    <Sidebar />
-    <MainContent />
-  </body>
-</html>
+```javascript
+ReactDOM.render(App.render());
 ```
 
-**`<Sidebar />`:**
-
-```html
-<div class='sidebar'>
-    <p>Sidebar Content</p>
-</div>
-```
-
-**`<MainContent />`:**
+-- becomes the following HTML output:
 
 ```html
 <div>
-    <article>
-      <p>Main Content</p>
-    </article>
+  <p>Hi!</p>
 </div>
 ```
 
-## Introducing JSX
+The chain of *render()* functions navigates down and adds the element to the document when it reaches a bottom-most component that has only HTML elements and returns the content back up the chain to the top-most usage of **ReactDOM.render()**.
 
-React was created at Facebook. Its developers came up with the component model through also introducing a new technology to help with using it: JSX.
+## Elements and Attributes into Objects and Properties
 
-[JavaScript XML (JSX)](https://facebook.github.io/jsx/) solves a common problem in web development. Often, when working with a project, there will be HTML, JavaScript, and CSS files. Depending on the project, these could grow to dozens of files.
+React translate objects from their HTML form into an object form, skipping over the explicit usage of the `new`. (It does this internally.) Through including a component as if it was an element, it is converted from an element into an object.
 
-To help solve this problem, they proposed something radical. *Why not put HTML inside the JavaScript code?* In order to process this type of content, they introduced JavaScript XML, which allows for placing HTML-like elements (XML) inside JavaScript where it can be treated like any other value.
+As was reviewed in an earlier chapter, elements have *attributes*. In React, these are also translated. As elements become objects, an element's attributes become *properties*. In fact, to help with this common process, React passes all class components an object called **props**. Any attributes an element has are translated into this object.
 
-However, to do this, they tied it to the existing rules around the Extensible Markup Language (XML).
+Consider the following code:
 
-### JSX Rules
-
-#### One Root Element
-
-HTML already has a root element named `<html>`. However, some sections of a web page may not, themselves, have a root element. JSX, based on XML, demands that any component (collection of elements) *always* have a root element for that component.
-
-#### All Elements Must Close
-
-Most HTML elements have a closing tag. However, some do not. For these, they must "self-close" (include an ending backslash, `/`).
-
-Based on XML rules, any element used must close before anything can start.
-
-#### JSX Expressions
-
-Using the values of variables is a core part of any programming language and the developers at Facebook knew this. They added *JSX expressions* into the language.
-
-An expression in JavaScript is anything that has a value. This includes, of course, variables, which have values, but also functions, which are a type of value.
-
-However, what is *not* an expression are existing keywords and loop structures in JavaScript. The keywords `if`, `else`, `for`, and `while` are *not* expressions and cannot be used within JSX.
-
-All other expressions, variables and functions, can be used through opening and closing curly brackets within the XML.
+**index.js:**
 
 ```javascript
-let exampleValue = 5;
+import React from 'react';
+import ReactDOM from 'reactDOM';
 
-let exampleJSX = <div>{exampleValue}</div>;
+ReactDOM.render(<App attributeExample={5} />, document.querySelector('#root'));
 ```
 
-While it can look odd, JSX allows for using HTML (XML) directly inside JavaScript. This also allows components to be collections of elements, too. They can contain JSX that defines the structure of its contents.
-
-## Introducing WebPack + Babel
-
-Along with JSX, React uses another tool: [WebPack](https://webpack.js.org/). Defined as it name might imply, the tool WebPack "packs files for the web." In other words, it takes files used in Node.js and helps make them run easier in browser contexts.
-
-It does this through compacting files together and making them easier for web browsers to load in different chunks instead of in separate files. It also organizes project output into a form that web browsers can understand and adds some loading functionality that can optimize the file-loading process.
-
-React code is written using JavaScript ES6. In order to let the same code run in web browsers, most of which support only parts of JavaScript ES6, React also uses another tool, [Babel](https://babeljs.io/).
-
-In order to move between versions of a language, a process called *transpiling* is used. Babel helps with this and works along with WebPack to not only make a more optimized build for web browsers, but also transpile the code from the JavaScript ES6 used in Node.js into a version of JavaScript ES5 used in all major browsers.
-
-As part of this integration, React -- via WebPack + Babel -- adds two new keywords to JavaScript ES6 usage in Node.js: `export` and `import`.
-
-### `export`
-
-Normally, to "export" a value from one module to another in Node.js, the keyword (and global) **module** is used with its property *exports*. Anything assigned to the property is "exported" from the file and can be *require()*'d in another.
-
-Babel improves this through using the keyword `export`. Instead of using *module.exports*, the keyword `export` takes it place.
-
-For example, the following Node.js code "exports" a class named **Element**.
+**App.js:**
 
 ```javascript
-module.exports = Element;
+import React from 'react';
+
+class App extends React.Component {
+  render() {
+    <div>
+      The value of attributeExample is: {this.props.attributeExample}.
+    </div>
+  }
+}
+
+export default App;
 ```
 
-Translated into using the `export` keyword, this would become the following:
+When passed to a class component, the object **props** becomes *this.props* and is accessible from anywhere inside the class.
+
+This make it easy to pass values from one component to another. Instead of using the `new` keyword, the use of attributes allows initial values to be "passed" to the new object created based on the element form.
+
+**Node.js:**
 
 ```javascript
-export Element;
+let value1 = 1;
+let value2 = 2;
+
+let element = new Element(value1, value2);
 ```
 
-In fact, to help with the common usage of only exporting a single value, the keyword `default` can be paired with `export` to become the following:
+**React:**
+
+```html
+<Example value1={1} value2={2} />
+```
+
+Internally, in the above code, the object **Example** would have access to *this.props.value1* and *this.props.value2*.
+
+## Organizing Components
+
+*Components can contain components.*
+
+While this concept seems simple given what has been shown of working with *ReactDOM.render()* and other other *render()* functions, this also extends to *all* components. At the center of a React project will be a usage of *ReactDOM.render()*. However, there is no limit to the number of other components.
+
+To help with organizing them, like with a Node.js project, it is strongly recommended to create separate folders for each new component with their own `index.js` file. These should each be inside an overall folder named `components`.
+
+Consider the following folder structure:
+
+```bash
+src
+  /components
+      /Example
+        index.js
+  App.js
+  index.js
+```
+
+The above folder structure shows the base React code of using `App.js` and `index.js`. It also shows that there is a component named **Example** that is based in the folder `src/components/Example.index.js`.
+
+When imported into **App** or another module, the path to the component would be the folder of its name and not the internal `index.js`. The reason for this is the same as it is for using `import` and `export`: WebPack understands Node.js projects use `index.js` and will automatically import it when given a folder.
+
+**src/components/Element/index.js:**
 
 ```javascript
+import React from 'react';
+
+class Element extends React.Component {
+  render () {
+    return (
+      <p>Hi!</p>
+    );
+  }
+}
+
 export default Element;
 ```
 
-Internally, Babel (and then WebPack) will translate this through combining all of the files together into code a web browser will understand.
-
-### `import`
-
-If the keyword `export` replaces *module.exports*, the keyword `import` replaces *require()*. Instead of using a function, the keyword `import` is used.
-
-Previously, the argument to the function *reuqire()* was also a path to a file or a package to load. With `import` this combines with the new keyword `from`.
-
-For example, the following code loads the class **Element** from a file.
+**src/App.js:**
 
 ```javascript
-let Element = require('./Element.js');
+import React from `react`;
+import Element from './components/Element';
+
+class App extends React.Component {
+  render () {
+    return (
+      <div>
+        <Element />
+      </div>
+    )
+  }
+}
+
+export default App;
 ```
-
-Using the keywords `import` and `from`, this becomes the following code:
-
-```javascript
-import Element from './Element.js';
-```
-
-Like with *require()*, the keyword `import` also understands destructing assignment from JavaScript ES6.
-
-```javascript
-import { someProperty } from './exampleFile.js'
-```
-
-In fact, to reduce larger builds for web browsers, React developers are highly encouraged to use the destructing assignment option whenever possible to limit what is combined in the final output of the project. The less overall, the easier and faster a web browser can load it!

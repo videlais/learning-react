@@ -1,197 +1,320 @@
-# Introducing React
+# Event Listeners and Class Component State
 
-- [Introducing React](#introducing-react)
-  - [ReactDOM](#reactdom)
-  - [Anatomy of a Class Component](#anatomy-of-a-class-component)
-    - [Extending **React.Component**](#extending-reactcomponent)
-    - [Class Component Functions](#class-component-functions)
-    - [Returning JSX](#returning-jsx)
-      - [Using `key`](#using-key)
-  - [Render Chaining](#render-chaining)
-  - [Elements and Attributes into Objects and Properties](#elements-and-attributes-into-objects-and-properties)
-  - [Organizing Components](#organizing-components)
+- [Event Listeners and Class Component State](#event-listeners-and-class-component-state)
+  - [Reviewing JavaScript Events](#reviewing-javascript-events)
+  - [React Synthetic Events](#react-synthetic-events)
+  - [Problems with `this`](#problems-with-this)
+    - [Public Class Fields](#public-class-fields)
+    - [Arrow Function Listeners](#arrow-function-listeners)
+    - [Binding `this`](#binding-this)
+  - [Understanding *this.state*](#understanding-thisstate)
+    - [Updating State](#updating-state)
+    - [Using **setState()**](#using-setstate)
+    - [*setState()* Callback](#setstate-callback)
 
-## ReactDOM
+## Reviewing JavaScript Events
 
-React is known as one of the faster front-end frameworks. One of the ways it achieves this is through its own "shadow DOM." React keeps track of an internal document object model (DOM) and only updates the real document when absolutely necessary. This means that updates to the document only occur when they need to and no unnecessary changes or updates happen.
+Part of the document object model (DOM) in web browsers is support for HTML events. When an agent is interacting with a document, different common events occur. This includes the more common `click` events, but also extends through other things like page loading and even HTML5 support for controllers or even VR platforms. All of these different interfaces and actions all generate *events*.
 
-This makes it "react" faster because it will combine updates and make them all at once instead of updating at different times. This also means that React expects developers to be aware of when they are making changes and to know React may delay things to make code more efficient overall.
+In HTML, an event occurs on an element and moves through what is known as *event bubbling* as it moves up from itself to its parent and continuing to the global **document** object. Events start where they occur, like with clicking, and move through the document unless stopped or they run out of parent elements.
 
-One of the ways React keeps track of its own DOM is through a object known as **ReactDOM**. At the very center of all React code is call to the function *render()* as part of the object **ReactDOM**.
+To know if an event has occurred or not, JavaScript in web browser has support for *event listeners*. These are callback functions setup to listen for specific events and then respond in some way. All advanced interactions with documents like moving elements around on the page or even loading new content dynamically works through event listeners.
 
-Most React projects, at their very core, contain the following line of code:
+Because events work on the element-level, every one has a large set of built-in attributes for listening for particular events. These all start with the word `on` and are following by the name of the event. For example, a function set as the value to the attribute `onClick` would be called if a `click` event happened on that event.
 
-```javascript
-ReactDOM.render(<App />, document.querySelector('#root'));
-```
-
-The `index.html` for a React project often looks like the following:
+For example, to react to a particular `<p>` element being clicked, the code might look like the following:
 
 ```html
-<html>
-<body>
-  <div id="root">
-  </div>
-</body>
+<p onClick='() => { console.log("Clicked!") }'>Click me!</p>
 ```
 
-The call to the *render()* function as part of **ReactDOM** adds the internal elements of each component to this `<div id="root">` in the HTML document, starting with `<App />`. The first argument to the function is the component to render and the second is where to render it.
+In the above case, the arrow function would call a function inside of it, *console.log()*. It would *only* be called if the particular event, `click`, happened. Otherwise, it would be ignored.
 
-Moving from the **ReactDOM** outward, the first component encountered is **App**.
+## React Synthetic Events
 
-The `index.js` file of most React projects often looks like the following, where both **ReactDOM** and **App** are imported.
+React creates *synthetic events* that act like real ones, but are filtered through its own set of events. These condense some of the events that can happen in web browsers, and also allows React to track everything and only update the page when the event would affect how either its own or another component's rendered elements.
+
+These include, for example, for mouse events, events like the following:
+
+- onClick
+
+- onContextMenu
+
+- onDoubleClick
+
+- onMouseEnter
+
+- onMouseLeave
+
+- onMouseMove
+
+- onMouseOut
+
+- onMouseOver
+
+- onMouseUp
+
+## Problems with `this`
+
+When event listeners are used within classes in JavaScript, a unique issue arises. Because functions within a class are usually called within the scope of the class, the use of its `this` refers to the class itself. However, event listeners do not use this. Any functions called as part of an event listener is executed outside of its defined scope. This creates a problem.
+
+Consider the following code:
+
+**index.js:**
 
 ```javascript
 import React from 'react';
-import ReactDOM from 'reactDOM';
-import App from './App.js';
 
-ReactDOM.render(<App />, document.querySelector('#root'));
-```
+class App extends React.Component {
 
-## Anatomy of a Class Component
+  constructor(props) {
+    super(props);
 
-*Every React component must import React.*
-
-While this might seem like a silly rule given the usage of React, this establishes two things behind-the-scenes
-
-- It tells WebPack + Babel that the file could contain JSX.
-
-- It allows classes to `extends` the class **Component**.
-
-In other words, nearly every file in a React project will start with the following line:
-
-```javascript
-import React from 'react';
-```
-
-This will be the first step and allow a developer, as was mentioned above, to use JSX and also extend the existing **Component** class.
-
-### Extending **React.Component**
-
-The most common form of a component in React is what is known as a *class component*. It is named this way because A) it is a component and B) it uses the `class` keyword.
-
-One of the general patterns in React looks like the following:
-
-```javascript
-import React from 'react'
-
-class Example extends React.Component {
-
-}
-
-export default Example;
-```
-
-The class **Example** uses the `extends` keyword to "extend" the existing class **React.Component** and thus makes it a class component, as it is both a component and uses the keyword `class`.
-
-### Class Component Functions
-
-As with any other extending of exiting classes in JavaScript, anything that `extends` **React.Component** gains all of its functions. One of the most important of these is the *render()* function.
-
-*Every class component must render.*
-
-If a class `extends` **React.Component**, this means it will contain some HTML elements. The "containing" part comes through the function *render()* it inherits.
-
-```javascript
-import React from 'react'
-
-class Example extends React.Component {
-  render() {
-    // Return something!
+    this.example = "Hi!";
   }
-}
-
-export default Example;
-```
-
-*Every render() must return JSX.*
-
-Along with every class component needing to have a *render()* function, the *render()* must also return JSX. After all, a component is defined, in part, because it is a collection of elements.
-
-```javascript
-import React from 'react'
-
-class Example extends React.Component {
-  render() {
-    return (
-        // Return JSX!
-    );
+  
+  clickListener() {
+    console.log(this.example);
   }
-}
 
-export default Example;
-```
-
-Most React projects also use a feature available to all functions in JavaScript, the use of parentheses. The JSX returned from a *render()* function is often "wrapped" to help show where the contents begins and ends.
-
-### Returning JSX
-
-Because all class components must have a *render()* function and return JSX, this means that the three rules of JSX are most commonly seen here. This also means that only *expressions* are allowed in the returned JSX. The use of the keywords `if`, `else`, `for`, and `while` are not allowed.
-
-*What does this mean?* If conditional statements and traditional loop structures are not allowed, this means that the additional functionality of arrays and objects should be used instead. Functions like **map()**, **filter()**, and **forEach()** become important for displaying parts or the values of certain arrays and objects.
-
-For example, consider the common example of needing to display every entry in an array.
-
-```javascript
-import React from 'react';
-
-class Example extends React.Component {
   render() {
-
-    let arrayExample = [1,2,3,4,5];
-
     return (
       <div>
-        {
-          arrayExample.forEach(
-            (entry, position) => {
-              <p key={position}>{entry}</p>
-            }
-          );
+        <p onClick={this.clickListener}>Click me!</p>
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+While React will have no problem with the value of a function being used as a callback function for the synthetic event of `onClick` in React, it will have a problem when called. The property *this.example* will not exist in the calling context! It only exists within the scope of the class and not for the event listener itself.
+
+There are two solutions to this issue:
+
+### Public Class Fields
+
+Using a public class field arrow function allows a class function to reference the `this` of a class (where it is defined) even if it is run in a different context.
+
+As this is the exact issue with using event listeners, such a solution makes it very popular with React developers.
+
+Consider the following code that now uses a public class field:
+
+**index.js:**
+
+```javascript
+import React from 'react';
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.example = "Hi!";
+  }
+  
+  clickListener = () => {
+    console.log(this.example);
+  }
+
+  render() {
+    return (
+      <div>
+        <p onClick={this.clickListener}>Click me!</p>
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+However, while it seems ideal, it also comes with two small problem. First, any classes that extend a class that uses public class fields get a property that has the value of a function, *not* a function itself. This is a small but often important difference for classes that inherit from other classes within a project.
+
+The second is that it is an experimental feature. React supports it because Babel does, but not all JavaScript environments fully support it yet. Once it becomes part of the specification, adoption will improve and it will slowly show up in other environments like web browsers without needing help from tools like Babel to "translate" the code.
+
+### Arrow Function Listeners
+
+Event listeners in JavaScript in web browsers take the value of a function and run said function when an event happens. The key term "value" opens the door to using arrow functions in a new way: as event listeners that call other functions!
+
+Another common way to avoid the issue with event listeners being called in a different context than a class is to use an arrow function as the "listening" function and then have it call something else.
+
+Arrow functions take their `this` from where they are defined. As long as the arrow function is defined within the class, its own `this` will be the class itself.
+
+Consider the following code:
+
+**index.js:**
+
+```javascript
+import React from 'react';
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.example = "Hi!";
+  }
+  
+  clickListener() {
+    console.log(this.example);
+  }
+
+  render() {
+    return (
+      <div>
+        <p onClick={
+          () => { this.clickListener() }
+          }>Click me!</p>
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+In the above code, the arrow function is used as the event listener function. It then calls, using the `this` of the class, another function within the class.
+
+While this technique is also frequently used in React code, it also comes with a problem to remember: each copy of the element with those exact attributes creates an extra function for the sole purpose of calling another function.
+
+While it can be used in small amounts, it not recommended to generate large lists or create many components using the same functionality. Creating lots of small functions that simply call other functions is potentially a waste of application memory.
+
+### Binding `this`
+
+Early developers of React used a technique that is still fairly popular: binding `this`.
+
+The function *bind()* can be used on any function to change its internal `this`. It then returns a new function based on the old one, but changed.
+
+In the case of binding `this` in React, a function within a class is "re-binded" inside a *constructor()*. Before it is used, then, its own `this` is the same as that of the class in which it is defined.
+
+For event listeners, this means that the `this` of the function will always be the class, even when the code is run in a different context.
+
+Consider the following code:
+
+**index.js:**
+
+```javascript
+import React from 'react';
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.example = "Hi!";
+
+    this.clickListener = this.clickListener.bind(this);
+
+  }
+  
+  clickListener() {
+    console.log(this.example);
+  }
+
+  render() {
+    return (
+      <div>
+        <p onClick={this.clickListener}>Click me!</p>
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+While popular in some circles, the binding of `this` also creates its own problem: the original function's `this` is still the same. Anything class that inherits the function and wants to use it as an event listener will have to re-bind it again within its own constructor. This adds, with multiple events, multiple lines of code to re-bind each one's `this` to the class.
+
+## Understanding *this.state*
+
+*Components take care of themselves.*
+
+While each component should only be concerned with its own elements, what happens if it needs to keep track of data somehow? In those cases, each component can have its own *state*.
+
+State can be added to a component through creating a property *this.state* inside of a class component's *constructor()* (or as a public class field). Because it is part of the class, it can be accessed anywhere inside of it.
+
+```javascript
+import React from 'react';
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.example = "Hi!";
+
+    this.state = {
+      counter: 0;
+    }
+
+  }
+  
+  clickListener = () => {
+    this.state.counter++;
+  }
+
+  render() {
+    return (
+      <div>
+        <p onClick={this.clickListener}>Click me!</p>
+        {this.state.counter}
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+While the above code my seem like the answer, it is not. The reason why has to do with React and its use of *render()*. In the above code, the value of *this.state.counter* would be updated, but its new value would not be shown -- *render()* would need to be called again!
+
+### Updating State
+
+To help with this common task, the class **React.Component** has a special function designed for only updating state: *setState()*.
+
+Inherited from **React.Component**, *setState()* seemingly only does one thing: updates *this.state*. However, it also does another thing internally: it also calls *render()*! Any use of *setState()* will update the internal *this.state* and have any updated values become part of the next call to *render()*. (This also, like all things React, allows it to collect potential changes and decide when to update the DOM to be most efficient.)
+
+### Using **setState()**
+
+Since React makes its own decision to update the *this.state* as part of additional *render()* calls, this create a new rule: do not change the values of *this.state* outside of *setState()*!
+
+The reason for this rule is simple. If React has not yet updated what a class component is rendering, any changes to *this.state* outside of using *setState()* would be overwritten since the last render. In other words, changes would be missed between renders!
+
+To avoid this, it is strongly recommended to edit values only inside of a call to *setState()* or, if needed, to make a copy of a particular property to protect the overall object from accidentally being changed before the next call to *render()*.
+
+```javascript
+import React from 'react';
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.example = "Hi!";
+
+    this.state = {
+      counter: 0;
+    }
+
+  }
+  
+  clickListener = () => {
+    this.setState(
+      (state) => {
+        return {
+          counter: state.counter++
         }
-      </div>
+      }
     );
-
   }
-}
 
-export default Example;
-```
-
-#### Using `key`
-
-Whenever a large group of elements are added to the document, React stresses the use of the attribute `key` with a unique on value per each element. This helps React know which, if any, of the elements might need to be updated in the future. (Remember, React keeps its own shadow version of the DOM and only updates the real one when needed!)
-
-When working with functions like **map()**, **filter()**, and **forEach()**, it is strongly suggested to use the attribute `key` on each element added and set its value to the optional value *position* all of these functions supply. This will not only help React speed up the application, but is also a good practice helping to identify different individual elements within a larger set of them.
-
-## Render Chaining
-
-This chapter started with discussing the object **ReactDOM** and its function *render()*. In reviewing class components, it was mentioned that all class components must have a *render()* function. In fact, all components, because they are collections of elements, must render *something*.
-
-Because of this use of rendering, React uses a system of *render()* into *render()* functions, or known as render chaining. One component will have a *render()* that is used by another and another until no other components are found.
-
-Consider the following code:
-
-**index.js:**
-
-```javascript
-import React from 'react';
-import ReactDOM from 'reactDOM';
-
-ReactDOM.render(<App />, document.querySelector('#root'));
-```
-
-**App.js:**
-
-```javascript
-import React from 'react';
-
-class App extends React.Component {
   render() {
     return (
       <div>
-        <p>Hi!</p>
+        <p onClick={this.clickListener}>Click me!</p>
+        {this.state.counter}
       </div>
     )
   }
@@ -200,126 +323,35 @@ class App extends React.Component {
 export default App;
 ```
 
-In the above two files, the function *ReactDOM.render()* attempts to render the component **App**. Because it has its own *render()* function, this is called and its HTML returned. What started as a nested form like the following example --
+In the above example, any call to the public class field *clickListener* would also call *this.setState()*. In the new code, the function *this.setState()* is being passed an arrow function whose job it is to update a property of *this.state* through returning an object with an updated property.
 
-```javascript
-ReactDOM.render(App.render());
-```
-
--- becomes the following HTML output:
-
-```html
-<div>
-  <p>Hi!</p>
-</div>
-```
-
-The chain of *render()* functions navigates down and adds the element to the document when it reaches a bottom-most component that has only HTML elements and returns the content back up the chain to the top-most usage of **ReactDOM.render()**.
-
-## Elements and Attributes into Objects and Properties
-
-React translate objects from their HTML form into an object form, skipping over the explicit usage of the `new`. (It does this internally.) Through including a component as if it was an element, it is converted from an element into an object.
-
-As was reviewed in an earlier chapter, elements have *attributes*. In React, these are also translated. As elements become objects, an element's attributes become *properties*. In fact, to help with this common process, React passes all class components an object called **props**. Any attributes an element has are translated into this object.
-
-Consider the following code:
-
-**index.js:**
-
-```javascript
-import React from 'react';
-import ReactDOM from 'reactDOM';
-
-ReactDOM.render(<App attributeExample={5} />, document.querySelector('#root'));
-```
-
-**App.js:**
+Using a function is one way to update *this.state*. *setState()* also accepts objects.
 
 ```javascript
 import React from 'react';
 
 class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.example = "Hi!";
+
+    this.state = {
+      counter: 0;
+    }
+
+  }
+  
+  clickListener = () => {
+    this.setState({counter: this.state.counter++});
+  }
+
   render() {
-    <div>
-      The value of attributeExample is: {this.props.attributeExample}.
-    </div>
-  }
-}
-
-export default App;
-```
-
-When passed to a class component, the object **props** becomes *this.props* and is accessible from anywhere inside the class.
-
-This make it easy to pass values from one component to another. Instead of using the `new` keyword, the use of attributes allows initial values to be "passed" to the new object created based on the element form.
-
-**Node.js:**
-
-```javascript
-let value1 = 1;
-let value2 = 2;
-
-let element = new Element(value1, value2);
-```
-
-**React:**
-
-```html
-<Example value1={1} value2={2} />
-```
-
-Internally, in the above code, the object **Example** would have access to *this.props.value1* and *this.props.value2*.
-
-## Organizing Components
-
-*Components can contain components.*
-
-While this concept seems simple given what has been shown of working with *ReactDOM.render()* and other other *render()* functions, this also extends to *all* components. At the center of a React project will be a usage of *ReactDOM.render()*. However, there is no limit to the number of other components.
-
-To help with organizing them, like with a Node.js project, it is strongly recommended to create separate folders for each new component with their own `index.js` file. These should each be inside an overall folder named `components`.
-
-Consider the following folder structure:
-
-```bash
-src
-  /components
-      /Example
-        index.js
-  App.js
-  index.js
-```
-
-The above folder structure shows the base React code of using `App.js` and `index.js`. It also shows that there is a component named **Example** that is based in the folder `src/components/Example.index.js`.
-
-When imported into **App** or another module, the path to the component would be the folder of its name and not the internal `index.js`. The reason for this is the same as it is for using `import` and `export`: WebPack understands Node.js projects use `index.js` and will automatically import it when given a folder.
-
-**src/components/Element/index.js:**
-
-```javascript
-import React from 'react';
-
-class Element extends React.Component {
-  render () {
-    return (
-      <p>Hi!</p>
-    );
-  }
-}
-
-export default Element;
-```
-
-**src/App.js:**
-
-```javascript
-import React from `react`;
-import Element from './components/Element';
-
-class App extends React.Component {
-  render () {
     return (
       <div>
-        <Element />
+        <p onClick={this.clickListener}>Click me!</p>
+        {this.state.counter}
       </div>
     )
   }
@@ -327,3 +359,64 @@ class App extends React.Component {
 
 export default App;
 ```
+
+In the above example, the call to *setState()* is given an object with the updated property and its new value. Internally, *setState()* would only update that single property and leave any others unchanged.
+
+Depending on the need, either use of *setState()* could be a solution. For more complicated calculations or to change multiple properties, an arrow function could be used. For updating a single property, passing a single object might make more sense.
+
+### *setState()* Callback
+
+*setState()* also accepts an optional callback function as a second argument. This can be useful in those situations where the data of a state change is needed right after it happens.
+
+Consider the limited following code example:
+
+```javascript
+import React from 'react';
+
+class Day extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      day: 1,
+      events: []
+    }
+
+  }
+  
+  setDay = (event) => {
+    this.setState(
+      {day: this.state.day + 1},
+      () => {
+        this.loadEvents();
+      });
+  }
+
+  loadEvents() {
+    // Load events based on the current day
+    // Pull the day from this.state.day
+  }
+
+  render() {
+    return (
+      <div>
+        <h2 onClick={this.clickListener}>Day {this.state.day}</h2>
+        <ul>
+        {
+          this.events.forEach((entry) => {
+            <li>{entry}</li>
+          })
+        }
+        </ul>
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+In the above example, the next day is loaded based on what the current value of *this.state.day* is, calling the internal function *this.loadEvents()* as part of a callback to *setState()*. Whenever the user changed the day, all of the current events would be reloaded.
+
+However, while code could work like this, it is *not recommended*. The callback function option is provided to fine-tune operations and other, more general functionality should be used in this same instance to make sure components are updated *before* potentially loading on more data and processing it somehow. This example is provided to show it could be done, not that it should.

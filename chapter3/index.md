@@ -1,894 +1,283 @@
-# Reviewing JavaScript ES6
+# Thinking in HTML, Writing in JS
 
-- [Reviewing JavaScript ES6](#reviewing-javascript-es6)
-  - [Introducing ES6](#introducing-es6)
-  - [Differences between ES5 and ES6](#differences-between-es5-and-es6)
-    - [Creating Variables in ES6](#creating-variables-in-es6)
-      - [`let`](#let)
-      - [`const`](#const)
-    - [Arrow Functions](#arrow-functions)
-      - [Arrow Function Expressions](#arrow-function-expressions)
-    - [Template Literals](#template-literals)
-    - [`class` and `extends`](#class-and-extends)
-      - [`class`](#class)
-      - [*constructor()*](#constructor)
-        - [Class Scope](#class-scope)
-      - [*super()*](#super)
-    - [Promises](#promises)
-      - [*then()*](#then)
-    - [`async` and `await`](#async-and-await)
-    - [Destructing Assignment](#destructing-assignment)
-    - [Spread Operator](#spread-operator)
-    - [Default Parameters](#default-parameters)
-    - [Public Instance Fields](#public-instance-fields)
-    - [Static Class Properties and Functions](#static-class-properties-and-functions)
-    - [Private Instance Fields](#private-instance-fields)
-    - [Symbol](#symbol)
-      - [Adding Unique Identifiers](#adding-unique-identifiers)
-      - [Customizing Well-Known Functionality](#customizing-well-known-functionality)
-      - [Symbol Shorthand](#symbol-shorthand)
-      - [Computed Object Literal Properties](#computed-object-literal-properties)
-      - [Computed Instance Fields](#computed-instance-fields)
-      - [Hidden Properties](#hidden-properties)
-    - [Iterators](#iterators)
-      - [`for... of`](#for-of)
-      - [`for... in`](#for-in)
-      - [Defining Iterators](#defining-iterators)
-    - [`Set()`](#set)
-    - [`Map()`](#map)
+- [Thinking in HTML, Writing in JS](#thinking-in-html-writing-in-js)
+  - [Reviewing HTML](#reviewing-html)
+    - [`<head>`](#head)
+    - [`<body>`](#body)
+    - [Attributes](#attributes)
+      - [`id` and `class`](#id-and-class)
+  - [Introducing the Composition Model](#introducing-the-composition-model)
+    - [Composition Model](#composition-model)
+  - [Introducing JSX](#introducing-jsx)
+    - [JSX Rules](#jsx-rules)
+      - [One Root Element](#one-root-element)
+      - [All Elements Must Close](#all-elements-must-close)
+      - [JSX Expressions](#jsx-expressions)
+  - [Introducing WebPack + Babel](#introducing-webpack--babel)
+    - [`export`](#export)
+    - [`import`](#import)
 
-## Introducing ES6
+## Reviewing HTML
 
-JavaScript has two main branches: ES5 and ES6 (and later). The letters used in "ES5" and "ES6" stand for the specification that defines the language: ECMAScript.
+HyperText Markup Language (HTML) uses *elements* to define the layout of a document. These are composed of *tags* that mark the start and end of the element and any content held within it.
 
-Before 1994, the European Computer Manufacturers Association introduced and maintained specifications for programming languages, protocols, and other, related technologies across Europe. If something software related interacted with some other software, it was regulated in part through the European Computer Manufacturers Association and rules it helped develop with its partner companies and organizations.
+Each *opening tag* of an element starts with a less-than sign, `<`, the name of the element, and then a greater-than sign, `>`.
 
-Starting in 1994, the European Computer Manufacturers Association became simply the letters ECMA to better reflect the global nature of its organization and partners. Around the same time, parts of JavaScript were appearing as early as 1995, but its first official version was in 1997. This was also when it became part of ECMA and under its combined governance.
-
-While new functionality was added to JavaScript from time to time based on suggestions from companies and organizations, in 2015 it was decided to move JavaScript to its 6th edition. This version, technically called ECMAScript 2015, marked a clear dividing point between early JavaScript and modern conventions and syntax. Because of its sixth edition, it became known as JavaScript ES6 (JavaScript - ECMAScript, 6th Edition).
-
-Starting in 2015, it was also decided that a new version of JavaScript would come out every year instead of in parts every few years. Since then, JavaScript ES10 (ECMAScript 2019), has come out and new functions and keywords have been added.
-
-## Differences between ES5 and ES6
-
-Within the JavaScript programming community, everything that has been added since 2015 is commonly called part of "JavaScript ES6." Anything from before that point is part of "JavaScript ES5."
-
-Starting in 2016, all modern web browsers started supporting parts of JavaScript ES6 with more functionality added every year. At the same time, Node.js, since it is a single set of tools, often has support for cutting-edge parts of JavaScript in its newest versions before they become official for testing purposes.
-
-### Creating Variables in ES6
-
-In JavaScript ES5, the keyword `var` was used to define a variable. ES6 added two new ways to create variables: `let` and `const`.
-
-#### `let`
-
-The keyword `let` is used for values that will or could change during execution. It also has a tighter sense of scope than `var` and is the preferred way to create most variables.
-
-```javascript
-let example = 5;
-example = 6;
+```html
+<html>
 ```
 
-#### `const`
+The *closing tag* of an element looks similar to the opening tag, but includes the backslash, `/`, before the end of the ending tag.
 
-The keyword `const` is used for values that will not change after creation. These values are *constant*. Any attempt to change their values will result in a runtime error.
-
-```javascript
-const example = 5;
-// The following code will result in an error!
-example = 6;
+```html
+</html>
 ```
 
-### Arrow Functions
+**Element Example:**
 
-In JavaScript ES5, it was often common to use an anonymous function as part of different built-in functionality in JavaScript.
-
-**Note:** An anonymous function is simply one without a name.
-
-```javascript
-let arrayExample = [1,2,3,4];
-
-arrayExample.forEach(function(entry, index) {
-  console.log("Value: " + entry + "  Position: " + index);
-});
+```html
+<html></html>
 ```
 
-In JavaScript ES5, the use of the anonymous function would also create a new function scope and an internal use of the *this* keyword local to that function.
+HTML is a *markup* language because it "marks up" a document to define how its content should be structured. HTML is often considered the "bones" of a document because it "holds" the content and defines its internal shape.
 
-Because this can easily create confusion about which *this* an anonymous function is trying to access -- its own or the one inside the function being used? -- a different type of function was introduced: an arrow function.
+The first element of every document `<html>`. Inside of this element are two others: `<head>` and `<body>`.
 
-The term "arrow function" is named that way because it uses the equal sign, `=`, and the greater-then sign, `>`, together to create an 'arrow': `=>`. The 'arrow' points toward the body of the function.
+Like with the human body, people look at the "body" but the "head" keeps details about the body. They are interconnected and work with each other to present a complete whole.
 
-To solve the issue around confusing usages of *this*, arrow functions have a unique feature of functions: their *this* is defined when they are, not where they are used.
+When elements are described in connection to each other, the metaphor of a family is used. Elements are a 'parent' when they have 'children'.
 
-For example, consider the following code combining different functions:
-
-```javascript
-function returnLastEntry(arrayExample) {
-
-    this.lastValue = null;
-
-    arrayExample.forEach( (entry, value) => {
-        this.lastValue = entry;
-    });
-
-    return this.lastValue;
-}
+```html
+<html>
+  <head>
+  </head>
+  <body>
+  <body>
+</html>
 ```
 
-In the above code, the use of the arrow function allows the code inside it to access the *this* of the function it is defined within, *returnLastEntry()*. While a silly example, it shows how an arrow function can access the *this* where it is defined.
+In the above example, the elements `<head>` and `<body>` are *children* of the parent element, `<html>`.
 
-#### Arrow Function Expressions
+### `<head>`
 
-Arrow functions can use the normal syntax of functions like the following where at least one statement would be used inside the body of the function:
+The `<head>` element defines details about the page such as its author, title, and other resources that are linked to the document like stylesheets.
 
-```javascript
-() => {}
+One of the most common child elements of `<head>` is `<title>`. This defines, as it name implies, the *title* of the document.
+
+```html
+<html>
+  <head>
+    <title>This is the title!</title>
+  </head>
+</html>
 ```
 
-They can also be used as part of *arrow function expressions* in a more compact form where, instead of curly brackets, they can contain a single expression that is assumed to be run and returned.
+### `<body>`
 
-```javascript
-() => ()
+The `<body>` element contains everything not in the `<head>`. Anything that defines structure and layout belongs in the `<body>`. There are dozens of possible elements that can be used in `<body>`, but a few of the common elements are:
+
+- `<p>`, the paragraph element, for defining selections of text.
+
+- `<h1>, <h2>, <h3>, <h4>, <h5>`, the headers, for defining different text headings at different levels (1 - 5, in decreasing size).
+
+- `<div>`, the division element, for "dividing up" a page into different sections.
+
+- `<em>`, the emphasis element, for giving text *emphasis*.
+
+- `<strong>`, the strong emphasis element, for giving text **strong emphasis**.
+
+### Attributes
+
+Every element supports *attributes*, ways to influence how the element is structured or understands its content. Attributes are written using a `name='value'` syntax where the name of the attribute is written inside of the opening tag and its value is inside either single- or double-quotation marks.
+
+**Example:**
+
+```html
+<div class="redText"></div>
 ```
 
-In fact, in these cases, the initial parentheses can even be dropped when only one parameter will be passed to the function, which becomes the following:
+Two of the most common attributes, *id* and *class*, connect HTML to CSS, allowing the element to be "selected" from the document and styled in certain ways.
 
-```javascript
-variable => ()
+#### `id` and `class`
+
+The attributes `id` and `class` have special usages in HTML. In the document, an `id` value can only be used once. This gives it a unique *identification*.
+
+```html
+<html>
+  <body>
+    <div id="sidebar"></div>
+    <div id="content-body"></div>
+  </body>
+</html>
 ```
 
-For example, consider the following code:
+The `class` attribute, on the other hand, can be thought of as a *classification*. It can be applied to many elements.
 
-```javascript
-const animals = [
-  'cat',
-  'dog'
-];
-
-console.log(animals.map(animal => animal.length));
+```html
+<html>
+  <body>
+    <div id="sidebar" class="redFont"></div>
+    <div id="content-body" class="redFont"></div>
+  </body>
+</html>
 ```
 
-### Template Literals
+## Introducing the Composition Model
 
-Concatenating strings is a common activity in JavaScript. To help clean up code, ES6 added new functionality: template literals.
+Traditionally, a document would be divided up into different *sections* based on how it was written. It might use different elements such as `<nav>`, `<article>`, or different collections of `<div>` elements to organize the document.
 
-In JavaScript ES5, adding the value of a variable to a complex string required multiple concatenation actions.
+**Example:**
 
-```javascript
-let example = 5;
-console.log('This uses a template literal: ' + example + '!');
+```html
+<html>
+  <body>
+    <div id='sidebar'>
+      <p>Sidebar Content</p>
+    </div>
+    <div id="content-body">
+      <article>
+        <p>Main Content</p>
+      </article>
+    </div>
+  </body>
+</html>
 ```
 
-In JavaScript ES6, template literals are enclosed in back-ticks, `` ` ``. Any use of a variable starts with the dollar-sign, `$`, and then is enclosed in opening and closing curly brackets.
+### Composition Model
 
-```javascript
-let example = 5;
-console.log(`This uses a template literal: ${example}!`);
+The *Composition Model* transforms each "section" into its own component. Instead of viewing the page as a single unit, it breaks each different part into its own unit. Each *component* , then, takes care of itself. It has its own elements and its connection to the larger document is through its parent component.
+
+Each component is also its own *pseudo* element that stands in for a set of elements that could, themselves, be inside other components. Arranging these components -- *composition* -- changes how a document is considered.
+
+**Updated Example:**
+
+```html
+<html>
+  <body>
+    <Sidebar />
+    <MainContent />
+  </body>
+</html>
 ```
 
-No concatenation is needed. The template literal handles all of the work to combine the value of the variable with the string around it.
+**`<Sidebar />`:**
 
-### `class` and `extends`
-
-Starting with ES6, JavaScript is now a true object-oriented programming language. Previous to ES6, it was possible to replicate most object-oriented programming functionality. However, ES6 added two important keywords, `class` and `extends`, that enabled full OOP support.
-
-#### `class`
-
-The `class` keyword is used to create classes in JavaScript. It defines a set of properties and functions that exist within the class as enclosed within curly brackets.
-
-```javascript
-class Example {
-
-}
+```html
+<div class='sidebar'>
+    <p>Sidebar Content</p>
+</div>
 ```
 
-When used with the `class` keyword, `extends` enables inheritance between classes. In object-oriented programming terms, this allows one object to 'extend' an existing one through gaining everything it has and adding more.
+**`<MainContent />`:**
 
-**index.js:**
-
-```javascript
-class Example {
-
-}
-
-class Another extends Example {
-
-}
+```html
+<div>
+    <article>
+      <p>Main Content</p>
+    </article>
+</div>
 ```
 
-#### *constructor()*
+## Introducing JSX
 
-Classes are created through the use of the `new` keyword. This creates an object based on the class. In this way, classes are often thought of as 'blueprints' for the object to be created.
+React was created at Facebook. Its developers came up with the component model through also introducing a new technology to help with using it: JSX.
 
-**index.js:**
+[JavaScript XML (JSX)](https://facebook.github.io/jsx/) solves a common problem in web development. Often, when working with a project, there will be HTML, JavaScript, and CSS files. Depending on the project, these could grow to dozens of files.
 
-```javascript
-// Define the class 'Example'
-class Example {
-}
+To help solve this problem, they proposed something radical. *Why not put HTML inside the JavaScript code?* In order to process this type of content, they introduced JavaScript XML, which allows for placing HTML-like elements (XML) inside JavaScript where it can be treated like any other value.
 
-// Create an object based on the class 'Example'
-let another = new Example();
-```
+However, to do this, they tied it to the existing rules around the Extensible Markup Language (XML).
 
-In object-oriented terms, this process *constructs* a new object based on the class. In fact, JavaScript, like many other object-oriented programming languages, supplies a special function named *constructor()* for that purpose.
+### JSX Rules
 
-When the *constructor()* function is added inside a class, it is the first function called when an object is being "constructed." (If not supplied, JavaScript will automatically generate one.)
+#### One Root Element
 
-**index.js:**
+HTML already has a root element named `<html>`. However, some sections of a web page may not, themselves, have a root element. JSX, based on XML, demands that any component (collection of elements) *always* have a root element for that component.
 
-```javascript
-// Define the class 'Example'
-class Example {
-  // Create a constructor()
-  constructor() {
-    // Anything inside the constructor()
-    //  will be called during the
-    //  "construction" process.
-    console.log("This will be called!");
-  }
-}
+#### All Elements Must Close
 
-// Create an object based on the class
-//  'Example'
-let another = new Example();
-```
+Most HTML elements have a closing tag. However, some do not. For these, they must "self-close" (include an ending backslash, `/`).
 
-The *constructor()* also serves an additional purpose: it allows a class to accept values during the "construction" process. Because it is a function, the *constructor()* function can also accept values.
+Based on XML rules, any element used must close before anything can start.
+
+#### JSX Expressions
+
+Using the values of variables is a core part of any programming language and the developers at Facebook knew this. They added *JSX expressions* into the language.
+
+An expression in JavaScript is anything that has a value. This includes, of course, variables, which have values, but also functions, which are a type of value.
+
+However, what is *not* an expression are existing keywords and loop structures in JavaScript. The keywords `if`, `else`, `for`, and `while` are *not* expressions and cannot be used within JSX.
+
+All other expressions, variables and functions, can be used through opening and closing curly brackets within the XML.
 
 ```javascript
-// Define the class 'Example'
-class Example {
-  // Because constructor() is a function,
-  //  it can also accept values.
-  constructor(value) {
-    // This will show '5'
-    console.log(value);
-  }
-}
+let exampleValue = 5;
 
-// Create an object based on the class
-//  'Example' and pass it a value, 5.
-let another = new Example(5);
+let exampleJSX = <div>{exampleValue}</div>;
 ```
 
-##### Class Scope
+While it can look odd, JSX allows for using HTML (XML) directly inside JavaScript. This also allows components to be collections of elements, too. They can contain JSX that defines the structure of its contents.
 
-Within a class defined in JavaScript, the `this` refers to the class itself. Like with function scope, this allows a class to have properties and functions that can be accessed within itself and externally through referencing an object based on the class.
+## Introducing WebPack + Babel
 
-**index.js:**
+Along with JSX, React uses another tool: [WebPack](https://webpack.js.org/). Defined as it name might imply, the tool WebPack "packs files for the web." In other words, it takes files used in Node.js and helps make them run easier in browser contexts.
+
+It does this through compacting files together and making them easier for web browsers to load in different chunks instead of in separate files. It also organizes project output into a form that web browsers can understand and adds some loading functionality that can optimize the file-loading process.
+
+React code is written using JavaScript ES6. In order to let the same code run in web browsers, most of which support only parts of JavaScript ES6, React also uses another tool, [Babel](https://babeljs.io/).
+
+In order to move between versions of a language, a process called *transpiling* is used. Babel helps with this and works along with WebPack to not only make a more optimized build for web browsers, but also transpile the code from the JavaScript ES6 used in Node.js into a version of JavaScript ES5 used in all major browsers.
+
+As part of this integration, React -- via WebPack + Babel -- adds two new keywords to JavaScript ES6 usage in Node.js: `export` and `import`.
+
+### `export`
+
+Normally, to "export" a value from one module to another in Node.js, the keyword (and global) **module** is used with its property *exports*. Anything assigned to the property is "exported" from the file and can be *require()*'d in another.
+
+Babel improves this through using the keyword `export`. Instead of using *module.exports*, the keyword `export` takes it place.
+
+For example, the following Node.js code "exports" a class named **Element**.
 
 ```javascript
-// Define the class 'Example'
-class Example {
-  constructor() {
-    this.someValue = 5;
-  }
-}
-
-// Create an object based on the class 'Example'
-let another = new Example();
-
-// This will output '5'
-console.log(another.someValue);
-
+module.exports = Element;
 ```
 
-#### *super()*
-
-The use of the keyword `extends` allows one class to "extend" another. However, what if there was a need to pass values from one *constructor()* to another? JavaScript provides the function *super()* to do that.
-
-In OOP terms, these classes exist a parent-child relationship. The first, original class is the 'parent' and the class that is extending it is the 'child'. Using the function *super()* calls the parent's *constructor()* and pass values to it.
-
-**index.js:**
+Translated into using the `export` keyword, this would become the following:
 
 ```javascript
-// Define the class 'Example'
-class Example {
-  // Define a constructor()
-  constructor(value) {
-    // Print the value to the console
-    console.log(value);
-  }
-}
-
-// Define the class 'Another'
-//  based on the class 'Example'
-class Another extends Example {
-  // Define a constructor()
-  constructor(value) {
-    // The parent's constructor()
-    super(value);
-  }
-}
-
-// Create an object based on 'Another'
-//  (which is based on 'Example')
-//
-// This will print the value 5
-//  because it is being passed
-//  from one constructor() to another.
-let another = new Another(5);
+export Element;
 ```
 
-The keyword `super` also allows a child class to call a parent's *functions* as well. Because it has access to the parent's functions, it can call a function as if it was the parent through the keyword `super`.
+In fact, to help with the common usage of only exporting a single value, the keyword `default` can be paired with `export` to become the following:
 
 ```javascript
-// Define the class 'Example'
-class Example {
-  // Define a function
-  parentExample() {
-    console.log("I'm the parent!");
-  }
-
-}
-
-// Define the class 'Another'
-//  based on the class 'Example'
-class Another extends Example {
-  // Define a constructor()
-  constructor() {
-    // Call the parent's constructor()
-    super();
-    // Call a function as if the parent
-    super.parentExample();
-  }
-}
-
-// Create an object based on 'Another'
-//  (which is based on 'Example')
-let another = new Another();
+export default Element;
 ```
 
-The one rule with using the keyword `super` in this way is that the parent's constructor must be called via *super()* before any other usages in the class. It has to be created before its functions can be called!
+Internally, Babel (and then WebPack) will translate this through combining all of the files together into code a web browser will understand.
 
-### Promises
+### `import`
 
-In JavaScript, using a *callback* functions has a long history. Using an anonymous function to process entries in an array, for example, or signal that an event has occurred, shows up frequently in code. However, having one callback function call another that calls another can become hard to debug.
+If the keyword `export` replaces *module.exports*, the keyword `import` replaces *require()*. Instead of using a function, the keyword `import` is used.
 
-To address this issue, ES6 also added Promises.
+Previously, the argument to the function *reuqire()* was also a path to a file or a package to load. With `import` this combines with the new keyword `from`.
 
-A promise is a future outcome. A person may promise to love someone forever or that they will not do something. It is something that occurs in the future.
-
-In JavaScript, a Promise is a special type of functionality that will either resolve or reject in the future. When that happens, either one callback function or another will be called.
-
-Some functionality in JavaScript are built on Promises, but one can be created (like any object) through using the `new` keyword.
+For example, the following code loads the class **Element** from a file.
 
 ```javascript
-let example = new Promise();
+let Element = require('./Element.js');
 ```
 
-The **Promise** object accepts a callback function with two arguments: *resolve()* and *reject()*. The *resolve()* function "resolves" the promise and fulfils it. The *reject()* function rejects the promise.
+Using the keywords `import` and `from`, this becomes the following code:
 
 ```javascript
-let example = new Promise((resolve, reject) => {
-  // To resolve, call resolve().
-  // To reject, call reject().
-});
+import Element from './Element.js';
 ```
 
-#### *then()*
-
-The result of a promise, resolved or rejected, can be processed through a special function named *then()*. It also accepts two function parameters. If the promise was fulfilled, it calls the first function. If the promise was rejected, it calls the second.
+Like with *require()*, the keyword `import` also understands destructing assignment from JavaScript ES6.
 
 ```javascript
-// Create a new object based on 'Promise'
-let testing = new Promise(
-  // Pass a function to 'Promise'
-  //
-  // The first argument to the function
-  //  is resolve() and the second, reject()
-  (resolve, reject) => {
-    let someValue = 5;
-    // Resolve the promise and return a value
-    resolve(someValue);
-});
-
-// Using then(), determine what happened.
-//
-// If the promise resolved, the first function
-//  will be called. If it was rejected, the
-//  second function will be called.
-testing.then(
-  // First, resolving function
-  (value) => {
-    console.log(value);
-  },
-  // Second, rejecting function
-  (value) => {
-    console.log(value);
-  }
-);
+import { someProperty } from './exampleFile.js'
 ```
 
-Promises allow for *asynchronous* functions. Because promises ar either fulfilled or reject in the future, the callback functions as part of its *then()* can be called at a different time than the code around it. This allows for things like waiting to connect to a server or processing large amounts of data. Once the promise finishes, it will either resolve or reject, and then the parameters to the *then()* function will be called.
-
-### `async` and `await`
-
-Promises allow for *asynchronous* functions. However, they can also create problems when code is waiting for a promise to either fulfill or reject before continuing. To prevent a problem of more callback functions calling others that call others, ES6 also added two new keywords that work specifically with promises: `async` and `await`.
-
-The `await` keyword, as its name might imply, "waits" for a promise to finish. It also simply takes whatever would have been given to the *then()* functions, whatever is passed to the internal *resolve()* or *reject()* functions, and returns it.
-
-However, to signal that some code should "wait," the keyword `async` must always be used in front of the function in which the `await` keyword is used. This marks the function as *asynchronous* and tells JavaScript that it will finish at some future point and it should not wait for it.
-
-```javascript
-async function AsyncExample() {
-
-  let testing = new Promise((resolve, reject) => {
-    let someValue = 5;
-    resolve(someValue);
-  });
-
-  let promiseResult = await testing;
-
-  console.log(promiseResult);
-
-}
-
-AsyncExample();
-```
-
-### Destructing Assignment
-
-Often, only a few properties or the first couple of positions of an array are needed. To help with those use cases, JavaScript ES6 also adds "destructing" functionality as part of assignment operations.
-
-In JavaScript ES5, it was possible to assign the value of an object's property in the following manner:
-
-```javascript
-let exampleObject = {
-  someProperty: 5
-};
-
-
-let someValue = exampleObject.someProperty;
-```
-
-However, where this same operation occurs most frequently is not in the above use case, but a more common one in Node.js: *require()*-ing in an object exported by another file.
-
-**Example.js:**
-
-```javascript
-module.exports = {
-  oneProperty: 1,
-  twoProperty: 2,
-  threeProperty: 3
-};
-```
-
-**index.js:**
-
-```javascript
-let example = require('./Example.js');
-
-let someValue = example.oneProperty;
-```
-
-Instead of pulling in additional properties not needed or used in the file, the assignment operation can be paired with the ability to 'destruct' an object.
-
-**Example.js:**
-
-```javascript
-module.exports = {
-  oneProperty: 1,
-  twoProperty: 2,
-  threeProperty: 3
-};
-```
-
-**index.js:**
-
-```javascript
-let { oneProperty } = require('./Example.js');
-
-let someValue = oneProperty;
-```
-
-In the above example, only the property *oneProperty* was *require()*'d into the file. Everything else was ignored. What was previously the object **example** became an object through which the property *oneProperty* was destructed.
-
-This functionality also works on arrays, too. Like with objects where the use of the curly brackets marks the object, it is also possible to use square brackets and give names matching the position of values within an array to destruct it.
-
-```javascript
-// Destruct an array
-let [one, two] = [5, 6, 7];
-// Print the value 6
-console.log(two);
-```
-
-### Spread Operator
-
-In JavaScript ES5, either a `for()` loop or some other functionality was needed to use the entire contents of an array. In ES6, an additional operator, `...`, the spread operator, was added to for these cases. Used in front of an array, it "spreads" its contents.
-
-```javascript
-// Create an array
-let arrayExample = [1,2,3,4,5,6,7,8,9,10];
-// Use the spread operator to print
-//  the entire contents.
-console.log(...arrayExample);
-```
-
-### Default Parameters
-
-In JavaScript ES5, it was often necessary to define the "default" values within functions and then test what was passed to it. (When not given a value, JavaScript defaults a parameter to the value of `undefined`.)
-
-```javascript
-function example(someValue) {
-  
-  // Set default value
-  this.someProperty = "Default";
-  
-  // Test if 'someValue' has a value or not
-  if(typeof someValue !== 'undefined') {
-    // Overwrite value
-    this.someProperty = someValue;
-  }
-
-  // Output value
-  console.log(this.someProperty);
-  
-}
-
-// Will output "Default"
-console.log(example());
-
-// Will output "Not default"
-console.log(example("Not default"));
-
-```
-
-With multiple parameters, this approach requires lots of extra lines of code! To fix this common pattern, JavaScript ES6 added *default parameters*. These can be written inside of the parentheses of the function's definition.
-
-```javascript
-function example(someValue = "Default") {
-  // Output value
-  console.log(someValue);
-  
-}
-
-// Will output "Default"
-console.log(example());
-
-// Will output "Not default"
-console.log(example("Not default"));
-```
-
-### Public Instance Fields
-
-In JavaScript ES6, it is possible to create a *public instance field*. What this means is that a field (a property or function) is created outside of the *constructor()* function within a class. It is *public* because it acts like a property of the class and is a *field* because it is defined outside of using the `this` keyword.
-
-While still an experimental feature in some JavaScript contexts, it can be used inside of React because Babel understands and can transpile the code for other programs like browsers to understand.
-
-```javascript
-class Element {
-  instanceExample = 5;
-}
-```
-
-In the above code, the vale of the public instance field *instanceExample* is 5. This is a property that is added *outside* of the normal usage of the *constructor()*, but is part of any instance of the class.
-
-Instance field can hold any value, which means they can also hold the value of a function.
-
-```javascript
-class Element {
-  instanceFunction = function() {
-    // Do something
-  };
-}
-```
-
-Holding the value of a function also means they can hold arrow functions as well. This opens the ability to have a property that is an arrow function whose `this` is the class itself.
-
-```javascript
-class Element {
-  instanceArrowFunction = () => {
-    // Do something
-  };
-}
-```
-
-In the above code, the value of the property *arrowFunctionExample* is an arrow function. Using public instance fields allows the value of a function to use the special context of arrow functions: their `this` is defined where they are, not where they are used.
-
-Instance fields can also have computed names. It is possible to create a new property (instance field) using the same general syntax used with an object literal: square brackets around the property name.
-
-```javascript
-const fieldName = "ExampleName";
-
-class ExampleClass {
-  
-  ['new' + fieldName] = 5;
-  
-  exampleFunction() {
-    console.log(this.newExampleName);
-  }
-
-}
-
-let e = new ExampleClass();
-
-console.log( e.exampleFunction() );
-```
-
-In the above code, the property *newExampleName* is computer inside of the square brackets used as part of the instance field. It is computer and then added to the instance and can be used.
-
-### Static Class Properties and Functions
-
-Some JavaScript environments support using the experimental keyword `static`. It can be paired with both functions and public fields in a class.
-
-When used with a function, it changes a function from being part of an instance (object) to being part of the *class* itself. It creates a single copy across *all* instances of the class, making it "static" to the class. It also, because it is static, comes with some extra rules.
-
-A static function:
-
-- Can be called using the name of the class
-- Can only call or reference other static functions and values
-- Cannot use `this`
-- Cannot use *super()*
-
-As the function is static to the class and not any particular instance, it does not have access to `this` or *super()*. However, it can be called using the name of the class outside of any instance of the class.
-
-```javascript
-class ExampleClass {
-  static staticFunction() {
-    return 'Static method has been called';
-  }
-}
-
-console.log( ExampleClass.staticFunction() );
-```
-
-A static public field in a class works the same as a static function: it can be used with the name of the class outside of any instance. It is "static" to the class, after all.
-
-```javascript
-class ExampleClass {
-
-  static publicFieldExample = 5;
-
-}
-
-console.log( ExampleClass.publicFieldExample );
-
-```
-
-### Private Instance Fields
-
-Normally, all properties of a class are public in JavaScript. Their values can be accessed through their names. With private instance fields, this level of access can be changed. Values can be set to *private* so that only the class, and not even its children, can access it.
-
-To create private instance fields, the hash symbol, `#`, can be used. It can only be used with fields and cannot be defined inside of a *constructor()* function.
-
-```javascript
-class ExampleClass {
-  
-  #privateValue = 6;
-  
-  exampleFunction() {
-    console.log(this.#privateValue);
-  }
-
-}
-
-let e = new ExampleClass();
-
-console.log( e.exampleFunction() );
-```
-
-Often called "hash names," as they have the hash symbol in front of them, they can *only* be accessed in the class in which they appear. They cannot be inherited by child classes, and their values cannot be accessed outside the class.
-
-### Symbol
-
-The keyword `Symbol` was added in JavaScript ES6. It has two common use cases for augmenting other objects.
-
-#### Adding Unique Identifiers
-
-The primary use case of the keyword `Symbol` is to add *unique* identifiers to other, existing objects.
-
-```javascript
-// Create an object literal
-let exampleObject = {
-  // Give the object a property
-  name: "exampleName"
-};
-
-// Define a symbol with a description of "name"
-let exampleSymbol = Symbol("name");
-
-// Augment an existing object with a new, hidden property
-// (The value of the property will be 1,
-//   not "name".)
-exampleObject[exampleSymbol] = 1;
-
-// Display the value of the augmented property
-console.log(exampleObject[exampleSymbol]);
-```
-
-In the above code, a Symbol is created through the function `Symbol()`. It was given a description, "name", and was then used to augment an existing object through using its computed value to define a new property.
-
-**Note:** The description of a Symbol is not its value. It is what its own property *description* will be set to internally. This can be used for debugging purposes.
-
-`Symbol` can also be used to augment existing objects created from classes as well.
-
-```javascript
-// Define a class
-class Example {
-  // Define a public instance field
-  publicInstanceExample = 5;
-}
-
-// Create an object based on the class
-let e = new Example();
-
-// Define a symbol with a description of "name"
-let exampleSymbol = Symbol("name");
-
-// Augment an existing object with a new, hidden property
-// (The value of the property will be 1,
-//   not "name".)
-e[exampleSymbol] = 1;
-
-// Display the value of the augmented property
-console.log(e[exampleSymbol]);
-```
-
-**Note:** Any use of the `Symbol()` function will create a unique identifer. For example, `Symbol() === Symbol()` will be `false` every time.
-
-#### Customizing Well-Known Functionality
-
-Beyond augmenting object properties, the keyword `Symbol` can also be used with other functionality. Existing objects can be augmented to support `match`, `search`, and `replace`.
-
-```javascript
-// Define a class
-class Example {
-  // Define a constructor
-  constructor(value) {
-    // Save the value passed to the constructor()
-    this.value = value;
-  }
-  // Augment the class
-  // Define a search()
-  //
-  // This will return the indexOf() of
-  //  the internal this.value.
-  //
-  // (This MUST be be "called" via search() on
-  //  a string through passing a new object to it
-  //  with the Symbol.search used within it!)
-  [Symbol.search](string) {
-    return string.indexOf(this.value);
-  }
-}
-
-// search() a string through sending the argument
-//  of a new Example() with a string value to
-//  search for the index of internally.
-console.log('some text'.search(new Example('tex')));
-```
-
-**Note:** The use of `Symbol.search`, `Symbol.match`, or `Symbol.replace` must be used with the corresponding **String.prototype** functions of *search()*, *match()*, and *replace()*.
-
-#### Symbol Shorthand
-
-While the `Symbol` keyword can be used within objects, there is also a shorthand that uses square brackets.
-
-#### Computed Object Literal Properties
-
-It works with object literals using the pattern of `[symbolReference]: value` inside its definition to create a computed property.
-
-```javascript
-// Create an example symbol
-//
-// (The variable 'exampleSymbol' holds
-//  a reference to the unique value. It
-//  must be used to access any properties
-//  created with it.)
-const exampleSymbol = Symbol();
-
-// Create an object
-const person = {
-  // Use the saved value from the created symbol.
-  // Use the shorthand of [symbolReference]: value
-  [exampleSymbol]: 'Example value'
-}
-
-// Access the created property's value
-//
-// (This will display "Example value".)
-console.log (person[exampleSymbol]);
-```
-
-#### Computed Instance Fields
-
-The square brackets shorthand also works with classes as well. It uses the pattern of `[symbolReference] = value`.
-
-```javascript
-// Create an example symbol
-//
-// (The variable 'exampleSymbol' holds
-//  a reference to the unique value. It
-//  must be used to access any properties
-//  created with it.)
-const exampleSymbol = Symbol();
-
-// Create an object
-class Person {
-  // Use the saved value from the created symbol.
-  //
-  // Use the shorthand of [symbolReference] = value
-  [exampleSymbol] = 'Example value';
-}
-
-// Create a new object
-//
-// Add a computed instance field based on
-//  the reference value of the created symbol.
-const p = new Person();
-
-// Access the created property's value
-//
-// (This will display "Example value".)
-console.log (p[exampleSymbol]);
-```
-
-#### Hidden Properties
-
-Any use of `Symbol` with an object creates a "hidden" property. This means they do not appear when *Object.keys()* or *Object.getOwnPropertyNames()* is used with the object. They augment the object, but are not a true property of it.
-
-To access all properties defined using `Symbol`, the function *Object.getOwnPropertySymbols()* can be used. This acts like *Object.getOwnPropertyNames()*, but only returns properties created using `Symbol`.
-
-### Iterators
-
-In JavaScript ES5, moving through the entries in an array or properties of an object can potentially be complicated and require multiple lines of code. JavaScript ES6 improved this common pattern through two additional keywords used with the traditional `for()` loop: `of` and `in`. These keywords access new functionality added in JavaScript ES6: *iterators*.
-
-#### `for... of`
-
-In JavaScript ES5, moving through an array uses the `for()` keyword and often the creation of an additional variable like *i*, *j*, or *k* where the position of each entry in the array could be accessed through increasing the value of the variable to move forward or decreasing to move backward through the array.
-
-```javascript
-var arrayExample = [1,3,4,5];
-
-for(var i = 0; i < arrayExample.length; i++) {
-  console.log(arrayExample[i]);
-}
-```
-
-In JavaScript ES6, this common pattern has been improved through *iterators*. Instead of needing to save the position of an index in the array, an additional keyword, `of`, is used to iterate through the array and use the value *at* the position, instead. For each entry in the array, the variable used is *set* to that value, bypassing the need for the position.
-
-```javascript
-let arrayExample = [1,3,4,5];
-
-for(let entry of arrayExample) {
-  console.log(entry);
-}
-```
-
-#### `for... in`
-
-When working with objects, there is no access to positions. They do not have them. To help iterate over their properties, the keyword `in` can be combined with `for()`.
-
-```javascript
-let objectExample = {
-  propertyOne: 2,
-  propertyTwo: 3
-};
-
-for(let entry in objectExample) {
-  console.log(entry);
-}
-```
-
-However, instead of returning values, like with arrays, the `for... in` pattern returns the *names of the properties themselves*. To access the *values* of the properties, the square bracket syntax can be used.
-
-```javascript
-let objectExample = {
-  propertyOne: 2,
-  propertyTwo: 3
-};
-
-for(let entry in objectExample) {
-  console.log(objectExample[entry]);
-}
-```
-
-#### Defining Iterators
-
-The `Symbol` keyword can be used to define an iterator for any object using a function.
-
-### `Set()`
-
-### `Map()`
+In fact, to reduce larger builds for web browsers, React developers are highly encouraged to use the destructing assignment option whenever possible to limit what is combined in the final output of the project. The less overall, the easier and faster a web browser can load it!
