@@ -28,7 +28,7 @@ For example, to react to a particular `<p>` element being clicked, the code migh
 <p onClick='() => { console.log("Clicked!") }'>Click me!</p>
 ```
 
-In the above case, the arrow function would call a function inside of it, *console.log()*. It would *only* be called if the particular event, `click`, happened. Otherwise, it would be ignored.
+In the above case, the arrow function would call a function inside of it, **console.log()**. It would *only* be called if the particular event, `click`, happened. Otherwise, it would be ignored.
 
 ## React Synthetic Events
 
@@ -185,9 +185,9 @@ While it can be used in small amounts, it not recommended to generate large list
 
 Early developers of React used a technique that is still fairly popular: binding `this`.
 
-The function *bind()* can be used on any function to change its internal `this`. It then returns a new function based on the old one, but changed.
+The function **bind()** can be used on any function to change its internal `this`. It then returns a new function based on the old one, but changed.
 
-In the case of binding `this` in React, a function within a class is "re-binded" inside a *constructor()*. Before it is used, then, its own `this` is the same as that of the class in which it is defined.
+In the case of binding `this` in React, a function within a class is "re-binded" inside a **constructor()**. Before it is used, then, its own `this` is the same as that of the class in which it is defined.
 
 For event listeners, this means that the `this` of the function will always be the class, even when the code is run in a different context.
 
@@ -233,7 +233,7 @@ While popular in some circles, the binding of `this` also creates its own proble
 
 While each component should only be concerned with its own elements, what happens if it needs to keep track of data somehow? In those cases, each component can have its own *state*.
 
-State can be added to a component through creating a property *this.state* inside of a class component's *constructor()* (or as a public class field). Because it is part of the class, it can be accessed anywhere inside of it.
+State can be added to a component through creating a property *this.state* inside of a class component's **constructor()** (or as a public class field). Because it is part of the class, it can be accessed anywhere inside of it.
 
 ```javascript
 import React from 'react';
@@ -268,13 +268,13 @@ class App extends React.Component {
 export default App;
 ```
 
-While the above code my seem like the answer, it is not. The reason why has to do with React and its use of *render()*. In the above code, the value of *this.state.counter* would be updated, but its new value would not be shown -- *render()* would need to be called again!
+While the above code my seem like the answer, it is not. The reason why has to do with React and its use of **render()**. In the above code, the value of *this.state.counter* would be updated, but its new value would not be shown -- **render()** would need to be called again!
 
 ### Updating State
 
-To help with this common task, the class **React.Component** has a special function designed for only updating state: *setState()*.
+To help with this common task, the class **React.Component** has a special function designed for only updating state: **setState()**.
 
-Inherited from **React.Component**, *setState()* seemingly only does one thing: updates *this.state*. However, it also does another thing internally: it also calls *render()*! Any use of *setState()* will update the internal *this.state* and have any updated values become part of the next call to *render()*. (This also, like all things React, allows it to collect potential changes and decide when to update the DOM to be most efficient.)
+Inherited from **React.Component**, **setState()** seemingly only does one thing: updates *this.state*. However, it also does another thing internally: it also calls *render()*! Any use of *setState()* will update the internal *this.state* and have any updated values become part of the next call to *render()*. (This also, like all things React, allows it to collect potential changes and decide when to update the DOM to be most efficient.)
 
 ### Using **setState()**
 

@@ -20,14 +20,14 @@ In React, HTML elements are *mounted* when they are added to the document and re
 ### Lifecycle Functions
 
 - Mounting
-  - *constructor()*
-  - *render()*
-  - *componentDidMount()*
+  - **constructor()**
+  - **render()**
+  - **componentDidMount()**
 - Updating
-  - *setState()*
-  - *componentDidUpdate()*
+  - **setState()**
+  - **componentDidUpdate()**
 - Unmounting
-  - *componentWillUnmount()*
+  - **componentWillUnmount()**
 
 ## Mounting
 

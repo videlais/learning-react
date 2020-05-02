@@ -15,7 +15,7 @@
       - [Preparing the Folder](#preparing-the-folder)
       - [Creating and Running a File](#creating-and-running-a-file)
   - [Working with Modules](#working-with-modules)
-    - [*require()*](#require)
+    - [**require()**](#require)
     - [**module.exports**](#moduleexports)
   - [Installing Packages](#installing-packages)
     - [Example: Installing and Using Chalk](#example-installing-and-using-chalk)
@@ -123,18 +123,18 @@ When run, the file `index.js` will produce the line "Hi, there!".
 
 ## Working with Modules
 
-While a few lines of code in one file can be useful, Node.js provides functionality for working across modules: *require()* and **module.exports**.
+While a few lines of code in one file can be useful, Node.js provides functionality for working across modules: **require()** and **module.exports**.
 
-### *require()*
+### **require()**
 
-When working with multiple files or packages, the function *require()* can be used to "include" whatever another file exports. In other words, if certain values are stored in one file, they can be 'exported' out from their file and *require()*'d in another.
+When working with multiple files or packages, the function **require()** can be used to "include" whatever another file exports. In other words, if certain values are stored in one file, they can be 'exported' out from their file and **require()**'d in another.
 
 ```javascript
 // Using a local file
 var example = require('./another.js');
 ```
 
-The function *require()* accepts a path to a local JS file or the name of an installed package.
+The function **require()** accepts a path to a local JS file or the name of an installed package.
 
 ```javascript
 // Using an installed package
