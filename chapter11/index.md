@@ -3,13 +3,15 @@
 - [Adding Contexts](#adding-contexts)
   - [Problem with Repeating Attributes](#problem-with-repeating-attributes)
   - [Creating Contexts](#creating-contexts)
-  - [Providers and Class Consumers](#providers-and-class-consumers)
+  - [Provider and Class Consumers](#provider-and-class-consumers)
     - [Static Class Contexts](#static-class-contexts)
   - [Function Consumers](#function-consumers)
 
 ## Problem with Repeating Attributes
 
 In complex projects, there is often a need to pass "down" a value from a parent component to its children who then pass it down to its children. Such a value is added as an attribute to the initial children who, in turn, must also add the same attribute for its own children, repeating the attribute through a tree of components.
+
+**Consider the following example:**
 
 ```javascript
 class App extends React.Component {
@@ -32,7 +34,9 @@ function Another(props) {
 
 ```
 
-In the above code, a *repeatingAttribute* is set. This is passed down from `<App />` to its children, who all pass it to their children. It is also very wasteful code! Multiple components are "passing down" the *repeatingAttribute* without using it and are acting as a relay for a value for a grandchild component to use.
+In the above code, a *repeatingAttribute* is set. This is passed down from `<App />` to its children, who all pass it to their children. It is also very wasteful code!
+
+Multiple components are "passing down" the *repeatingAttribute* without using it and are acting as a relay for a value for a grandchild component to use.
 
 To solve this common issue, React allows for creating *contexts*.
 
@@ -44,7 +48,7 @@ A *context* is a way to create a global store that exists in connection to a tre
 const MyContext = React.createContext(defaultValue);
 ```
 
-The function *createContext()* creates the ability to add a context. This a store any components can use. However, in order for it to be "passed down", it must be used across multiple files.
+The function **createContext()** creates the ability to add a context. This is a store that any components can use. However, in order for it to be "passed down", it must be used across multiple files.
 
 **src/components/Context/index.js:**
 
@@ -58,7 +62,9 @@ export default MyContext;
 
 Each file that imports the example `Context/index.js` files gets what it exports, a **Context**. If parent components need to provide values or child components consume them, this is where it starts.
 
-## Providers and Class Consumers
+In the initial usage, the context would be created. However, on any additional usage, the created context would be returned. The parent creates it, and the children can then use it.
+
+## Provider and Class Consumers
 
 Each **Context** provides two other components, **Provider** and **Consumer**. When used together, a `<Context.Provider>` component "wraps" a parent component and "passes down" a value to its children. Any child can subscribe (consume) the context and its value. If they do, they will be re-rendered whenever the value changes in the parent (or even grandparent!) updates it.
 
@@ -128,17 +134,17 @@ export default AnotherComponent;
 
 In the above code, the component `<AnotherComponent>` *does* use the context. It can import the context the same as `<App>` did. However, internally, things are different now.
 
-Earlier in the tree (in `<App>`), a **Provider** was used. This set *value* for the context. Any children that subscribe to the context (call *React.createContext()*) *after* a **Provider** is used become subscribers to the value.
+Earlier in the tree (in `<App>`), a **Provider** was used. This set *value* for the context. Any children that subscribe to the context (call **React.createContext()**) *after* a **Provider** is used become subscribers to the value.
 
 **Note:** If a **Provider** was used in this component, it would then become the "provider" for its own children, overwriting the current *value* with its own.
 
 The above class also uses different *.contextType*. There is a line after the class but before it is exported. This augments the class with a new property, *contextType*, and sets its value to the context.
 
-Using such a line may seem strange, but this changes the *class*, not an instance of it. Using something like `this.contextType = MyContext` would not work -- it would change the object, not the class itself.
+Using such a line may seem strange, but this changes the *class*, not an instance of it. Using something like `this.contextType = MyContext` would not work. It would change the object, not the class itself.
 
 ### Static Class Contexts
 
-Babel supports using the keyword `static` for class fields in JavaScript ES6. A context can thus be set as "static" to the class itself, avoiding the issue with instances.
+JavaScript ES6 supports using the keyword `static` for class fields. A context can thus be set as "static" to the class itself, avoiding the issue with instances.
 
 ```javascript
 import React, { Component } from 'react';
@@ -160,7 +166,9 @@ export default AnotherComponent;
 
 ## Function Consumers
 
-Class components have the options of using *contextType* or using the `static` keyword. *What about function components?*
+Class components have the options of using *contextType* or using the `static` keyword.
+
+*What about function components?*
 
 Function components can use another component provided by **Context**: **Consumer**. The `<Context.Consumer>` component is used to "wrap" functions and provides the same access and re-rendering based on subscriber status provided to class components.
 

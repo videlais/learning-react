@@ -15,9 +15,7 @@ Learning React is an open source textbook designed to be remixed, reused, or imp
 
 The word "Learning" in Learning React is purposeful. This is not an exhaustive list of everything in React and how to use it.
 
-This book tries to outline and review major functionality React. Its purpose is someone *learning* React in order to move into more advanced functionality.
-
-This is also an *open source* textbook. Remixing, reusing, or improving it through pull requests is *highly encouraged*.
+This book tries to outline and review major functionality React. Its purpose is to help someone *learning* React in order to move into more advanced functionality at their own pace. This can be thought of as a *crash course* in React functionality and concepts.
 
 ## Table of Contents
 
@@ -33,7 +31,7 @@ This is also an *open source* textbook. Remixing, reusing, or improving it throu
 - [Chapter 9: Higher-Order Components](chapter10/index.md)
 - [Chapter 10: Working with Data in React](chapter11/index.md)
 - [Chapter 11: Adding Contexts](chapter12/index.md)
-- [Chapter 12: Working with Multimedia](chapter13/index.md)
+- [Chapter 12: Working with File Loader](chapter13/index.md)
 
 ---
 
