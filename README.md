@@ -1,6 +1,23 @@
 # Learning React
 
-This is an "open source" textbook. Remixing, reusing, or improving it through pull requests is *highly encouraged*. In fact, if you want to help add content, there is a [TODO list](TODO.md) for what is being worked on next.
+- [Learning React](#learning-react)
+  - [Welcome](#welcome)
+  - [What This Is (and Isn't)](#what-this-is-and-isnt)
+  - [Table of Contents](#table-of-contents)
+  - [Creative Commons](#creative-commons)
+  - [Copyright](#copyright)
+
+## Welcome
+
+Learning React is an open source textbook designed to be remixed, reused, or improving through submitting issues and pull requests on GitHub!
+
+## What This Is (and Isn't)
+
+The word "Learning" in Learning React is purposeful. This is not an exhaustive list of everything in React and how to use it.
+
+This book tries to outline and review major functionality React. Its purpose is someone *learning* React in order to move into more advanced functionality.
+
+This is also an *open source* textbook. Remixing, reusing, or improving it through pull requests is *highly encouraged*.
 
 ## Table of Contents
 
@@ -28,4 +45,4 @@ This work is licensed under a [Creative Commons Attribution 4.0 International Li
 
 ## Copyright
 
-React, Facebook, WebPack, Babel, and other tools are trademarked to their respective programs, tools, and companies.
+React, Facebook, WebPack, Babel, and other tools are trademarked to their respective programs, tools, organizations or companies.

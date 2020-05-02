@@ -3,21 +3,23 @@
 - [Introducing React](#introducing-react)
   - [ReactDOM](#reactdom)
   - [Anatomy of a Class Component](#anatomy-of-a-class-component)
+    - [Every React component must import React.](#every-react-component-must-import-react)
     - [Extending **React.Component**](#extending-reactcomponent)
     - [Class Component Functions](#class-component-functions)
-    - [Returning JSX](#returning-jsx)
-      - [Using `key`](#using-key)
+    - [Every **render()** must return JSX](#every-render-must-return-jsx)
+  - [Using `key`](#using-key)
   - [Render Chaining](#render-chaining)
   - [Elements and Attributes into Objects and Properties](#elements-and-attributes-into-objects-and-properties)
   - [Organizing Components](#organizing-components)
+    - [Components can contain components](#components-can-contain-components)
 
 ## ReactDOM
 
 React is known as one of the faster front-end frameworks. One of the ways it achieves this is through its own "shadow DOM." React keeps track of an internal document object model (DOM) and only updates the real document when absolutely necessary. This means that updates to the document only occur when they need to and no unnecessary changes or updates happen.
 
-This makes it "react" faster because it will combine updates and make them all at once instead of updating at different times. This also means that React expects developers to be aware of when they are making changes and to know React may delay things to make code more efficient overall.
+This makes it "react" faster because it will combine updates and make them all at once instead of updating at different times. This also means that React expects developers to be aware of when they are making changes and to know React may delay things to make the code more efficient overall.
 
-One of the ways React keeps track of its own DOM is through a object known as **ReactDOM**. At the very center of all React code is call to the function *render()* as part of the object **ReactDOM**.
+One of the ways React keeps track of its own DOM is through a object known as **ReactDOM**. At the very center of all React code is call to the function **render()** as part of the object **ReactDOM**.
 
 Most React projects, at their very core, contain the following line of code:
 
@@ -35,7 +37,9 @@ The `index.html` for a React project often looks like the following:
 </body>
 ```
 
-The call to the *render()* function as part of **ReactDOM** adds the internal elements of each component to this `<div id="root">` in the HTML document, starting with `<App />`. The first argument to the function is the component to render and the second is where to render it.
+The call to the **render()** function as part of **ReactDOM** adds the internal elements of each component to this `<div id="root">` in the HTML document, starting with `<App />`.
+
+The first argument to the function is the component to render and the second is where to render it.
 
 Moving from the **ReactDOM** outward, the first component encountered is **App**.
 
@@ -51,7 +55,7 @@ ReactDOM.render(<App />, document.querySelector('#root'));
 
 ## Anatomy of a Class Component
 
-*Every React component must import React.*
+### Every React component must import React.
 
 While this might seem like a silly rule given the usage of React, this establishes two things behind-the-scenes
 
@@ -87,11 +91,11 @@ The class **Example** uses the `extends` keyword to "extend" the existing class 
 
 ### Class Component Functions
 
-As with any other extending of exiting classes in JavaScript, anything that `extends` **React.Component** gains all of its functions. One of the most important of these is the *render()* function.
+As with any other extending of exiting classes in JavaScript, anything that `extends` **React.Component** gains all of its functions. One of the most important of these is the **render()** function.
 
 *Every class component must render.*
 
-If a class `extends` **React.Component**, this means it will contain some HTML elements. The "containing" part comes through the function *render()* it inherits.
+If a class `extends` **React.Component**, this means it will contain some HTML elements. The "containing" part comes through the function **render()** it inherits.
 
 ```javascript
 import React from 'react'
@@ -105,7 +109,7 @@ class Example extends React.Component {
 export default Example;
 ```
 
-*Every render() must return JSX.*
+### Every **render()** must return JSX
 
 Along with every class component needing to have a *render()* function, the *render()* must also return JSX. After all, a component is defined, in part, because it is a collection of elements.
 
@@ -123,13 +127,11 @@ class Example extends React.Component {
 export default Example;
 ```
 
-Most React projects also use a feature available to all functions in JavaScript, the use of parentheses. The JSX returned from a *render()* function is often "wrapped" to help show where the contents begins and ends.
+Most React projects also use a feature available to all functions in JavaScript, the use of parentheses. The JSX returned from a **render()** function is often "wrapped" to help show where the contents begins and ends.
 
-### Returning JSX
+Because all class components must have a **render()** function and return JSX, this means that the three rules of JSX are most commonly seen here. This also means that only *expressions* are allowed in the returned JSX. The use of the keywords `if`, `else`, `for`, and `while` are not allowed.
 
-Because all class components must have a *render()* function and return JSX, this means that the three rules of JSX are most commonly seen here. This also means that only *expressions* are allowed in the returned JSX. The use of the keywords `if`, `else`, `for`, and `while` are not allowed.
-
-*What does this mean?* If conditional statements and traditional loop structures are not allowed, this means that the additional functionality of arrays and objects should be used instead. Functions like **map()**, **filter()**, and **forEach()** become important for displaying parts or the values of certain arrays and objects.
+If conditional statements and traditional loop structures are not allowed, this means that the additional functionality of arrays and objects should be used instead. Functions like **map()**, **filter()**, and **forEach()** become important for displaying parts or the values of certain arrays and objects.
 
 For example, consider the common example of needing to display every entry in an array.
 
@@ -159,17 +161,31 @@ class Example extends React.Component {
 export default Example;
 ```
 
-#### Using `key`
+In the above code, the use of **forEach()** allows for iterating over the array, **arrayExample**. This is given a callback function (an arrow function) and, inside this, is the use of more JSX.
+
+JSX can be nested in this way. Each function "layer," when using callback or other common function patterns, can use its own JSX.
+
+## Using `key`
 
 Whenever a large group of elements are added to the document, React stresses the use of the attribute `key` with a unique on value per each element. This helps React know which, if any, of the elements might need to be updated in the future. (Remember, React keeps its own shadow version of the DOM and only updates the real one when needed!)
 
-When working with functions like **map()**, **filter()**, and **forEach()**, it is strongly suggested to use the attribute `key` on each element added and set its value to the optional value *position* all of these functions supply. This will not only help React speed up the application, but is also a good practice helping to identify different individual elements within a larger set of them.
+```javascript
+arrayExample.forEach(
+  (entry, position) => {
+    <p key={position}>{entry}</p>
+  }
+);
+```
+
+When working with functions like **map()**, **filter()**, and **forEach()**, it is strongly suggested to use the attribute `key` on each element added and set its value to the optional value *position* all of these functions supply.
+
+This will not only help React speed up the application, but is also a good practice helping to identify different individual elements within a larger set of them.
 
 ## Render Chaining
 
-This chapter started with discussing the object **ReactDOM** and its function *render()*. In reviewing class components, it was mentioned that all class components must have a *render()* function. In fact, all components, because they are collections of elements, must render *something*.
+This chapter started with discussing the object **ReactDOM** and its function **render()**. In reviewing class components, it was mentioned that all class components must have a **render()** function. In fact, all components, because they are collections of elements, must render *something*.
 
-Because of this use of rendering, React uses a system of *render()* into *render()* functions, or known as render chaining. One component will have a *render()* that is used by another and another until no other components are found.
+Because of this use of rendering, React uses a system of **render()** into **render()** functions, or known as render chaining. One component will have a **render()** that is used by another and another until no other components are found.
 
 Consider the following code:
 
@@ -200,7 +216,7 @@ class App extends React.Component {
 export default App;
 ```
 
-In the above two files, the function *ReactDOM.render()* attempts to render the component **App**. Because it has its own *render()* function, this is called and its HTML returned. What started as a nested form like the following example --
+In the above two files, the function **ReactDOM.render()** attempts to render the component **App**. Because it has its own **render()** function, this is called and its HTML returned. What started as a nested form like the following example --
 
 ```javascript
 ReactDOM.render(App.render());
@@ -214,7 +230,7 @@ ReactDOM.render(App.render());
 </div>
 ```
 
-The chain of *render()* functions navigates down and adds the element to the document when it reaches a bottom-most component that has only HTML elements and returns the content back up the chain to the top-most usage of **ReactDOM.render()**.
+The chain of **render()** functions navigates down and adds the element to the document when it reaches a bottom-most component that has only HTML elements and returns the content back up the chain to the top-most usage of **ReactDOM.render()**.
 
 ## Elements and Attributes into Objects and Properties
 
@@ -253,7 +269,7 @@ When passed to a class component, the object **props** becomes *this.props* and 
 
 This make it easy to pass values from one component to another. Instead of using the `new` keyword, the use of attributes allows initial values to be "passed" to the new object created based on the element form.
 
-**Node.js:**
+**Node.js Form:**
 
 ```javascript
 let value1 = 1;
@@ -262,7 +278,7 @@ let value2 = 2;
 let element = new Element(value1, value2);
 ```
 
-**React:**
+**React Form:**
 
 ```html
 <Example value1={1} value2={2} />
@@ -272,9 +288,9 @@ Internally, in the above code, the object **Example** would have access to *this
 
 ## Organizing Components
 
-*Components can contain components.*
+### Components can contain components
 
-While this concept seems simple given what has been shown of working with *ReactDOM.render()* and other other *render()* functions, this also extends to *all* components. At the center of a React project will be a usage of *ReactDOM.render()*. However, there is no limit to the number of other components.
+While this concept seems simple given what has been shown of working with **ReactDOM.render()** and other other **render()** functions, this also extends to *all* components. At the center of a React project will be a usage of **ReactDOM.render()**. However, there is no limit to the number of other components.
 
 To help with organizing them, like with a Node.js project, it is strongly recommended to create separate folders for each new component with their own `index.js` file. These should each be inside an overall folder named `components`.
 

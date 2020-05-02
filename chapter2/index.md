@@ -47,6 +47,10 @@ Once installed, Node.js adds three new commands.
 
 The command `node` runs a JavaScript file given a path to its location. It accepts both absolute and relative paths.
 
+```bash
+node fileToRun.js
+```
+
 ### `npm`
 
 The command `npm` allows for installing, updating, or removing of packages.
@@ -55,11 +59,41 @@ When the command `npm init` is used, the current working directory is assumed to
 
 The command `npm install X` installs the package `X` in the project directory and adds it to the `package.json` file with its current version. If the package has dependencies, other packages it depends on to work, these are also installed.
 
+**Example:**
+
+```bash
+npm install chalk
+```
+
 The command `npm remove X` removes the package `X` from the project directory.
+
+**Example:**
+
+```bash
+npm remove chalk
+```
 
 ### `package.json`
 
 Each project directory has its own `package.json` file. This is created through the command `npm init` and contains information about the project and what, if any, packages it is using and their current version.
+
+**`package.json` Example:**
+
+```json
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
+
+```
 
 ### `node_modules`
 
@@ -69,9 +103,17 @@ Whenever the command `npm install` is used to install a package, it is added to 
 
 The command `npx` runs an existing package from `npmjs.org` instead of installing it. Common processes, such as creating a new React project, are defined as packages that can be used with the `npx` command and additional arguments.
 
+**Example:**
+
+```bash
+npx create-react-app example
+```
+
 ## Working with Node Projects
 
-The first step in creating a new Node.js project should always be creating a directory. Next, a project can be initialized and files added to it.
+The first step in creating a new Node.js project should always be creating a directory.
+
+Next, a project can be initialized and files added to it.
 
 ### Hello World Example
 
@@ -161,7 +203,7 @@ var example = require('./another.js');
 console.log(example);
 ```
 
-**Note:** Values in JavaScript can be simple integers like `5`, but they can also be more complex structures like functions and objects. Many packages 'export' complex data structures and allow users to use different functionality.
+**Note:** Values in JavaScript can be simple integers like `5`, but they can also be more complex structures like functions and objects. Many packages 'export' complex data structures via object literals and allow users to use different functionality from them.
 
 ## Installing Packages
 

@@ -14,9 +14,9 @@
 
 ## Command-Line
 
-When thinking of programming, many people imagine the the trope of a person sitting in the dark and staring at lines of text scrolling on a screen. While this is not the truth for nearly all of modern programming, it does contain a single grain of truth: text on the screen.
+When thinking of programming, many people imagine a person sitting in the dark and staring at lines of text scrolling on a screen. While this is not the truth for nearly all of modern programming, it does contain a single grain of truth: text on the screen.
 
-Before we can move on to working with React, we have to understand something else: the command-line. Instead of clicking on buttons or dragging-and-dropping, we will be typing in code and then commands to run, test, and build projects.
+Before we can move on to working with React, we have to understand something else: the command-line. Instead of clicking on buttons or dragging-and-dropping, we will be typing in code and then using commands to run, test, and build projects.
 
 ## Finding the Command Line
 
@@ -44,11 +44,12 @@ When working in different operating systems, the terms *file*, *folder*, and *fi
 
 **Note:** A file is a single document, and a folder is a named collection of them. A filesystem is all of the files and folders on a computer.
 
-When working with the command-line, different terms are used. These draw from an older history of accessing tools and writing code before graphical interfaces.
+When working with the command-line, however, different terms are used. These draw from an older history of accessing tools and writing code before graphical interfaces.
 
 - **Directory**: a folder of other files.
   
 - **Current Working Directory**: the folder currently being accessed.
+
 - **Root Directory**: the bottom-most directory. In Windows, this will be `C:\` and in MacOS X and Linux systems, it will be `/`.
   
 - **Server Root Directory**: Programs that serve HTML and other files 'serve' from a directory. On the filesystem, this might be `/webserver/documents` but as far as the server knows, this is `/`. The *server root* is what the server sees as `/` and the filesystem sees as a different directory.
@@ -68,13 +69,25 @@ Each operating system is slightly different in how it defines the tools for work
 
 The command `ls` "lists" the contents of the current directory except for files and directories that start with a period. These are considered "hidden."
 
+```bash
+ls
+```
+
 When used with the *command-line argument* of `-a`, `ls` will show "all" of the files and directories in the current working directory.
+
+```bash
+ls -a
+```
 
 ("Hidden" files and directories are named so because settings, configurations, and other personalization options or many programs are often saved in directories that start with a period, `.`, to 'hide' them from users.)
 
 ### `cd`
 
 The command `cd` "changes directory" from the current working directory to another through specifying a path.
+
+```bash
+cd /nested/directory
+```
 
 Paths are accepted in both absolute, starting with the root directory outward to the current file or directory, or using periods and backslashes to specify a relative path.
 
@@ -83,3 +96,7 @@ Paths are accepted in both absolute, starting with the root directory outward to
 The command `mkdir` "makes a directory" based on a path given to it. If a directory does not exist in that location, it is created. It one does, the command fails.
 
 Paths are accepted in both absolute, starting with the root directory outward to the current file or directory, or using periods and backslashes to specify a relative path.
+
+```bash
+mkdir newdirectory
+```

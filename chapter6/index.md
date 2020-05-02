@@ -32,7 +32,7 @@ To assign a value to an element, the attribute `className` is used, with a capit
 
 The attribute `id` is not used with CSS in React for a particular reason that links to what is already known about components: *They take care of themselves.*
 
-The `id` selector, when used in CSS, can "reach" across a document. As it is a unique selector, it can only be given to one element in a document at one time. However, if a particular element has the `id`, how would any one component know? They are "taking care of themselves" and not looking -- nor do they have access! -- to the rest of the document. They can only see what elements they *render()*.
+The `id` selector, when used in CSS, can "reach" across a document. As it is a unique selector, it can only be given to one element in a document at one time. However, if a particular element has the `id`, how would any one component know? They are "taking care of themselves" and not looking -- nor do they have access! -- to the rest of the document. They can only see what elements they **render()**.
 
 ## Importing CSS
 
@@ -130,7 +130,7 @@ This also allows a parent component to more easily pass the value to its childre
 
 So far, only class selectors have been discussed. ID selectors were mention and, because they break the *Components take care of themselves* rule, ignored. It is possible to create an ID-like selector in React. However, instead of "selecting," the code would be assigned to the `style` attribute.
 
-Class selectors use the keyword `className`, but that does not means the `style` attribute does not exist. It can also be used and, because React understand CSS Modules, can be given an object literal of properties, all of which are CSS values.
+Class selectors use the keyword `className`, but that does not means the `style` attribute does not exist. It can also be used and, because React understands CSS Modules, can be given an object literal of properties, all of which are CSS values.
 
 **index.js:**
 
@@ -164,7 +164,7 @@ When working in a web browser, any hyphened names as part of the DOM follow this
 
 ### Changing Properties During Runtime
 
-The advantage of inline CSS, unlike CSS modules or importing CSS, is that it can be calculated during runtime. Because the strong values are merely properties of an object, they can be changed through concatenating values.
+The advantage of inline CSS, unlike CSS modules or importing CSS, is that it can be calculated during runtime. Because the string values are merely properties of an object, they can be changed through concatenating values.
 
 **index.js:**
 
@@ -218,3 +218,5 @@ export default Example;
 While using inline CSS may seem like a great way to use CSS in React, it is also not recommended. Using `className` is the preferred way whenever possible.
 
 The reason for avoiding inline CSS relates to its slower performance. When added to the document, all CSS calculations are done in real-time when they are added to the document instead of being storied and applied to an existing document.
+
+With imported CSS, these calculations are done *before* the elements themselves are loaded. With in-line CSS, this calculation is done *during* loading as the elements are parsed by React and rendered.
