@@ -1,5 +1,12 @@
 # Introduction
 
+- [Introduction](#introduction)
+  - [Book Conventions](#book-conventions)
+  - [Reviewing Core Concepts](#reviewing-core-concepts)
+    - [HTML](#html)
+    - [CSS](#css)
+    - [JavaScript](#javascript)
+
 ## Book Conventions
 
 This book uses the following conventions to define different things and give them emphasis.
@@ -13,9 +20,7 @@ multiple
 line of code
 ```
 
-## Assumptions
-
-This book makes some assumptions about what you know. It assumes you have seen some HTML and CSS before. It also assumes you have a passing knowledge of using JavaScript. I will attempt to explain many of the fundamental concepts and how they build into learning React, but it really does help if you have see many of these web technologies before and can read and write them.
+## Reviewing Core Concepts
 
 ### HTML
 
@@ -50,7 +55,7 @@ Cascading StyleSheets (CSS) defines the presentation of a webpage. It uses *sele
 
 ### JavaScript
 
-JavaScript is the *lingua fracna* of the internet. If HTML are the bones and CSS is the skin, JavaScript is the muscle. Any interaction or event that occurs in a webpage is filtered through JavaScript.
+JavaScript is the *lingua franca* of the internet. If HTML are the bones and CSS is the skin, JavaScript is the *muscle*. Any interaction or event that occurs in a webpage is filtered through JavaScript.
 
 In a web browser, it is run and can change the current page through the Document-Object Model (DOM). This defines all of the elements of a page into objects that can be interacted with through a global **document** variable.
 
@@ -61,7 +66,3 @@ It uses `.js` files.
 ```javascript
 let example = document.querySelector('#idExample');
 ```
-
-## Chapters
-
-Each chapter addresses a different topic and ends with a section called 'Exercises'. These include different questions about the information covered in each chapter.

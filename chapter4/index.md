@@ -3,7 +3,7 @@
 - [Introducing React](#introducing-react)
   - [ReactDOM](#reactdom)
   - [Anatomy of a Class Component](#anatomy-of-a-class-component)
-    - [Every React component must import React.](#every-react-component-must-import-react)
+    - [Every React component must import React](#every-react-component-must-import-react)
     - [Extending **React.Component**](#extending-reactcomponent)
     - [Class Component Functions](#class-component-functions)
     - [Every **render()** must return JSX](#every-render-must-return-jsx)
@@ -55,7 +55,7 @@ ReactDOM.render(<App />, document.querySelector('#root'));
 
 ## Anatomy of a Class Component
 
-### Every React component must import React.
+### Every React component must import React
 
 While this might seem like a silly rule given the usage of React, this establishes two things behind-the-scenes
 
