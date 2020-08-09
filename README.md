@@ -5,6 +5,7 @@
   - [What This Is (and Isn't)](#what-this-is-and-isnt)
   - [Table of Contents](#table-of-contents)
   - [Version](#version)
+  - [Building](#building)
   - [License](#license)
     - [Text and Images](#text-and-images)
     - [Code](#code)
@@ -46,6 +47,28 @@ This book tries to outline and review major functionality React. Its purpose is 
 |---------|--------------|-----------------------|
 | 1.0     | May 2020     | Initial version       |
 | 1.2     | August 2020  | Docs release          |
+
+---
+
+## Building
+
+*Learning React* uses [Node.js](https://nodejs.org/en/), a JavaScript runtime, and [HonKit](https://github.com/honkit/honkit), a tool for building books and other documentation projects using Markdown.
+
+To prepare the project, run:
+
+`npm install`
+
+To re-build the book locally, run:
+
+`npm run build`
+
+To serve the local build, run
+
+`npm run serve`
+
+To produce the `docs` directory, run:
+
+`npm run docs`
 
 ---
 
