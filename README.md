@@ -15,7 +15,7 @@
 
 Learning React is an open source textbook designed to be remixed, reused, or improved through submitting issues and pull requests on GitHub!
 
-It can be read as [processed markdown on GitHub](https://github.com/videlais/learning-react) or as HTML content on GitHub Pages for this project.
+It can be read as [processed markdown on GitHub](https://github.com/videlais/learning-react) or as [HTML content on GitHub Pages for this project](https://videlais.github.io/learning-react/).
 
 ## What This Is (and Isn't)
 
