@@ -1,6 +1,6 @@
-# Introduction
+# Conventions and Concepts
 
-- [Introduction](#introduction)
+- [Conventions and Concepts](#conventions-and-concepts)
   - [Book Conventions](#book-conventions)
   - [Reviewing Core Concepts](#reviewing-core-concepts)
     - [HTML](#html)
