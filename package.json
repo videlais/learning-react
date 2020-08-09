@@ -1,0 +1,28 @@
+{
+  "name": "learning-react",
+  "version": "1.2.0",
+  "description": "Learning React is an open source textbook designed to be remixed, reused, or improved through submitting issues and pull requests on GitHub!",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "honkit build",
+    "serve": "honkit serve",
+    "docs": "cp -r _book/* docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/videlais/learning-react.git"
+  },
+  "keywords": [],
+  "author": "Dan Cox",
+  "license": "Creative Commons Attribution-ShareAlike 4.0 International License",
+  "bugs": {
+    "url": "https://github.com/videlais/learning-react/issues"
+  },
+  "homepage": "https://github.com/videlais/learning-react#readme",
+  "devDependencies": {
+    "honkit": "^3.6.0"
+  }
+}

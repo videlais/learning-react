@@ -1,0 +1,644 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Chapter 4 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.0">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../chapter5/" />
+    
+    
+    <link rel="prev" href="../chapter3/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../introduction/">
+            
+                <a href="../introduction/">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../chapter1/">
+            
+                <a href="../chapter1/">
+            
+                    
+                    Chapter 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../chapter2/">
+            
+                <a href="../chapter2/">
+            
+                    
+                    Chapter 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../chapter3/">
+            
+                <a href="../chapter3/">
+            
+                    
+                    Chapter 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Chapter 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../chapter5/">
+            
+                <a href="../chapter5/">
+            
+                    
+                    Chapter 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../chapter6/">
+            
+                <a href="../chapter6/">
+            
+                    
+                    Chapter 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../chapter7/">
+            
+                <a href="../chapter7/">
+            
+                    
+                    Chapter 7
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../chapter8/">
+            
+                <a href="../chapter8/">
+            
+                    
+                    Chapter 8
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../chapter9/">
+            
+                <a href="../chapter9/">
+            
+                    
+                    Chapter 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../chapter10/">
+            
+                <a href="../chapter10/">
+            
+                    
+                    Chapter 10
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../chapter11/">
+            
+                <a href="../chapter11/">
+            
+                    
+                    Chapter 11
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../chapter12/">
+            
+                <a href="../chapter12/">
+            
+                    
+                    Chapter 12
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Chapter 4</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="introducing-react">Introducing React</h1>
+<ul>
+<li><a href="#introducing-react">Introducing React</a><ul>
+<li><a href="#reactdom">ReactDOM</a></li>
+<li><a href="#anatomy-of-a-class-component">Anatomy of a Class Component</a><ul>
+<li><a href="#every-react-component-must-import-react">Every React component must import React</a></li>
+<li><a href="#extending-reactcomponent">Extending <strong>React.Component</strong></a></li>
+<li><a href="#class-component-functions">Class Component Functions</a></li>
+<li><a href="#every-render-must-return-jsx">Every <strong>render()</strong> must return JSX</a></li>
+</ul>
+</li>
+<li><a href="#using-key">Using <code>key</code></a></li>
+<li><a href="#render-chaining">Render Chaining</a></li>
+<li><a href="#elements-and-attributes-into-objects-and-properties">Elements and Attributes into Objects and Properties</a></li>
+<li><a href="#organizing-components">Organizing Components</a><ul>
+<li><a href="#components-can-contain-components">Components can contain components</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="reactdom">ReactDOM</h2>
+<p>React is known as one of the faster front-end frameworks. One of the ways it achieves this is through its own &quot;shadow DOM.&quot; React keeps track of an internal document object model (DOM) and only updates the real document when absolutely necessary. This means that updates to the document only occur when they need to and no unnecessary changes or updates happen.</p>
+<p>This makes it &quot;react&quot; faster because it will combine updates and make them all at once instead of updating at different times. This also means that React expects developers to be aware of when they are making changes and to know React may delay things to make the code more efficient overall.</p>
+<p>One of the ways React keeps track of its own DOM is through a object known as <strong>ReactDOM</strong>. At the very center of all React code is call to the function <strong>render()</strong> as part of the object <strong>ReactDOM</strong>.</p>
+<p>Most React projects, at their very core, contain the following line of code:</p>
+<pre><code class="lang-javascript">ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span>, document.querySelector(&apos;#root&apos;));
+</span></code></pre>
+<p>The <code>index.html</code> for a React project often looks like the following:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;root&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+</code></pre>
+<p>The call to the <strong>render()</strong> function as part of <strong>ReactDOM</strong> adds the internal elements of each component to this <code>&lt;div id=&quot;root&quot;&gt;</code> in the HTML document, starting with <code>&lt;App /&gt;</code>.</p>
+<p>The first argument to the function is the component to render and the second is where to render it.</p>
+<p>Moving from the <strong>ReactDOM</strong> outward, the first component encountered is <strong>App</strong>.</p>
+<p>The <code>index.js</code> file of most React projects often looks like the following, where both <strong>ReactDOM</strong> and <strong>App</strong> are imported.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;reactDOM&apos;</span>;
+<span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./App.js&apos;</span>;
+
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span>, document.querySelector(&apos;#root&apos;));
+</span></code></pre>
+<h2 id="anatomy-of-a-class-component">Anatomy of a Class Component</h2>
+<h3 id="every-react-component-must-import-react">Every React component must import React</h3>
+<p>While this might seem like a silly rule given the usage of React, this establishes two things behind-the-scenes</p>
+<ul>
+<li><p>It tells WebPack + Babel that the file could contain JSX.</p>
+</li>
+<li><p>It allows classes to <code>extends</code> the class <strong>Component</strong>.</p>
+</li>
+</ul>
+<p>In other words, nearly every file in a React project will start with the following line:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+</code></pre>
+<p>This will be the first step and allow a developer, as was mentioned above, to use JSX and also extend the existing <strong>Component</strong> class.</p>
+<h3 id="extending-reactcomponent">Extending <strong>React.Component</strong></h3>
+<p>The most common form of a component in React is what is known as a <em>class component</em>. It is named this way because A) it is a component and B) it uses the <code>class</code> keyword.</p>
+<p>One of the general patterns in React looks like the following:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Example;
+</code></pre>
+<p>The class <strong>Example</strong> uses the <code>extends</code> keyword to &quot;extend&quot; the existing class <strong>React.Component</strong> and thus makes it a class component, as it is both a component and uses the keyword <code>class</code>.</p>
+<h3 id="class-component-functions">Class Component Functions</h3>
+<p>As with any other extending of exiting classes in JavaScript, anything that <code>extends</code> <strong>React.Component</strong> gains all of its functions. One of the most important of these is the <strong>render()</strong> function.</p>
+<p><em>Every class component must render.</em></p>
+<p>If a class <code>extends</code> <strong>React.Component</strong>, this means it will contain some HTML elements. The &quot;containing&quot; part comes through the function <strong>render()</strong> it inherits.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-comment">// Return something!</span>
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Example;
+</code></pre>
+<h3 id="every-render-must-return-jsx">Every <strong>render()</strong> must return JSX</h3>
+<p>Along with every class component needing to have a <em>render()</em> function, the <em>render()</em> must also return JSX. After all, a component is defined, in part, because it is a collection of elements.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+        <span class="hljs-comment">// Return JSX!</span>
+    );
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Example;
+</code></pre>
+<p>Most React projects also use a feature available to all functions in JavaScript, the use of parentheses. The JSX returned from a <strong>render()</strong> function is often &quot;wrapped&quot; to help show where the contents begins and ends.</p>
+<p>Because all class components must have a <strong>render()</strong> function and return JSX, this means that the three rules of JSX are most commonly seen here. This also means that only <em>expressions</em> are allowed in the returned JSX. The use of the keywords <code>if</code>, <code>else</code>, <code>for</code>, and <code>while</code> are not allowed.</p>
+<p>If conditional statements and traditional loop structures are not allowed, this means that the additional functionality of arrays and objects should be used instead. Functions like <strong>map()</strong>, <strong>filter()</strong>, and <strong>forEach()</strong> become important for displaying parts or the values of certain arrays and objects.</p>
+<p>For example, consider the common example of needing to display every entry in an array.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+
+    <span class="hljs-keyword">let</span> arrayExample = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>];
+
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        {
+          arrayExample.forEach(
+            (entry, position) =&gt; {
+              <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{position}</span>&gt;</span>{entry}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            }
+          );
+        }
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+    );
+
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Example;
+</code></pre>
+<p>In the above code, the use of <strong>forEach()</strong> allows for iterating over the array, <strong>arrayExample</strong>. This is given a callback function (an arrow function) and, inside this, is the use of more JSX.</p>
+<p>JSX can be nested in this way. Each function &quot;layer,&quot; when using callback or other common function patterns, can use its own JSX.</p>
+<h2 id="using-key">Using <code>key</code></h2>
+<p>Whenever a large group of elements are added to the document, React stresses the use of the attribute <code>key</code> with a unique on value per each element. This helps React know which, if any, of the elements might need to be updated in the future. (Remember, React keeps its own shadow version of the DOM and only updates the real one when needed!)</p>
+<pre><code class="lang-javascript">arrayExample.forEach(
+  (entry, position) =&gt; {
+    &lt;p key={position}&gt;{entry}&lt;/p&gt;
+  }
+);
+</code></pre>
+<p>When working with functions like <strong>map()</strong>, <strong>filter()</strong>, and <strong>forEach()</strong>, it is strongly suggested to use the attribute <code>key</code> on each element added and set its value to the optional value <em>position</em> all of these functions supply.</p>
+<p>This will not only help React speed up the application, but is also a good practice helping to identify different individual elements within a larger set of them.</p>
+<h2 id="render-chaining">Render Chaining</h2>
+<p>This chapter started with discussing the object <strong>ReactDOM</strong> and its function <strong>render()</strong>. In reviewing class components, it was mentioned that all class components must have a <strong>render()</strong> function. In fact, all components, because they are collections of elements, must render <em>something</em>.</p>
+<p>Because of this use of rendering, React uses a system of <strong>render()</strong> into <strong>render()</strong> functions, or known as render chaining. One component will have a <strong>render()</strong> that is used by another and another until no other components are found.</p>
+<p>Consider the following code:</p>
+<p><strong>index.js:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;reactDOM&apos;</span>;
+
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span>, document.querySelector(&apos;#root&apos;));
+</span></code></pre>
+<p><strong>App.js:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hi!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+    )
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
+</code></pre>
+<p>In the above two files, the function <strong>ReactDOM.render()</strong> attempts to render the component <strong>App</strong>. Because it has its own <strong>render()</strong> function, this is called and its HTML returned. What started as a nested form like the following example --</p>
+<pre><code class="lang-javascript">ReactDOM.render(App.render());
+</code></pre>
+<p>-- becomes the following HTML output:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hi!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<p>The chain of <strong>render()</strong> functions navigates down and adds the element to the document when it reaches a bottom-most component that has only HTML elements and returns the content back up the chain to the top-most usage of <strong>ReactDOM.render()</strong>.</p>
+<h2 id="elements-and-attributes-into-objects-and-properties">Elements and Attributes into Objects and Properties</h2>
+<p>React translate objects from their HTML form into an object form, skipping over the explicit usage of the <code>new</code>. (It does this internally.) Through including a component as if it was an element, it is converted from an element into an object.</p>
+<p>As was reviewed in an earlier chapter, elements have <em>attributes</em>. In React, these are also translated. As elements become objects, an element&apos;s attributes become <em>properties</em>. In fact, to help with this common process, React passes all class components an object called <strong>props</strong>. Any attributes an element has are translated into this object.</p>
+<p>Consider the following code:</p>
+<p><strong>index.js:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;reactDOM&apos;</span>;
+
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> <span class="hljs-attr">attributeExample</span>=<span class="hljs-string">{5}</span> /&gt;</span>, document.querySelector(&apos;#root&apos;));
+</span></code></pre>
+<p><strong>App.js:</strong></p>
+<pre><code class="lang-javascript">import React from &apos;react&apos;;
+
+class App extends React.Component {
+  render() {
+    &lt;div&gt;
+      The value of attributeExample is: {this.props.attributeExample}.
+    &lt;/div&gt;
+  }
+}
+
+export default App;
+</code></pre>
+<p>When passed to a class component, the object <strong>props</strong> becomes <em>this.props</em> and is accessible from anywhere inside the class.</p>
+<p>This make it easy to pass values from one component to another. Instead of using the <code>new</code> keyword, the use of attributes allows initial values to be &quot;passed&quot; to the new object created based on the element form.</p>
+<p><strong>Node.js Form:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> value1 = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">let</span> value2 = <span class="hljs-number">2</span>;
+
+<span class="hljs-keyword">let</span> element = <span class="hljs-keyword">new</span> Element(value1, value2);
+</code></pre>
+<p><strong>React Form:</strong></p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">Example</span> <span class="hljs-attr">value1</span>=<span class="hljs-string">{1}</span> <span class="hljs-attr">value2</span>=<span class="hljs-string">{2}</span> /&gt;</span>
+</code></pre>
+<p>Internally, in the above code, the object <strong>Example</strong> would have access to <em>this.props.value1</em> and <em>this.props.value2</em>.</p>
+<h2 id="organizing-components">Organizing Components</h2>
+<h3 id="components-can-contain-components">Components can contain components</h3>
+<p>While this concept seems simple given what has been shown of working with <strong>ReactDOM.render()</strong> and other other <strong>render()</strong> functions, this also extends to <em>all</em> components. At the center of a React project will be a usage of <strong>ReactDOM.render()</strong>. However, there is no limit to the number of other components.</p>
+<p>To help with organizing them, like with a Node.js project, it is strongly recommended to create separate folders for each new component with their own <code>index.js</code> file. These should each be inside an overall folder named <code>components</code>.</p>
+<p>Consider the following folder structure:</p>
+<pre><code class="lang-bash">src
+  /components
+      /Example
+        index.js
+  App.js
+  index.js
+</code></pre>
+<p>The above folder structure shows the base React code of using <code>App.js</code> and <code>index.js</code>. It also shows that there is a component named <strong>Example</strong> that is based in the folder <code>src/components/Example.index.js</code>.</p>
+<p>When imported into <strong>App</strong> or another module, the path to the component would be the folder of its name and not the internal <code>index.js</code>. The reason for this is the same as it is for using <code>import</code> and <code>export</code>: WebPack understands Node.js projects use <code>index.js</code> and will automatically import it when given a folder.</p>
+<p><strong>src/components/Element/index.js:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Element</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render () {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hi!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>
+    );
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Element;
+</code></pre>
+<p><strong>src/App.js:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">`react`</span>;
+<span class="hljs-keyword">import</span> Element <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./components/Element&apos;</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render () {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Element</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+    )
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../chapter3/" class="navigation navigation-prev " aria-label="Previous page: Chapter 3">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../chapter5/" class="navigation navigation-next " aria-label="Next page: Chapter 5">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Chapter 4","level":"1.6","depth":1,"next":{"title":"Chapter 5","level":"1.7","depth":1,"path":"chapter5/index.md","ref":"chapter5/index.md","articles":[]},"previous":{"title":"Chapter 3","level":"1.5","depth":1,"path":"chapter3/index.md","ref":"chapter3/index.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./chapters","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"chapter4/index.md","mtime":"2020-05-02T13:22:00.155Z","type":"markdown"},"gitbook":{"version":"3.6.0","time":"2020-08-09T20:15:49.589Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

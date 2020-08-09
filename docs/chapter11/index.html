@@ -1,0 +1,545 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Chapter 11 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.0">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../chapter12/" />
+    
+    
+    <link rel="prev" href="../chapter10/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../introduction/">
+            
+                <a href="../introduction/">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../chapter1/">
+            
+                <a href="../chapter1/">
+            
+                    
+                    Chapter 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../chapter2/">
+            
+                <a href="../chapter2/">
+            
+                    
+                    Chapter 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../chapter3/">
+            
+                <a href="../chapter3/">
+            
+                    
+                    Chapter 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../chapter4/">
+            
+                <a href="../chapter4/">
+            
+                    
+                    Chapter 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../chapter5/">
+            
+                <a href="../chapter5/">
+            
+                    
+                    Chapter 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../chapter6/">
+            
+                <a href="../chapter6/">
+            
+                    
+                    Chapter 6
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../chapter7/">
+            
+                <a href="../chapter7/">
+            
+                    
+                    Chapter 7
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../chapter8/">
+            
+                <a href="../chapter8/">
+            
+                    
+                    Chapter 8
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../chapter9/">
+            
+                <a href="../chapter9/">
+            
+                    
+                    Chapter 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../chapter10/">
+            
+                <a href="../chapter10/">
+            
+                    
+                    Chapter 10
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.13" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Chapter 11
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../chapter12/">
+            
+                <a href="../chapter12/">
+            
+                    
+                    Chapter 12
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Chapter 11</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="adding-contexts">Adding Contexts</h1>
+<ul>
+<li><a href="#adding-contexts">Adding Contexts</a><ul>
+<li><a href="#problem-with-repeating-attributes">Problem with Repeating Attributes</a></li>
+<li><a href="#creating-contexts">Creating Contexts</a></li>
+<li><a href="#provider-and-class-consumers">Provider and Class Consumers</a><ul>
+<li><a href="#static-class-contexts">Static Class Contexts</a></li>
+</ul>
+</li>
+<li><a href="#function-consumers">Function Consumers</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="problem-with-repeating-attributes">Problem with Repeating Attributes</h2>
+<p>In complex projects, there is often a need to pass &quot;down&quot; a value from a parent component to its children who then pass it down to its children. Such a value is added as an attribute to the initial children who, in turn, must also add the same attribute for its own children, repeating the attribute through a tree of components.</p>
+<p><strong>Consider the following example:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> &lt;Example repeatingAttribute=&quot;Hi&quot; /&gt;;
+  }
+}
+
+function Example(props) {
+  return (
+      &lt;Another repeatingAttribute={props.repeatingAttribute} /&gt;
+  );
+}
+
+function Another(props) {
+  return (
+    &lt;p&gt;{`The repeatingAttribute value is ${props.repeatingAttribute}.`}&lt;/p&gt;
+  );
+}
+</code></pre>
+<p>In the above code, a <em>repeatingAttribute</em> is set. This is passed down from <code>&lt;App /&gt;</code> to its children, who all pass it to their children. It is also very wasteful code!</p>
+<p>Multiple components are &quot;passing down&quot; the <em>repeatingAttribute</em> without using it and are acting as a relay for a value for a grandchild component to use.</p>
+<p>To solve this common issue, React allows for creating <em>contexts</em>.</p>
+<h2 id="creating-contexts">Creating Contexts</h2>
+<p>A <em>context</em> is a way to create a global store that exists in connection to a tree of components. It can be created and then values provided by parents whose children can then consume and use them.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> MyContext = React.createContext(defaultValue);
+</code></pre>
+<p>The function <strong>createContext()</strong> creates the ability to add a context. This is a store that any components can use. However, in order for it to be &quot;passed down&quot;, it must be used across multiple files.</p>
+<p><strong>src/components/Context/index.js:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+
+<span class="hljs-keyword">const</span> MyContext = React.createContext();
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> MyContext;
+</code></pre>
+<p>Each file that imports the example <code>Context/index.js</code> files gets what it exports, a <strong>Context</strong>. If parent components need to provide values or child components consume them, this is where it starts.</p>
+<p>In the initial usage, the context would be created. However, on any additional usage, the created context would be returned. The parent creates it, and the children can then use it.</p>
+<h2 id="provider-and-class-consumers">Provider and Class Consumers</h2>
+<p>Each <strong>Context</strong> provides two other components, <strong>Provider</strong> and <strong>Consumer</strong>. When used together, a <code>&lt;Context.Provider&gt;</code> component &quot;wraps&quot; a parent component and &quot;passes down&quot; a value to its children. Any child can subscribe (consume) the context and its value. If they do, they will be re-rendered whenever the value changes in the parent (or even grandparent!) updates it.</p>
+<p><strong>src/components/App.js:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> ExampleComponent <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./components/ExampleComponent&apos;</span>;
+<span class="hljs-keyword">import</span> MyContext <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./components/Context&apos;</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">MyContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{</span>&quot;<span class="hljs-attr">Hey</span>, <span class="hljs-attr">there</span>!&quot;}&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">ExampleComponent</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">MyContext.Provider</span>&gt;</span>
+    )
+  }
+
+}
+
+export default App;
+</span></code></pre>
+<p>In the above code, <code>&lt;App&gt;</code> returns a <strong>Context.Provider</strong> component that is &quot;wrapping&quot; its child, <code>&lt;ExampleComponent&gt;</code>. (The context is provided by the file in <code>src/components/Context/index.js</code>.)</p>
+<p><strong>src/components/ExampleComponent/index.js:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> AnotherComponent <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../AnotherComponent&apos;</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExampleComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">AnotherComponent</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+    );
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> ExampleComponent;
+</code></pre>
+<p>In the above code, the component <code>&lt;ExampleComponent&gt;</code> does not consume the context (and, accordingly, does not <code>import</code> it). All the component returns is another component, <code>&lt;AnotherComponent&gt;</code>.</p>
+<p><strong>src/components/AnotherComponent/index.js:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> MyContext <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Context&apos;</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AnotherComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{this.context}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>
+    )
+  }
+}
+
+AnotherComponent.contextType = MyContext;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> AnotherComponent;
+</code></pre>
+<p>In the above code, the component <code>&lt;AnotherComponent&gt;</code> <em>does</em> use the context. It can import the context the same as <code>&lt;App&gt;</code> did. However, internally, things are different now.</p>
+<p>Earlier in the tree (in <code>&lt;App&gt;</code>), a <strong>Provider</strong> was used. This set <em>value</em> for the context. Any children that subscribe to the context (call <strong>React.createContext()</strong>) <em>after</em> a <strong>Provider</strong> is used become subscribers to the value.</p>
+<p><strong>Note:</strong> If a <strong>Provider</strong> was used in this component, it would then become the &quot;provider&quot; for its own children, overwriting the current <em>value</em> with its own.</p>
+<p>The above class also uses different <em>.contextType</em>. There is a line after the class but before it is exported. This augments the class with a new property, <em>contextType</em>, and sets its value to the context.</p>
+<p>Using such a line may seem strange, but this changes the <em>class</em>, not an instance of it. Using something like <code>this.contextType = MyContext</code> would not work. It would change the object, not the class itself.</p>
+<h3 id="static-class-contexts">Static Class Contexts</h3>
+<p>JavaScript ES6 supports using the keyword <code>static</code> for class fields. A context can thus be set as &quot;static&quot; to the class itself, avoiding the issue with instances.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> MyContext <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Context&apos;</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AnotherComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+
+  <span class="hljs-keyword">static</span> contextType = MyContext;
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{this.context}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>
+    )
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> AnotherComponent;
+</code></pre>
+<h2 id="function-consumers">Function Consumers</h2>
+<p>Class components have the options of using <em>contextType</em> or using the <code>static</code> keyword.</p>
+<p><em>What about function components?</em></p>
+<p>Function components can use another component provided by <strong>Context</strong>: <strong>Consumer</strong>. The <code>&lt;Context.Consumer&gt;</code> component is used to &quot;wrap&quot; functions and provides the same access and re-rendering based on subscriber status provided to class components.</p>
+<p>The child of <code>&lt;Context.Consumer&gt;</code> <em>must</em> be a function. Anything returned by this function becomes tied to the <em>value</em> of the context. If it changes, the returned JSX inside the child function will re-render.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> MyContext <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Context&apos;</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">AnotherComponent</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">MyContext.Consumer</span>&gt;</span>
+      {
+        (value) =&gt; {
+          return <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{value}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>;
+        }
+      }
+    <span class="hljs-tag">&lt;/<span class="hljs-name">MyContext.Consumer</span>&gt;</span>
+  )
+}
+
+export default AnotherComponent;
+</span></code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../chapter10/" class="navigation navigation-prev " aria-label="Previous page: Chapter 10">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../chapter12/" class="navigation navigation-next " aria-label="Next page: Chapter 12">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Chapter 11","level":"1.13","depth":1,"next":{"title":"Chapter 12","level":"1.14","depth":1,"path":"chapter12/index.md","ref":"chapter12/index.md","articles":[]},"previous":{"title":"Chapter 10","level":"1.12","depth":1,"path":"chapter10/index.md","ref":"chapter10/index.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./chapters","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"chapter11/index.md","mtime":"2020-05-02T13:22:00.090Z","type":"markdown"},"gitbook":{"version":"3.6.0","time":"2020-08-09T20:15:49.589Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
