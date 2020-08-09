@@ -9,7 +9,7 @@
   "scripts": {
     "build": "honkit build",
     "serve": "honkit serve",
-    "docs": "cp -r _book/* docs"
+    "docs": "rm _book/chapter*/*.md && cp -r _book/* docs"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/videlais/learning-react#readme",
   "devDependencies": {
+    "gitbook-plugin-theme-veeam": "^1.0.4",
     "honkit": "^3.6.0"
   }
 }

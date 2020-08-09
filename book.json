@@ -1,3 +1,4 @@
 {
-  "root": "./chapters"
+  "root": "./chapters",
+  "plugins": ["theme-veeam"]
 }
