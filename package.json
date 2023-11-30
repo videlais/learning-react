@@ -24,6 +24,6 @@
   "homepage": "https://github.com/videlais/learning-react#readme",
   "devDependencies": {
     "gitbook-plugin-theme-veeam": "^1.0.4",
-    "honkit": "^3.6.0"
+    "honkit": "^5.1.1"
   }
 }
