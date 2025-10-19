@@ -339,8 +339,6 @@ function UserProfile() {
 export default App;
 ```
 
-
-
 ## Controlled Components and Form Handling
 
 Controlled components are the recommended way to handle form inputs in React. The component controls the input's value through state, creating a "single source of truth":

@@ -1304,7 +1304,7 @@ function SocialFeed() {
 
 ### Common Mistakes and Solutions
 
-**Mistake 1: Infinite Loops**
+**Mistake 1:** Infinite Loops
 
 ```javascript
 // ❌ Wrong: Missing dependency array
@@ -1323,7 +1323,7 @@ useEffect(() => {
 }, [userId]);
 ```
 
-**Mistake 2: Race Conditions**
+**Mistake 2:** Race Conditions
 
 ```javascript
 // ❌ Wrong: Race condition possible
@@ -1361,7 +1361,7 @@ useEffect(() => {
 }, [userId]);
 ```
 
-**Mistake 3: Poor Error Handling**
+**Mistake 3:** Poor Error Handling
 
 ```javascript
 // ❌ Wrong: Silent failures
@@ -1402,5 +1402,3 @@ Modern React data fetching in 2025 emphasizes:
 5. **Clean patterns** that are maintainable and testable
 
 The key is to choose the right tool for your use case: simple `fetch` with custom hooks for basic needs, or specialized libraries for more complex data synchronization requirements.
-```
-```

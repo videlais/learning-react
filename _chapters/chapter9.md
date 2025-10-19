@@ -177,6 +177,7 @@ function withHover(WrappedComponent) {
 ### Problems with HOCs
 
 **1. Wrapper Hell:**
+
 ```javascript
 // Multiple HOCs create deeply nested components
 export default withAuth(
@@ -191,6 +192,7 @@ export default withAuth(
 ```
 
 **2. Prop Collisions:**
+
 ```javascript
 // Props from different HOCs can conflict
 const EnhancedComponent = withUser(withAuth(Component));
@@ -198,6 +200,7 @@ const EnhancedComponent = withUser(withAuth(Component));
 ```
 
 **3. Static Method Loss:**
+
 ```javascript
 class MyComponent extends React.Component {
   static displayName = 'MyComponent';
@@ -210,6 +213,7 @@ const Enhanced = withHOC(MyComponent);
 ```
 
 **4. Difficult Testing:**
+
 ```javascript
 // Testing the wrapped component is complex
 const Enhanced = withHover(withAuth(MyComponent));
@@ -291,6 +295,7 @@ function App() {
 ### Benefits of Custom Hooks over HOCs
 
 **1. No Wrapper Components:**
+
 ```javascript
 // HOC: Creates wrapper component
 const Enhanced = withHover(Component); // Extra component in tree
@@ -303,6 +308,7 @@ function Component() {
 ```
 
 **2. Clearer Data Flow:**
+
 ```javascript
 // HOC: Implicit prop injection
 function Component({ hovering }) { // Where did 'hovering' come from?
@@ -317,6 +323,7 @@ function Component() {
 ```
 
 **3. Better TypeScript Support:**
+
 ```typescript
 // HOC: Complex typing
 interface WithHoverProps {
@@ -341,6 +348,7 @@ function useHover(): {
 ```
 
 **4. Easier Testing:**
+
 ```javascript
 // Hook: Test in isolation
 import { renderHook, act } from '@testing-library/react';
@@ -361,7 +369,8 @@ test('useHover should toggle on mouse events', () => {
 
 ### HOC to Custom Hook Migration
 
-**Step 1: Identify the Logic**
+**Step 1:** Identify the Logic
+
 ```javascript
 // Original HOC
 function withAuth(Component) {
@@ -381,7 +390,8 @@ function withAuth(Component) {
 }
 ```
 
-**Step 2: Extract to Custom Hook**
+**Step 2:** Extract to Custom Hook
+
 ```javascript
 // New custom hook
 function useAuth() {
@@ -400,7 +410,8 @@ function useAuth() {
 }
 ```
 
-**Step 3: Update Components**
+**Step 3:** Update Components
+
 ```javascript
 // Before: Using HOC
 const MyComponent = withAuth(function MyComponent({ user }) {
@@ -422,6 +433,7 @@ function MyComponent() {
 ### Gradual Migration Approach
 
 **1. Create Hook First:**
+
 ```javascript
 // Add new hook alongside existing HOC
 function useFeature() {
@@ -438,6 +450,7 @@ function withFeature(Component) {
 ```
 
 **2. Update Components One by One:**
+
 ```javascript
 // Migrate components individually
 function ComponentA() {

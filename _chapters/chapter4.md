@@ -19,14 +19,14 @@ In this chapter, readers will:
 - [Objectives](#objectives)
 - [Chapter Outline](#chapter-outline)
 - [Introducing React with Function Components](#introducing-react-with-function-components)
-  - [Modern React Applications with createRoot](#modern-react-applications-with-createroot)
-  - [Anatomy of a Function Component](#anatomy-of-a-function-component)
-  - [Components Get Props](#components-get-props)
-  - [React Hooks and State Management](#react-hooks-and-state-management)
-    - [useState() Hook](#usestate-hook)
-    - [useEffect() Hook](#useeffect-hook)
-  - [Rendering Lists and Using Keys](#rendering-lists-and-using-keys)
-  - [Modern Component Organization](#modern-component-organization)
+- [Modern React Applications with createRoot](#modern-react-applications-with-createroot)
+- [Anatomy of a Function Component](#anatomy-of-a-function-component)
+- [Components Get Props](#components-get-props)
+- [React Hooks and State Management](#react-hooks-and-state-management)
+  - [useState() Hook](#usestate-hook)
+  - [useEffect() Hook](#useeffect-hook)
+- [Rendering Lists and Using Keys](#rendering-lists-and-using-keys)
+- [Modern Component Organization](#modern-component-organization)
 
 ## Introducing React with Function Components
 
@@ -582,5 +582,3 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(<TodoApp />);
 ```
-
-
