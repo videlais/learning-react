@@ -32,7 +32,6 @@ exclude:
   - vendor/ruby/
   - package.json
   - package-lock.json
-  - chapters/
 
 # Collections for chapters
 collections:

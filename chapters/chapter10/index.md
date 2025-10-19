@@ -1,115 +1,106 @@
-# Working with Data in React
+---
+title: "Modern Data Fetching in React"
+order: 10
+chapter_number: 10
+layout: chapter
+permalink: /chapters/chapter10/
+---
 
-- [Working with Data in React](#working-with-data-in-react)
-  - [Using **fetch()**](#using-fetch)
-    - [Using `await` and `async`](#using-await-and-async)
-  - [Date Requests and Component Lifecycles](#date-requests-and-component-lifecycles)
-    - [Fetching During **componentDidMount()**](#fetching-during-componentdidmount)
-    - [Fetching with Function Components](#fetching-with-function-components)
+## Objectives
 
-## Using **fetch()**
+In this chapter, readers will:
 
-The function [**window.fetch()**](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) is a lightweight way to access remote data sources in most web browser contexts.
+- **Implement** modern data fetching patterns using React hooks and the Fetch API
+- **Handle** loading states, errors, and data updates effectively in React applications
+- **Optimize** data fetching with caching, deduplication, and performance best practices
+- **Integrate** modern data fetching libraries and understand their benefits over manual approaches
+- **Apply** advanced patterns like parallel fetching, pagination, and real-time data updates
 
-It accepts a URL and HTTP request options such as which method, mode, and any addition headers to send with the request. It returns a promise that will resolve into a [**Response** object](https://developer.mozilla.org/en-US/docs/Web/API/Response).
+## Chapter Overview
 
-```javascript
-fetch(URL, options);
-```
+Data fetching is a fundamental requirement of most React applications. This chapter covers the complete spectrum of modern data fetching techniques, from basic useEffect patterns to advanced libraries and optimization strategies.
 
-The two processing functions of the **Response** object, [**text()**](https://developer.mozilla.org/en-US/docs/Web/API/Body/text) and [**json()**](https://developer.mozilla.org/en-US/docs/Web/API/Body/json), each also return promises.
+**What you'll learn:**
 
-When used together, the promise returned by **fetch()** and the processing functions of **Response** can be chained together.
+- Modern data fetching patterns with hooks
+- Comprehensive error handling and loading states
+- Advanced patterns for complex scenarios
+- Integration with modern data fetching libraries
+- Performance optimization techniques
 
-```javascript
-fetch(URL, options)
-.then((Response) => Response.json())
-.then((ProcessesedResponse) => {
-    // Do something with the processed response
-})
-```
+## Chapter Sections
 
-### Using `await` and `async`
+1. **[Modern Data Fetching with useEffect](./basic-patterns/)**  
+   Learn fundamental data fetching patterns, key principles, and proper cleanup techniques
 
-As both also return promises, the keyword `await` and `async` can be used with them to wait for the promises to resolve and do something with their data.
+2. **[Custom Data Fetching Hooks](./custom-hooks/)**  
+   Build reusable data fetching hooks with caching and error handling capabilities
 
-```javascript
-async fetchExample = () => {
-  let response = await fetch(URL, options);
-  let processed = await response.json();
-}
-```
+3. **[Error Handling and Loading States](./error-loading/)**  
+   Implement comprehensive error handling and user-friendly loading experiences
 
-## Date Requests and Component Lifecycles
+4. **[Advanced Data Fetching Patterns](./advanced-patterns/)**  
+   Master parallel fetching, pagination, and real-time data patterns
 
-Promises can take time to resolve. With this in mind, when to use **fetch()** and wait for it to resolve becomes an important issue. In considering the React class component lifecycle, only one function makes sense.
+5. **[Modern Data Fetching Libraries](./libraries/)**  
+   Integrate React Query, SWR, and Apollo Client for production applications
 
-### Fetching During **componentDidMount()**
+6. **[Performance Optimization](./performance/)**  
+   Implement debouncing, deduplication, and caching strategies
 
-Within the class component lifecycle, the mounting phase ends with the function **componentDidMount()**. By the time it is called, both the **constructor()** and **render()** functions have also been called. Any elements or other components have been added to the document.
+7. **[Real-World Examples](./examples/)**  
+   Complete implementations for e-commerce and social media scenarios
 
-Using the function **componentDidMonunt()**, then, makes sense. Once the initial elements and components have been added, data can be fetched that may result in things been changed or adjust within the class component.
+## Getting Started
 
-```javascript
-import React, { Component } from 'react';
+**New to data fetching?** Start with [Modern Data Fetching with useEffect](./basic-patterns/) to understand the fundamentals.
 
-class Example extends Component {
+**Building production apps?** Jump to [Modern Data Fetching Libraries](./libraries/) for scalable solutions.
 
-  state = {
-      data: ""
-  };
+**Optimizing performance?** Focus on [Performance Optimization](./performance/) and [Advanced Patterns](./advanced-patterns/).
 
-  async componentDidMount() {
-    let response = await fetch(URL);
-    let processed = await response.json();
-    this.setState({data: processed})
-  }
+## Prerequisites
 
-  render() {
-      return (
-        <div>
-          <p>{this.state.data}</p>
-        </div>
-      );
-  }
+This chapter assumes familiarity with:
 
-}
+- React hooks (useState, useEffect)
+- JavaScript Promises and async/await
+- HTTP concepts and REST APIs
+- Modern JavaScript (ES6+)
 
-export default Example;
-```
+If you need to review these topics, refer to earlier chapters in this book.
 
-### Fetching with Function Components
+## Modern Data Fetching Evolution
 
-At initial glance, the function **useEffect()** would seem to be a good candidate for use with **fetch()**. After all, it is called after the function component is rendered and would thus, like with **componentDidMount()** for class components, run after the initial elements had been added to the document.
+Data fetching in React has evolved significantly:
 
-However, there is a issue. If **useEffect()** is paired with **useState()**, one would trigger the other, which would then trigger the other. This would create an infinite loop!
+**Pre-2019 Era:**
 
-The solution is to check values. The second argument of **useEffect()** is an array of values. If they have not changed, the returned elements will not be updated. Thus, through checking whatever is processed, the initial state variables of the function component can be checked. If they have updated, the elements will be re-rendered. If not, nothing will happen.
+- Class components with componentDidMount
+- Manual XMLHttpRequest or fetch handling
+- Complex state management for loading/error states
 
-```javascript
-import React, { Component } from 'react';
+**2019-2022 Era:**
 
-class Example extends Component {
+- useEffect for data fetching
+- Custom hooks for reusability
+- Basic error boundaries
 
-  state = {
-      data: ""
-  };
+**2025 Era:**
 
-  async componentDidMount() {
-    let response = fetch(URL);
-    let processed = response.json();
-    this.setState({data: processed})
-  }
+- Sophisticated data fetching libraries (React Query, SWR)
+- Automatic caching and synchronization
+- Optimistic updates and real-time features
+- Server-side rendering integration
 
-  render() {
-      return (
-        <div>
-          <p>{this.state.data}</p>
-        </div>
-      );
-  }
+This chapter focuses on modern 2025 patterns while providing context for understanding legacy approaches.
 
-}
+## Architecture Considerations
 
-export default Example;
-```
+Modern data fetching involves several architectural decisions:
+
+- **Client vs Server State**: Understanding the difference and appropriate tools
+- **Caching Strategy**: When and how to cache API responses
+- **Error Boundaries**: Graceful error handling at the component tree level  
+- **Loading States**: User experience during asynchronous operations
+- **Real-time Updates**: WebSockets, Server-Sent Events, or polling strategies
