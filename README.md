@@ -3,7 +3,6 @@
 - [Learning React](#learning-react)
   - [Welcome](#welcome)
   - [What This Is (and Isn't)](#what-this-is-and-isnt)
-  - [Table of Contents](#table-of-contents)
   - [Version](#version)
   - [License](#license)
     - [Text and Images](#text-and-images)
@@ -22,31 +21,13 @@ The word "Learning" in the title *Learning React* is purposeful. This is not an 
 
 This book tries to outline and review major functionality React. Its purpose is to help someone *learning* React in order to move into more advanced functionality at their own pace. This can be thought of as more of a *crash course* in React functionality and concepts.
 
-## Table of Contents
-
-- [Introduction](chapters/introduction/index.md)
-- [Chapter 1: Introduction to the Command Line](chapters/chapter1/index.md)
-- [Chapter 2: Introducing Node.js](chapters/chapter2/index.md)
-- [Chapter 3: Thinking in HTML, Writing in JS](chapters/chapter3/index.md)
-- [Chapter 4: Introducing React](chapters/chapter4/index.md)
-- [Chapter 5: Event Listeners and Class Component State](chapters/chapter5/index.md)
-- [Chapter 6: Working with CSS in React](chapters/chapter6/index.md)
-- [Chapter 7: Class Component Lifecycle](chapters/chapter7/index.md)
-- [Chapter 8: Function Components](chapters/chapter8/index.md)
-- [Chapter 9: Higher-Order Components](chapters/chapter9/index.md)
-- [Chapter 10: Working with Data in React](chapters/chapter10/index.md)
-- [Chapter 11: Adding Contexts](chapters/chapter11/index.md)
-- [Chapter 12: Working with File Loader](chapters/chapter12/index.md)
-
----
-
 ## Version
 
 | Version | Release Date | Notes                 |
 |---------|--------------|-----------------------|
 | 1.0     | May 2020     | Initial version       |
 | 1.2     | August 2020  | Docs release          |
-| 2.0.    | October 2025 | Update + Jekyll       |
+| 2.0     | October 2025 | Update + Jekyll       |
 
 ---
 

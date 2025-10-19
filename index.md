@@ -29,7 +29,7 @@ This book outlines and reviews major React functionality. Its purpose is to help
 
 **New to React?** Start with [Chapter 1: Introduction to the Command Line]({{ site.chapters | where: "order", 1 | first | map: "url" | first | relative_url }}) and work through each chapter sequentially.
 
-**Looking for something specific?** Use the [complete chapter listing](/chapters/) to jump to any topic.
+**Looking for something specific?** Use the [complete chapter listing]({{ "/chapters/" | relative_url }}) to jump to any topic.
 
 ## Accessibility
 
@@ -39,7 +39,7 @@ This website is designed to meet WCAG 2.1 AAA accessibility standards. Features 
 - Screen reader optimization
 - High contrast design
 - Responsive layout that works at all zoom levels
-- [Complete accessibility statement](/accessibility/)
+- [Complete accessibility statement]({{ "/accessibility/" | relative_url }})
 
 ## License Information
 
