@@ -1,0 +1,77 @@
+# Site settings
+title: Learning React
+description: >-
+  Learning React is an open source textbook designed to be remixed, reused, 
+  or improved through submitting issues and pull requests on GitHub!
+baseurl: ""
+url: "https://videlais.github.io"
+
+# Author settings
+author:
+  name: Dan Cox
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - node_modules/
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - package.json
+  - package-lock.json
+  - chapters/
+
+# Collections for chapters
+collections:
+  chapters:
+    output: true
+    permalink: /:collection/:name/
+
+# Defaults for front matter
+defaults:
+  - scope:
+      path: ""
+      type: "chapters"
+    values:
+      layout: "chapter"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+# Navigation order (based on SUMMARY.md)
+chapter_order:
+  - conventions
+  - chapter1
+  - chapter2
+  - chapter3
+  - chapter4
+  - chapter5
+  - chapter6
+  - chapter7
+  - chapter8
+  - chapter9
+  - chapter10
+  - chapter11
+  - chapter12
+
+# Site license
+license:
+  text: "Creative Commons Attribution-ShareAlike 4.0 International License"
+  url: "https://creativecommons.org/licenses/by-sa/4.0/"
+  code: "Public Domain (CC0 1.0 Universal)"
+  code_url: "https://creativecommons.org/publicdomain/zero/1.0/"
