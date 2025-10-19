@@ -3,7 +3,22 @@ title: "Modern Asset Management in React"
 order: 12
 chapter_number: 12
 layout: chapter
+redirect_to: "/chapters/chapter12/"
 ---
+
+# Chapter 12: Modern Asset Management in React
+
+This chapter has been split into multiple sections for better accessibility and navigation.
+
+**[Go to Chapter 12 →](/chapters/chapter12/)**
+
+## Quick Links
+
+- [Modern Asset Import Patterns](/chapters/chapter12/import-patterns/)
+- [Build Tool Asset Handling](/chapters/chapter12/build-tools/)
+- [Performance-Optimized Image Loading](/chapters/chapter12/performance/)
+- [Advanced Asset Strategies](/chapters/chapter12/advanced-strategies/)
+- [Asset Security and Optimization](/chapters/chapter12/security-optimization/)
 
 ## Objectives
 

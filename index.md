@@ -23,21 +23,7 @@ This book outlines and reviews major React functionality. Its purpose is to help
 
 {% assign chapters = site.chapters | sort: 'order' %}
 
-<nav aria-label="Book chapters" role="navigation">
-  <ol aria-describedby="toc-description">
-    {% for chapter in chapters %}
-    <li>
-      <a href="{{ chapter.url | relative_url }}">
-        {% if chapter.chapter_number > 0 %}Chapter {{ chapter.chapter_number }}: {% endif %}{{ chapter.title }}
-      </a>
-    </li>
-    {% endfor %}
-  </ol>
-</nav>
-
-<p id="toc-description" class="screen-reader-text">
-  Complete table of contents with {{ chapters.size }} chapters, each linked to its full content.
-</p>
+{% include chapter-listing.html %}
 
 ## Getting Started
 
@@ -59,12 +45,11 @@ This website is designed to meet WCAG 2.1 AAA accessibility standards. Features 
 
 ### Text and Images
 
-The text and images of this book are licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/). 
+The text and images of this book are licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
 
 **For academic use**, please cite as:
-```
-Cox, D. (2020). Learning React. GitHub repository. https://github.com/videlais/learning-react
-```
+
+> Cox, D. (2020). Learning React. GitHub repository. <https://github.com/videlais/learning-react>
 
 ### Code Examples
 

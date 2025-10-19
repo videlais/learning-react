@@ -3,7 +3,24 @@ title: "Modern Data Fetching in React"
 order: 10
 chapter_number: 10
 layout: chapter
+redirect_to: "/chapters/chapter10/"
 ---
+
+# Chapter 10: Modern Data Fetching in React
+
+This chapter has been split into multiple sections for better accessibility and navigation.
+
+**[Go to Chapter 10 →](/chapters/chapter10/)**
+
+## Quick Links
+
+- [Modern Data Fetching with useEffect](/chapters/chapter10/basic-patterns/)
+- [Custom Data Fetching Hooks](/chapters/chapter10/custom-hooks/)
+- [Error Handling and Loading States](/chapters/chapter10/error-loading/)
+- [Advanced Data Fetching Patterns](/chapters/chapter10/advanced-patterns/)
+- [Modern Data Fetching Libraries](/chapters/chapter10/libraries/)
+- [Performance Optimization](/chapters/chapter10/performance/)
+- [Real-World Examples](/chapters/chapter10/examples/)
 
 ## Objectives
 
