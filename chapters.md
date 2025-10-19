@@ -6,7 +6,8 @@ permalink: /chapters/
 
 ## Complete Chapter Listing
 
-This page provides a comprehensive overview of all chapters in Learning React. Each chapter builds upon the previous ones, taking you from basic command line concepts to advanced React development techniques.
+This page provides a comprehensive overview of all chapters in Learning React. Each chapter builds upon the previous ones,
+ taking you from basic command line concepts to advanced React development techniques.
 
 {% assign chapters = site.chapters | sort: 'order' %}
 
