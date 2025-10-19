@@ -11,7 +11,7 @@ This page provides a comprehensive overview of all chapters in Learning React. E
 
 {% assign chapters = site.chapters | sort: 'order' %}
 
-{% include chapter-listing.html %}
+{% include chapter-listing.html chapters=chapters %}
 
 ## Navigation Tips
 

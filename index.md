@@ -23,7 +23,7 @@ This book outlines and reviews major React functionality. Its purpose is to help
 
 {% assign chapters = site.chapters | sort: 'order' %}
 
-{% include chapter-listing.html %}
+{% include chapter-listing.html chapters=chapters %}
 
 ## Getting Started
 
