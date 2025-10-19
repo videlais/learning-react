@@ -6,7 +6,7 @@ layout: chapter
 redirect_to: "/chapters/chapter10/"
 ---
 
-# Chapter 10: Modern Data Fetching in React
+## Chapter 10: Modern Data Fetching in React
 
 This chapter has been split into multiple sections for better accessibility and navigation.
 
@@ -34,6 +34,8 @@ In this chapter, readers will:
 
 ## Chapter Outline
 
+- [Chapter 10: Modern Data Fetching in React](#chapter-10-modern-data-fetching-in-react)
+- [Quick Links](#quick-links)
 - [Objectives](#objectives)
 - [Chapter Outline](#chapter-outline)
 - [Modern Data Fetching with useEffect](#modern-data-fetching-with-useeffect)

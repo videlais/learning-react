@@ -4,7 +4,7 @@ parent: "Modern Asset Management in React"
 nav_order: 1
 ---
 
-# Modern Asset Import Patterns
+## Modern Asset Import Patterns
 
 **2025 Asset Management:** Modern React applications use sophisticated build tools (Vite, Next.js, Turbopack) that provide advanced asset optimization, automatic format conversion, and intelligent caching strategies.
 
@@ -244,7 +244,7 @@ function Hero() {
 
 ### Asset Organization
 
-```
+```tree
 src/
 ├── assets/
 │   ├── images/

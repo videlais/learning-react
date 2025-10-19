@@ -6,11 +6,9 @@ layout: chapter
 redirect_to: "/chapters/chapter12/"
 ---
 
-# Chapter 12: Modern Asset Management in React
+## Chapter 12: Modern Asset Management in React
 
 This chapter has been split into multiple sections for better accessibility and navigation.
-
-**[Go to Chapter 12 →](/chapters/chapter12/)**
 
 ## Quick Links
 
@@ -33,6 +31,8 @@ In this chapter, readers will:
 
 ## Chapter Outline
 
+- [Chapter 12: Modern Asset Management in React](#chapter-12-modern-asset-management-in-react)
+- [Quick Links](#quick-links)
 - [Objectives](#objectives)
 - [Chapter Outline](#chapter-outline)
 - [Modern Asset Import Patterns](#modern-asset-import-patterns)
