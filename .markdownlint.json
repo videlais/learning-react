@@ -1,0 +1,31 @@
+{
+  "default": true,
+  "MD033": {
+    "allowed_elements": [
+      "p",
+      "div",
+      "span",
+      "a",
+      "strong",
+      "em",
+      "ul",
+      "ol",
+      "li",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "style",
+      "script",
+      "br",
+      "hr"
+    ]
+  },
+  "MD025": false,
+  "MD013": {
+    "line_length": 120,
+    "code_blocks": false,
+    "tables": false
+  },
+  "MD040": false
+}
