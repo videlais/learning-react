@@ -119,7 +119,7 @@ import withHover from './withHover';
 function Button({ hovering, children, ...props }) {
   return (
     <button
-      style={{
+      style={% raw %}{{
         backgroundColor: hovering ? '#0066cc' : '#0080ff',
         color: 'white',
         padding: '10px 20px',
@@ -127,7 +127,7 @@ function Button({ hovering, children, ...props }) {
         borderRadius: '4px',
         cursor: 'pointer',
         transition: 'background-color 0.2s'
-      }}
+      }}{% endraw %}
       {...props}
     >
       {children}
@@ -267,7 +267,7 @@ function Button({ children, ...props }) {
   return (
     <button
       ref={ref}
-      style={{
+      style={% raw %}{{
         backgroundColor: hovering ? '#0066cc' : '#0080ff',
         color: 'white',
         padding: '10px 20px',
@@ -275,7 +275,7 @@ function Button({ children, ...props }) {
         borderRadius: '4px',
         cursor: 'pointer',
         transition: 'background-color 0.2s'
-      }}
+      }}{% endraw %}
       {...props}
     >
       {children}

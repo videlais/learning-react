@@ -403,7 +403,7 @@ function UserList() {
     <div>
       <h2>User List</h2>
       {users.map(user => (
-        <div key={user.id} style={{ border: '1px solid #ccc', margin: '10px', padding: '10px' }}>
+        <div key={user.id} style={% raw %}{{ border: '1px solid #ccc', margin: '10px', padding: '10px' }}{% endraw %}>
           <h3>{user.name}</h3>
           <p>{user.email}</p>
         </div>

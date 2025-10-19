@@ -3,6 +3,7 @@ title: "Modern Asset Management in React"
 order: 12
 chapter_number: 12
 layout: chapter
+permalink: /chapters/chapter12/
 ---
 
 ## Objectives

@@ -95,7 +95,7 @@ function Header({ user, theme }) {
 function Navigation({ user, theme }) {
   // Finally uses the props!
   return (
-    <nav style={{ backgroundColor: theme.primaryColor }}>
+    <nav style={% raw %}{{ backgroundColor: theme.primaryColor }}{% endraw %}>
       <span>Welcome, {user.name}</span>
     </nav>
   );
@@ -160,7 +160,7 @@ function Navigation() {
   const theme = useContext(ThemeContext);
   
   return (
-    <nav style={{ backgroundColor: theme.primaryColor }}>
+    <nav style={% raw %}{{ backgroundColor: theme.primaryColor }}{% endraw %}>
       <span>Welcome, {user.name}</span>
     </nav>
   );
@@ -239,11 +239,11 @@ function Header() {
   const { theme, toggleTheme } = useTheme();
   
   return (
-    <header style={{
+    <header style={% raw %}{{
       backgroundColor: theme === 'light' ? '#ffffff' : '#1a1a1a',
       color: theme === 'light' ? '#000000' : '#ffffff',
       padding: '1rem'
-    }}>
+    }}{% endraw %}>
       <h1>My Application</h1>
       <button onClick={toggleTheme}>
         Switch to {theme === 'light' ? 'dark' : 'light'} mode
@@ -626,12 +626,12 @@ function AppProvider({ children }) {
   const [theme, setTheme] = useState('light');
   
   return (
-    <AppContext.Provider value={{
+    <AppContext.Provider value={% raw %}{{
       user,
       setUser,
       theme,
       setTheme,
-    }}>
+    }}{% endraw %}>
       {children}
     </AppContext.Provider>
   );
@@ -949,7 +949,7 @@ function StateProvider({ children, middleware = [] }) {
   }, initialState);
   
   return (
-    <StateContext.Provider value={{ state, dispatch }}>
+    <StateContext.Provider value={% raw %}{{ state, dispatch }}{% endraw %}>
       {children}
     </StateContext.Provider>
   );

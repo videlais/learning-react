@@ -1033,7 +1033,7 @@ function FormWithDatePicker() {
       <Controller
         name="birthDate"
         control={control}
-        rules={{ required: 'Birth date is required' }}
+        rules={% raw %}{{ required: 'Birth date is required' }}{% endraw %}
         render={({ field, fieldState: { error } }) => (
           <div>
             <label>Birth Date</label>

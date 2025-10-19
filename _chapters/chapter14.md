@@ -254,7 +254,7 @@ function BlogPost() {
   return (
     <article>
       <h1>{post.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: post.content }} />
+      <div dangerouslySetInnerHTML={% raw %}{{ __html: post.content }}{% endraw %} />
     </article>
   );
 }
@@ -387,7 +387,7 @@ function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   if (!user) {
     // Redirect to login, saving the attempted location
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to="/login" state={% raw %}{{ from: location }}{% endraw %} replace />;
   }
 
   return <>{children}</>;
@@ -945,7 +945,7 @@ function ProtectedRoute({
   }
 
   if (!user) {
-    return <Navigate to={redirectTo} state={{ from: location }} replace />;
+    return <Navigate to={redirectTo} state={% raw %}{{ from: location }}{% endraw %} replace />;
   }
 
   if (requiredRole && !requiredRole.includes(user.role)) {

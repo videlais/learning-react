@@ -943,7 +943,7 @@ export function ThemeProvider({ children }) {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={% raw %}{{ theme, toggleTheme }}{% endraw %}>
       {children}
     </ThemeContext.Provider>
   );

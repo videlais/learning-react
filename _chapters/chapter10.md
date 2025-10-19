@@ -3,6 +3,7 @@ title: "Modern Data Fetching in React"
 order: 10
 chapter_number: 10
 layout: chapter
+permalink: /chapters/chapter10-redirect/
 redirect_to: "/chapters/chapter10/"
 ---
 

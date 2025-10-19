@@ -3,6 +3,7 @@ title: "Modern Asset Management in React"
 order: 12
 chapter_number: 12
 layout: chapter
+permalink: /chapters/chapter12-redirect/
 redirect_to: "/chapters/chapter12/"
 ---
 
@@ -372,7 +373,7 @@ function ViteAssetExample() {
       <img src={imageUrl} alt="Standard import" />
       <img src={dynamicImage} alt="Dynamic import" />
       {/* SVG can be inlined for better performance */}
-      <div dangerouslySetInnerHTML={{ __html: imageInline }} />
+      <div dangerouslySetInnerHTML={% raw %}{{ __html: imageInline }}{% endraw %} />
     </div>
   );
 }
@@ -416,7 +417,7 @@ function OptimizedImages() {
         src="/images/responsive.jpg"
         alt="Responsive image"
         fill
-        style={{ objectFit: 'cover' }}
+        style={% raw %}{{ objectFit: 'cover' }}{% endraw %}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
     </div>
