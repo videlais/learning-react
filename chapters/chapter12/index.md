@@ -1,110 +1,84 @@
-# Working with File Loader
+---
+title: "Modern Asset Management in React"
+order: 12
+chapter_number: 12
+layout: chapter
+permalink: /chapters/chapter12/
+---
 
-- [Working with File Loader](#working-with-file-loader)
-  - [WebPack and File Importing](#webpack-and-file-importing)
-    - [Loading Images](#loading-images)
-    - [Computed Values](#computed-values)
-  - [Working with `public` Directory](#working-with-public-directory)
-    - [Global `%PUBLIC_URL%`](#global-publicurl)
-    - [Global *process.env.PUBLIC_URL*](#global-processenvpublicurl)
-    - [Limit `public` Usage](#limit-public-usage)
+## Objectives
 
-## WebPack and File Importing
+In this chapter, readers will:
 
-React uses WebPack to handle all file importing and inclusion. This goes for JavaScript and JSX files (using modules) as well as something that may not seem as obvious: working with multimedia files.
+- **Master** modern asset importing and optimization strategies in React applications
+- **Implement** performance-optimized image loading with lazy loading and responsive images  
+- **Configure** asset handling in Vite, Next.js, and other modern build tools
+- **Optimize** bundle sizes through dynamic imports and code splitting for assets
+- **Apply** TypeScript best practices for type-safe asset management
+- **Deploy** assets with modern CDN and caching strategies
 
-### Loading Images
+## Chapter Overview
 
-If the filetype of a file is not `.css`, `.js` or some other, known type WebPack considers a *module*, it will not the file. Instead, it will load its relative URI within the project. (This will then be changed to the final, and correct, URL when the project is compiled.)
+Modern React asset management has evolved far beyond basic file imports. This chapter covers the complete spectrum of asset handling in 2025, from fundamental import patterns to advanced optimization strategies used in production applications.
 
-For images, this works well to import the file into a component. (*Components take care of themselves*) However, as the file is not treated as a module, its URL can be used to with `<img />` and other elements.
+**What you'll learn:**
 
-```javascript
-import Image from './image.png'
-```
+- Modern build tool integration (Vite, Next.js)
+- Performance-optimized image loading techniques
+- Advanced asset strategies for production apps
+- Security and optimization best practices
 
-**Note:** As with previous chapters on using CSS and creating a `components` folder. Any images that are used with a component should be in its own sub-directory.
+## Chapter Sections
 
-```javascript
-import Image from './image.png';
+1. **[Modern Asset Import Patterns](./import-patterns/)**  
+   Learn static and dynamic asset importing, TypeScript integration, and modern build tool patterns
 
-const example = () => {
-    return (
-        <div>
-          <img src={Image} alt="Loading an image" />
-        </div>
-    );
-}
+2. **[Build Tool Asset Handling](./build-tools/)**  
+   Configure asset processing in Vite, Next.js, and understand legacy Create React App patterns
 
+3. **[Performance-Optimized Image Loading](./performance/)**  
+   Implement lazy loading, responsive images, and modern format optimization
 
-default export example;
-```
+4. **[Advanced Asset Strategies](./advanced-strategies/)**  
+   Master code splitting, preloading, and CDN integration for production applications
 
-### Computed Values
+5. **[Asset Security and Optimization](./security-optimization/)**  
+   Implement Content Security Policy, bundle analysis, and caching strategies
 
-As URIs are string values, they can also be computed as well. These can be created during run-time based on other, existing values such as run-time or environmental variables.
+## Getting Started
 
-**Note:** In the following example, the variable *process.env.PUBLIC_URL* is assumed to be the base server path.
+**New to asset management?** Start with [Modern Asset Import Patterns](./import-patterns/) to understand the fundamentals.
 
-```javascript
-import React from 'react';
-import logo from './logo.svg';
+**Looking for specific techniques?** Jump directly to any section using the navigation above.
 
-function App() {
-  return (
-    <div>
-      <img src={process.env.PUBLIC_URL + logo} alt="Example" />
-    </div>
-  );
-}
+**Working on a production app?** Focus on [Advanced Asset Strategies](./advanced-strategies/) and [Security & Optimization](./security-optimization/).
 
-export default App;
-```
+## Prerequisites
 
-## Working with `public` Directory
+This chapter assumes familiarity with:
 
-Along with the `src` directory in React projects, there is also a `public` directory. While images and other files should, whenever possible, be stored in the subdirectory of the component to better organize complex project, the `public` also serves as a way to include files.
+- Basic React components and hooks
+- Modern JavaScript (ES6+)
+- Command line operations
+- Understanding of build tools concepts
 
-### Global `%PUBLIC_URL%`
+If you need to review these topics, refer to earlier chapters in this book.
 
-React projects support a global value of `%PUBLIC_URL%` that will be replaced with the eventual placement of the `public` directory within the project. Any files stored in the `public` directory can always be reached through this global value.
+## Modern Asset Management Evolution
 
-```javascript
-import React from 'react';
+The landscape of React asset management has transformed significantly:
 
-function App() {
-  return (
-    <div>
-      <img src={%PUBLIC_URL% + "/logo192.png"} alt="Example" />
-    </div>
-  );
-}
+**2020 Era:**
 
-export default App;
-```
+- Basic Webpack file-loader patterns
+- Simple image imports
+- Manual optimization
 
-### Global *process.env.PUBLIC_URL*
+**2025 Era:**
 
-Within Node.js projects, there is a common pattern to use the *process.env* object to create values used through a project. In the case of React, there is a property *process.env.PUBLIC_URL* that will hold the eventual placement of the `public` directory in the compiled code.
+- Intelligent build tool optimization
+- Automatic format conversion (WebP, AVIF)
+- Performance-first loading strategies
+- Integrated CDN and caching solutions
 
-Like with `%PUBLIC_URL%`, this can also be used to compute the path to a file.
-
-```javascript
-import React from 'react';
-
-function App() {
-  return (
-    <div>
-      <img src={process.env.PUBLIC_URL + "/logo192.png"} alt="Example" />
-    </div>
-  );
-}
-
-export default App;
-```
-
-### Limit `public` Usage
-
-The `public` directory is often described as an "escape hatch" for React projects. Whenever possible, images and other resources *should* be kept with the other, related code in component directories. However, for certain cases like a large collection of files or loading of larger files, the globals `%PUBLIC_URL%` or *process.env.PUBLIC_URL* can be used.
-
-As files in `public` are not part of the importing process, they are not optimized. WebPack does not process in the `public` directory. Nor does Babel. Anything kept in the `public` directory is considered "public" and something potentially shared or access by multiple components.
+This chapter focuses exclusively on modern 2025 patterns while providing context for understanding legacy approaches you may encounter in existing codebases.
