@@ -2,6 +2,7 @@
 title: "Modern Asset Import Patterns"
 parent: "Modern Asset Management in React"
 nav_order: 1
+layout: chapter
 ---
 
 ## Modern Asset Import Patterns
